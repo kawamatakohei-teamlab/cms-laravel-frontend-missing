@@ -12,8 +12,8 @@ docker-compose exec web bash
 
 .envファイルは
 
--.env.dev
--.env.local
--.env.prod
+- .env.dev
+- .env.local
+- .env.prod
 
 の三種類を用意した。
