@@ -12,6 +12,6 @@
 */
 
 Route::get('/', function () {
-    // $a = $id;
+    // dd(config('app.env'));
     return view('welcome');
 });

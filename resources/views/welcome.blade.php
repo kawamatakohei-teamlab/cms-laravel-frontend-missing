@@ -96,7 +96,5 @@
                 </div>
             </div>
         </div>
-        <!-- <?php phpinfo();?> -->
-        <?php echo config('app.env');?>
     </body>
 </html>

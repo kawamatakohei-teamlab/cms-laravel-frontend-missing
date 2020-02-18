@@ -10,6 +10,8 @@ services:
     ports:
       - 80:80
     privileged: true
+    environment:
+      APP_ENV: dev
     volumes:
       - ./:/var/www/html
      
