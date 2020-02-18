@@ -2,11 +2,16 @@ version: '3'
 
 services:
   web:
-    container_name: web
-    build: ./docker
+    # container_name: web
+    # build: ./docker/Dockerfile-local
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-local
     ports:
       - 80:80
     privileged: true
     volumes:
-      - ./server:/var/www/html
+      - ./:/var/www/html
+     
+
 
