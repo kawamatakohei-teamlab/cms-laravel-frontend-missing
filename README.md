@@ -6,9 +6,13 @@ $docker-commpose up
 
 をする。
 
-docker-compose exec web bash
+$docker-compose exec web bash
 
-で中に入り、composer installする。
+で中に入り、
+
+$composer install
+
+する。
 
 .envファイルは
 
@@ -16,4 +20,8 @@ docker-compose exec web bash
 - .env.local
 - .env.prod
 
-の三種類を用意した。
+の三種類ある。
+
+DockerfileのAPP＿ENVを書き換えることでenvの変更は可能。
+
+configのキャッシュに注意する。
