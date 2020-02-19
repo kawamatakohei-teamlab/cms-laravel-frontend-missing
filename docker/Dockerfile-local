@@ -2,6 +2,7 @@ FROM php:7.4-apache
 
 COPY ./php/php.ini /usr/local/etc/php/
 COPY ./apache/*.conf /etc/apache2/sites-enabled/
+COPY ./apache2 /etc/apache2/apache2.conf
 
 RUN apt-get update \
   && apt-get install -y zlib1g-dev libpq-dev unzip libzip-dev \
@@ -26,3 +27,5 @@ ENV PATH $PATH:/composer/vendor/bin
 WORKDIR /var/www/html
 
 RUN composer global require "laravel/installer"
+
+RUN a2enmod rewrite

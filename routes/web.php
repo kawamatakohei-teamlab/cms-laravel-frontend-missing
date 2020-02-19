@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('assets/styles/{name}', 'AssetsController@stylesheet');
+
+Route::get('assets/javascripts/{name}','AssetsController@javascript');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
