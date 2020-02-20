@@ -10,12 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('assets/styles/{name}', 'AssetsController@stylesheet')->name('assets.styles');
-
-Route::get('assets/scripts/{name}','AssetsController@javascript')->name('assets.scripts');
-
-Route::get('/assets/materials/{name}', 'AssetsController@material')->name('assets.materials');
+Route::prefix('assets')->group(function () {
+    Route::get('styles/{name}', 'AssetsController@stylesheet')->name('assets.styles');
+    Route::get('scripts/{name}','AssetsController@javascript')->name('assets.scripts');
+    Route::get('materials/{name}', 'AssetsController@material')->name('assets.materials');
+});
 
 Route::get('/', function () {
     return view('welcome');
