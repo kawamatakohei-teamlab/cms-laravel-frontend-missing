@@ -1,6 +1,6 @@
 FROM php:7.4-apache
 
-COPY ./php/php.ini /usr/local/etc/php/
+COPY ./php/php-local.ini /usr/local/etc/php/
 COPY ./apache/*.conf /etc/apache2/sites-enabled/
 COPY ./apache2 /etc/apache2/apache2.conf
 
