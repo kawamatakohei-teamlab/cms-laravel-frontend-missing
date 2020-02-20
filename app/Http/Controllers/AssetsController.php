@@ -76,10 +76,23 @@ class AssetsController extends Controller
     }
 
     public function material($name,Request $request) {
+        $name = str_replace(['&', '?'], ['%26', '%3F'],urldecode($name));
         $material = Material::where('name',$name)->first();
-        $material = str_replace(['&', '?'], ['%26', '%3F'],urldecode($material));
 
         // $modifiedSince = $request->header('if-modified-since');
+
+         if(is_null($material)){
+             $material = material::find($material);
+         }
+         if(is_null($material)){
+             abort(404);
+         }
+         $publish_at = $material->pulish_at ? new \DateTime($material->pulish_at) : false; 
+         $expire_at = $material->expire_at ? new \DateTime($material->expire_at) : false;
+
+         if(($publish_at || $expire_at) && !$this->isPublished($publish_at,$expire_at)){
+            abort('404');
+        }
 
 
     }
