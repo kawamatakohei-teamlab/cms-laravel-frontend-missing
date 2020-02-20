@@ -20,4 +20,5 @@ Route::get('/assets/materials/{name}', 'AssetsController@material')->name('asset
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', "TestController@index");
 

@@ -62,6 +62,9 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+            'endpoint' => env('AWS_URL'),
+            'bucket_endpoint' => false,
+            'use_path_style_endpoint' => true,
         ],
 
     ],

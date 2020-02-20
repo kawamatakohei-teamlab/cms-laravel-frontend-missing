@@ -12,6 +12,7 @@ services:
       APP_ENV: local
     volumes:
       - ./:/var/www/html
+      - ./docker/php/php-local.ini:/usr/local/etc/php/php.ini
 
      
 
