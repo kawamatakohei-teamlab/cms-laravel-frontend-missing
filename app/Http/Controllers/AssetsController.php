@@ -9,16 +9,16 @@ class AssetsController extends Controller
 {
     public function stylesheet($name, Request $request)
     {
-        $style = Models\Stylesheet::search($name);
-        if (is_null($style)) abort(404);
-        if (!$style->itemIsPublished()) abort(404);
+        $css = Models\Stylesheet::getItemByName($name);
+        if (is_null($css)) abort(404);
+        if (!$css->itemIsPublished()) abort(404);
 
         $ifModifiedSince = $request->header('if-modified-since');
-        $lastModifiedTime = $style->checkIfModified($ifModifiedSince);
+        $lastModifiedTime = $css->checkIfModified($ifModifiedSince);
         if ($lastModifiedTime === false) {
             $response = response("Not Modified", 304);
         } else {
-            $response = response($style->body);
+            $response = response($css->body);
             $response->header('Content-Type', 'text/css');
             $response->header('Last-Modified', $lastModifiedTime);
         }
@@ -28,7 +28,7 @@ class AssetsController extends Controller
 
     public function javascript($name, Request $request)
     {
-        $js = Models\Javascript::search($name);
+        $js = Models\Javascript::getItemByName($name);
         if (is_null($js)) abort(404);
         if (!$js->itemIsPublished()) abort(404);
 
