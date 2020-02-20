@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Stylesheet;
-use App\javascript;
+use App\Http\Models\Stylesheet;
+use App\Http\Models\javascript;
 
 class AssetsController extends Controller
 {
@@ -72,7 +72,10 @@ class AssetsController extends Controller
         }else{
             abort('404');
         }
-      
+    }
+
+    public function material($name,Request $request) {
+        return view('welcome');
     }
 
     public static function isPublished($publish,$expire) {
