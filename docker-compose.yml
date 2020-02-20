@@ -2,8 +2,6 @@ version: '3'
 
 services:
   web:
-    # container_name: web
-    # build: ./docker/Dockerfile-local
     build:
       context: ./docker
       dockerfile: Dockerfile-local
@@ -12,66 +10,9 @@ services:
     privileged: true
     environment:
       APP_ENV: local
-      #mysql
-      # MYSQL_HOST: daisy-mariadb
-      # MYSQL_DATABASE: daisy_cms
-      # MYSQL_USER: daisy
-      # MYSQL_PASSWORD: team-lab
-      # MYSQL_PORT: 3306
-      #minio
-      # MINIO_ENDPOINT: http://daisy-minio:9011
-      # MINIO_PROXY: 127.0.0.1:9011
     volumes:
       - ./:/var/www/html
 
-  # db:
-  #   image: mariadb:latest
-  #   ports:
-  #     - "3306:3306"
-  #   restart: always
-  #   volumes:
-  #     - ./mariadb/conf:/etc/mysql/conf.d:cached
-  #     - ./mariadb/initdb.d:/docker-entrypoint-initdb.d:cached
-  #     - ./mariadb/db-data/:/var/lib/mysql
-  #   environment:
-  #     MYSQL_DATABASE: daisy_cms
-  #     MYSQL_USER: daisy
-  #     MYSQL_PASSWORD: team-lab
-  #     MYSQL_ROOT_PASSWORD: team-lab
-  #     TERM: xterm
-  #   ulimits:
-  #     nproc: 65536
-  #     nofile:
-  #       soft: 20000
-  #       hard: 40000
-  #   container_name: daisy-mariadb
-
-  # phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin
-  #   restart: always
-  #   environment:
-  #     PMA_ARBITRARY: 1
-  #     PMA_HOST: daisy-mariadb
-  #     PMA_USER: daisy
-  #     PMA_PASSWORD: team-lab
-  #     PMA_PORT: 3306
-  #   ports:
-  #      - 50001:50001
-  #   container_name: daisy-phpmyadmin
-
-# minio:
-#     image: "minio/minio"
-#     restart: always
-#     ports:
-#       - "9011:9011"
-#     volumes:
-#       - "./s3dir:/export"
-#     environment:
-#       MINIO_ACCESS_KEY: minio_key
-#       MINIO_SECRET_KEY: minio_password
-#       MINIO_REGION: us-east-1
-#     command: server /export
-#     container_name: daisy-minio
      
 
 

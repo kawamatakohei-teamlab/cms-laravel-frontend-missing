@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('assets/styles/{name}', 'AssetsController@stylesheet');
+Route::get('assets/styles/{name}', 'AssetsController@stylesheet')->name('assets.styles');
 
-Route::get('assets/scripts/{name}','AssetsController@javascript');
+Route::get('assets/scripts/{name}','AssetsController@javascript')->name('assets.scripts');
 
-Route::get('/assets/materials/{name}', 'AssetsController@material');
+Route::get('/assets/materials/{name}', 'AssetsController@material')->name('assets.materials');
 
 Route::get('/', function () {
     return view('welcome');

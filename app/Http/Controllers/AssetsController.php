@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\Stylesheet;
 use App\Http\Models\javascript;
+use App\Http\Models\material;
 
 class AssetsController extends Controller
 {
@@ -65,7 +66,7 @@ class AssetsController extends Controller
             if($modifiedSince == $updatedAt) {
                 $response = response("Not Modified",304);
             }else{
-                $response = response($js->body)->header('Content-Type',  'text/css');
+                $response = response($js->body)->header('Content-Type',  'text/javascript');
                 header('Last-Modified: '. $updatedAt);
             }
             return $response;
@@ -75,7 +76,12 @@ class AssetsController extends Controller
     }
 
     public function material($name,Request $request) {
-        return view('welcome');
+        $material = Material::where('name',$name)->first();
+        $material = str_replace(['&', '?'], ['%26', '%3F'],urldecode($material));
+
+        // $modifiedSince = $request->header('if-modified-since');
+
+
     }
 
     public static function isPublished($publish,$expire) {
