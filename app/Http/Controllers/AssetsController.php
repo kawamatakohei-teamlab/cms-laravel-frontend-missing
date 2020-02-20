@@ -79,13 +79,13 @@ class AssetsController extends Controller
         $name = str_replace(['&', '?'], ['%26', '%3F'],urldecode($name));
         $material = Material::where('name',$name)->first();
 
-        // $modifiedSince = $request->header('if-modified-since');
+        $modifiedSince = $request->header('if-modified-since');
 
          if(is_null($material)){
              $material = material::find($material);
          }
          if(is_null($material)){
-             abort(404);
+             abort('404');
          }
          $publish_at = $material->pulish_at ? new \DateTime($material->pulish_at) : false; 
          $expire_at = $material->expire_at ? new \DateTime($material->expire_at) : false;
@@ -93,6 +93,22 @@ class AssetsController extends Controller
          if(($publish_at || $expire_at) && !$this->isPublished($publish_at,$expire_at)){
             abort('404');
         }
+
+        $a = $material->getObject();
+
+        if($material){
+            // 最終更新日を取得する
+            $updatedAt = $this->generateLastModified($material->updated_at);
+            if($modifiedSince == $updatedAt) {
+                $response = response("Not Modified",304);
+            }else{
+                // $response = response($js->body)->header('Content-Type',  'text/javascript');
+                // header('Last-Modified: '. $updatedAt);
+            }
+            // return $response;
+        }
+
+        dd($publish_at);
 
 
     }
