@@ -9,59 +9,70 @@ use App\javascript;
 class AssetsController extends Controller
 {
     public function stylesheet($name,Request $request) {
-        // header('Last-Modified: 2019-10-17 11:09:33');
-        // header('Last-Modified: Fri Jan 01 2010 00:00:00 GMT');
-        // dd($request);
-        // dd($request->header('if-modified-since'));
         $style = Stylesheet::where('name', $name)->first();
 
-        //テストコード：擬似的
-        header('Last-Modified: Thu, 17 Oct 2019 11:09:33 GMT');
         $modifiedSince = $request->header('if-modified-since');
-
 
         if(is_null($style)) {
             $style = Stylesheet::find($name);
         }
         if(is_null($style)) {
-            return redirect('/404');
+            abort('404');
         }
         $publish_at = $style->pulish_at ? new \DateTime($style->pulish_at) : false; 
-        $expire_at = $style->expire_at ? new \DateTime($file->expire_at) : false;
+        $expire_at = $style->expire_at ? new \DateTime($style->expire_at) : false;
 
         if(($publish_at || $expire_at) && !$this->isPublished($publish_at,$expire_at)){
-            return redirect('/404');
+            abort('404');
         }
         
         if($style){
             // 最終更新日を取得する
             $updatedAt = $this->generateLastModified($style->updated_at);
-            // dd($updatedAt);
             if($modifiedSince == $updatedAt) {
                 $response = response("Not Modified",304);
-                dd($response);
+            }else{
+                $response = response($style->body)->header('Content-Type',  'text/css');
+                header('Last-Modified: '. $updatedAt);
             }
-            // response('Hello World', 200);
-            // $response = response(200)->header('Content-Type', 'text/plain');;
-            // dd($response);
+            return $response;
+        }else{
+            abort('404');
         }
-
-        dd($style->body);
-        // return $style->body;
-        // return view('welcome');
     }
 
-    public function javascript($name) {
+    public function javascript($name,Request $request) {
         $js = Javascript::where('name',$name)->first();
+
+        $modifiedSince = $request->header('if-modified-since');
+        
         if(is_null($js)) {
             $js = javascript::find($name);
         }
         if(is_null($js)) {
-            return redirect('/404');
+            abort('404');
         }
-        dd($js->body);
-        return $js->body;
-        // return view('welcome');
+        $publish_at = $js->pulish_at ? new \DateTime($js->pulish_at) : false; 
+        $expire_at = $js->expire_at ? new \DateTime($js->expire_at) : false;
+
+        if(($publish_at || $expire_at) && !$this->isPublished($publish_at,$expire_at)){
+            abort('404');
+        }
+
+        if($js){
+            // 最終更新日を取得する
+            $updatedAt = $this->generateLastModified($js->updated_at);
+            if($modifiedSince == $updatedAt) {
+                $response = response("Not Modified",304);
+            }else{
+                $response = response($js->body)->header('Content-Type',  'text/css');
+                header('Last-Modified: '. $updatedAt);
+            }
+            return $response;
+        }else{
+            abort('404');
+        }
+      
     }
 
     public static function isPublished($publish,$expire) {

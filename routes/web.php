@@ -15,10 +15,6 @@ Route::get('assets/styles/{name}', 'AssetsController@stylesheet');
 
 Route::get('assets/javascripts/{name}','AssetsController@javascript');
 
-Route::get('/404',function(){
-    return view('/404');
-});
-
 Route::get('/', function () {
     return view('welcome');
 });
