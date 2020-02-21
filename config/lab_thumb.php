@@ -31,6 +31,7 @@ switch (env('APP_ENV')) {
         ];
         break;
 }
+$default_thumb_size = 'admin';
 $thumbnails = [
     'original' => [
         'key' => 'original',
@@ -87,6 +88,7 @@ $thumbnails = [
 ];
 return [
     'thumbnails' => $thumbnails,
-    'endpoint' => $endpoint
+    'endpoint' => $endpoint,
+    'default_thumb_size' => $default_thumb_size
 
 ];

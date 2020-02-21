@@ -10,7 +10,7 @@ switch (env('APP_ENV')) {
                 'prefix' => 'files',
             ],
             'images' => [
-                'prefix' => 'images/$filename',
+                'prefix' => 'images',
             ]
         ];
         break;
@@ -24,7 +24,7 @@ switch (env('APP_ENV')) {
                 'prefix' => 'files',
             ],
             'images' => [
-                'prefix' => 'images/$filename',
+                'prefix' => 'images',
             ]
         ];
         break;
@@ -37,7 +37,7 @@ switch (env('APP_ENV')) {
                 'prefix' => 'files',
             ],
             'images' => [
-                'prefix' => 'images/$filename',
+                'prefix' => 'images',
             ]
         ];
         break;
@@ -50,7 +50,7 @@ switch (env('APP_ENV')) {
                 'prefix' => 'files',
             ],
             'images' => [
-                'prefix' => 'images/$filename',
+                'prefix' => 'images',
             ]
         ];
         break;
