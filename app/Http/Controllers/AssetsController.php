@@ -64,9 +64,9 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function file($name,Request $request)
+    public function file($name, Request $request)
     {
-        $name = str_replace(['&', '?'], ['%26', '%3F'],urldecode($name));
+        $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($name));
         $file = Models\File::getItemByName($name);
         if (is_null($file)) abort(404);
         if (!$file->itemIsPublished()) abort(404);
@@ -82,11 +82,12 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function image($size,$name,Request $request){
+    public function image($size, $name, Request $request)
+    {
         // urlエンコードされて来るのでdecodeしないとdbの検索できない
         // 何故か削除されてたけど削除すると日本語とか404になるので必要です。
-        $name = preg_match('/\?/',$name) ? str_replace(['&','?'], ['%26', '%3F'],urldecode($name)): urldecode($name);
-        if(empty($name) || empty($size) ) abort('404');
+        $name = preg_match('/\?/', $name) ? str_replace(['&', '?'], ['%26', '%3F'], urldecode($name)) : urldecode($name);
+        if (empty($name) || empty($size)) abort('404');
         $image = Models\Image::getItemByNameOrId($name);
         if (is_null($image)) abort('404');
         if (!$image->itemIsPublished()) abort(404);
@@ -98,10 +99,10 @@ class AssetsController extends Controller
         } else {
             $object = $image->getImageThumb($size);
             $response = response($object["body"]);
-            $response->header('Content-Type',$object["content_type"]);
+            $response->header('Content-Type', $object["content_type"]);
             $response->header('Last-Modified', $lastModifiedTime);
         }
-        return  $response;
+        return $response;
     }
 
 }
