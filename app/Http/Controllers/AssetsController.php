@@ -82,4 +82,25 @@ class AssetsController extends Controller
         return $response;
     }
 
+    public function image($size,$name,Request $request){
+        // urlエンコードされて来るのでdecodeしないとdbの検索できない
+        // 何故か削除されてたけど削除すると日本語とか404になるので必要です。
+        $name = preg_match('/\?/',$name) ? str_replace(['&','?'], ['%26', '%3F'],urldecode($name)): urldecode($name);
+        if(empty($name) || empty($size) ) abort('404');
+        $image = Models\Image::getItemByName($name);
+        if (is_null($image)) abort('404');
+        if (!$image->itemIsPublished()) abort(404);
+
+        $ifModifiedSince = $request->header('if-modified-since');
+        $lastModifiedTime = $image->checkIfModified($ifModifiedSince);
+        if ($lastModifiedTime === false) {
+            $response = response("Not Modified", 304);
+        } else {
+            // $response = $file->getFileObjectAsResponse();
+            // $response->headers->set('Last-Modified', $lastModifiedTime);
+        }
+        dd($image);
+        return $thumber_size.$name;
+    }
+
 }

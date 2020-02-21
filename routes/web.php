@@ -18,6 +18,9 @@ Route::prefix('assets')->group(function () {
 
 Route::get('files/{name}','AssetsController@file')->name('files');
 
+Route::get('images/{thumber_size}/{name}','AssetsController@image')->name('images');
+
+
 Route::get('/', function () {
     return view('welcome');
 });

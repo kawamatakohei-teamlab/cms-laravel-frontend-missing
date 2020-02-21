@@ -73,6 +73,4 @@ class Image extends DaisyModelBase
 
         return $thumberapp . http_build_query($query);
     }
-
-
 }
