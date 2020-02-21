@@ -64,4 +64,22 @@ class AssetsController extends Controller
         return $response;
     }
 
+    public function file($name,Request $request)
+    {
+        $name = str_replace(['&', '?'], ['%26', '%3F'],urldecode($name));
+        $file = Models\File::getItemByName($name);
+        if (is_null($file)) abort(404);
+        if (!$file->itemIsPublished()) abort(404);
+
+        $ifModifiedSince = $request->header('if-modified-since');
+        $lastModifiedTime = $file->checkIfModified($ifModifiedSince);
+        if ($lastModifiedTime === false) {
+            $response = response("Not Modified", 304);
+        } else {
+            $response = $file->getFileObjectAsResponse();
+            $response->headers->set('Last-Modified', $lastModifiedTime);
+        }
+        return $response;
+    }
+
 }

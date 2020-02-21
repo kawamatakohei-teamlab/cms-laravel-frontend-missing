@@ -16,6 +16,8 @@ Route::prefix('assets')->group(function () {
     Route::get('materials/{name}', 'AssetsController@material')->name('assets.materials');
 });
 
+Route::get('files/{name}','AssetsController@file')->name('files');
+
 Route::get('/', function () {
     return view('welcome');
 });
