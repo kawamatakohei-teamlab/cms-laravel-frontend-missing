@@ -6,6 +6,7 @@ switch (env('APP_ENV')) {
             'host' => env('THUMBER_HOST'),
             'port' => env('THUMBER_PORT'),
             'path' => '',
+            'timeout' => '20',
         ];
         break;
     case 'dev':
@@ -14,6 +15,7 @@ switch (env('APP_ENV')) {
             'host' => env('THUMBER_HOST'),
             'port' => env('THUMBER_PORT'),
             'path' => '',
+            'timeout' => '20',
         ];
         break;
     case 'staging':
@@ -21,6 +23,7 @@ switch (env('APP_ENV')) {
             'host' => env('THUMBER_HOST'),
             'port' => env('THUMBER_PORT'),
             'path' => '',
+            'timeout' => '20',
         ];
         break;
     case 'production':
@@ -28,6 +31,7 @@ switch (env('APP_ENV')) {
             'host' => env('THUMBER_HOST'),
             'port' => env('THUMBER_PORT'),
             'path' => '',
+            'timeout' => '20',
         ];
         break;
 }
@@ -89,6 +93,5 @@ $thumbnails = [
 return [
     'thumbnails' => $thumbnails,
     'endpoint' => $endpoint,
-    'default_thumb_size' => $default_thumb_size
-
+    'default_thumb_size' => $default_thumb_size,
 ];
