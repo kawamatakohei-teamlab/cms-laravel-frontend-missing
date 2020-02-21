@@ -16,6 +16,10 @@ class Image extends DaisyModelBase
     public function getImageThumb($thumb_size)
     {
         $lat_thumber_url = self::createLabThumbUrl($thumb_size);
+        $body = '';
+        $content_type = '';
+        list( $body, $content_type ) = self::curlToLabThumber( $lat_thumber_url );
+        return [ 'body' => $body, 'content_type' => $content_type ];
     }
 
     public function createLabThumbUrl($thumb_size = false, $action = 'getThumb')
@@ -72,5 +76,23 @@ class Image extends DaisyModelBase
         }
 
         return $thumberapp . http_build_query($query);
+    }
+
+    private static function curlToLabThumber( $url ) {
+        //この下のどうしよう.....
+        // ログ標準化のためX-Request-IDをヘッダに付与
+        // $requestId = self::di()['response']->getHeaders()->get('X-Request-ID');
+        // $headers = [
+        //     "X-Request-ID:$requestId",
+        // ];
+        
+        $client = new \GuzzleHttp\Client( [
+            'base_uri' => $url,
+          ] );
+        $info = $client->request('GET','',[]);
+        $body = $info->getBody();
+        $content_type = $info->getHeaderLine('Content-Type');
+
+        return [$body, $content_type];
     }
 }
