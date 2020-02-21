@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Models;
+use GuzzleHttp\Psr7\Request;
+
+
 
 class Image extends DaisyModelBase
 {
@@ -15,7 +18,32 @@ class Image extends DaisyModelBase
 
     public function getImageThumb($thumb_size)
     {
-        $lat_thumber_url = self::createLabThumbUrl($thumb_size);
+        $lab_thumber_url = self::createLabThumbUrl($thumb_size);
+        // dd(config('lab_thumb.timeout'));
+        # TODO:この下のどうしよう.....
+        // ログ標準化のためX-Request-IDをヘッダに付与
+        // $requestId = self::di()['response']->getHeaders()->get('X-Request-ID');
+        // $headers = [
+        //     "X-Request-ID:$requestId",
+        // ];
+
+        $client = new \GuzzleHttp\Client( [
+            'timeout' => config('lab_thumb.timeout'),
+          ] );
+          try {
+            $info = $client->get($lab_thumber_url);
+          }catch (RequestException $e) {
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }
+        $body = $info->getBody();
+        $content_type = $info->getHeaderLine('Content-Type');
+        if($info->getStatusCode() != 200){
+            abort(500);
+        }
+        return [ 'body' => $body, 'content_type' => $content_type ];
     }
 
     public function createLabThumbUrl($thumb_size = false, $action = 'getThumb')
