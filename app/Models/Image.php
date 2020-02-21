@@ -28,21 +28,18 @@ class Image extends DaisyModelBase
         // ];
 
         $client = new \GuzzleHttp\Client( [
-            'timeout' => config('lab_thumb.timeout'),
+            'timeout' => config('lab_thumb.endpoint.timeout'),
           ] );
           try {
             $info = $client->get($lab_thumber_url);
           }catch (RequestException $e) {
-            echo Psr7\str($e->getRequest());
-            if ($e->hasResponse()) {
-                echo Psr7\str($e->getResponse());
-            }
+            abort(500);
         }
-        $body = $info->getBody();
-        $content_type = $info->getHeaderLine('Content-Type');
         if($info->getStatusCode() != 200){
             abort(500);
         }
+        $body = $info->getBody();
+        $content_type = $info->getHeaderLine('Content-Type');
         return [ 'body' => $body, 'content_type' => $content_type ];
     }
 
