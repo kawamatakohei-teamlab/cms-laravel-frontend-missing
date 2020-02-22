@@ -10,8 +10,8 @@ class AssetsController extends Controller
     public function stylesheet($name, Request $request)
     {
         $css = Models\Stylesheet::getItemByName($name);
-        if (is_null($css)) abort(404);
-        if (!$css->itemIsPublished()) abort(404);
+        if (is_null($css)) abort(404,"[StylesheetController] Stylesheet name: $name not exists in DB.");
+        if (!$css->itemIsPublished()) abort(404, "[StylesheetController] Stylesheet name: $name not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $css->checkIfModified($ifModifiedSince);
@@ -29,8 +29,8 @@ class AssetsController extends Controller
     public function javascript($name, Request $request)
     {
         $js = Models\Javascript::getItemByName($name);
-        if (is_null($js)) abort(404);
-        if (!$js->itemIsPublished()) abort(404);
+        if (is_null($js))  abort(404,"[JavascriptController] Javascript name: $name not exists in DB.");
+        if (!$js->itemIsPublished()) abort(404,"[JavascriptController] Javascript name: $name not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $js->checkIfModified($ifModifiedSince);
@@ -50,8 +50,8 @@ class AssetsController extends Controller
     {
         $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($name));
         $material = Models\Material::getItemByName($name);
-        if (is_null($material)) abort(404);
-        if (!$material->itemIsPublished()) abort(404);
+        if (is_null($material)) abort(404, "[MaterialController] Material name: $name not exists in DB.");
+        if (!$material->itemIsPublished()) abort(404, "[MaterialController] Material name: $name not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $material->checkIfModified($ifModifiedSince);
@@ -64,12 +64,12 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function file($name,Request $request)
+    public function file($name, Request $request)
     {
-        $name = str_replace(['&', '?'], ['%26', '%3F'],urldecode($name));
+        $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($name));
         $file = Models\File::getItemByName($name);
-        if (is_null($file)) abort(404);
-        if (!$file->itemIsPublished()) abort(404);
+        if (is_null($file)) abort(404, "[FileController] File name: $name not exists in DB.");
+        if (!$file->itemIsPublished()) abort(404, "[FileController] File name: $name not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $file->checkIfModified($ifModifiedSince);
@@ -82,14 +82,15 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function image($size,$name,Request $request){
+    public function image($size, $name, Request $request)
+    {
         // urlエンコードされて来るのでdecodeしないとdbの検索できない
         // 何故か削除されてたけど削除すると日本語とか404になるので必要です。
-        $name = preg_match('/\?/',$name) ? str_replace(['&','?'], ['%26', '%3F'],urldecode($name)): urldecode($name);
-        if(empty($name) || empty($size) ) abort('404');
+        $name = preg_match('/\?/', $name) ? str_replace(['&', '?'], ['%26', '%3F'], urldecode($name)) : urldecode($name);
+        if (empty($name) || empty($size)) abort(422,"[ImageController] Image name: $name, thumber size: $size in query parameter may be empty.");
         $image = Models\Image::getItemByNameOrId($name);
-        if (is_null($image)) abort('404');
-        if (!$image->itemIsPublished()) abort(404);
+        if (is_null($image)) abort(404,"[ImageController] Image name: $name not exists in DB.");
+        if (!$image->itemIsPublished()) abort(404, "[ImageController] Image name: $name not published");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $image->checkIfModified($ifModifiedSince);
@@ -98,10 +99,10 @@ class AssetsController extends Controller
         } else {
             $object = $image->getImageThumb($size);
             $response = response($object["body"]);
-            $response->header('Content-Type',$object["content_type"]);
+            $response->header('Content-Type', $object["content_type"]);
             $response->header('Last-Modified', $lastModifiedTime);
         }
-        return  $response;
+        return $response;
     }
 
 }

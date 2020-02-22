@@ -1,5 +1,6 @@
 <?php
-
+$GLOBALS["REQUEST_START_TIME"] = round(microtime(true) * 1000);
+$GLOBALS["REQUEST_UNIQUE_ID"]= uniqid("PHP_RUID_");
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -57,4 +58,5 @@ $response = $kernel->handle(
 
 $response->send();
 
+\Illuminate\Support\Facades\Log::info("Request Over");
 $kernel->terminate($request, $response);

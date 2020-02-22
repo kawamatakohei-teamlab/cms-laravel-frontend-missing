@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Models;
-use GuzzleHttp\Psr7\Request;
 
-
+use Illuminate\Support\Facades\Log;
 
 class Image extends DaisyModelBase
 {
@@ -26,21 +25,22 @@ class Image extends DaisyModelBase
         // $headers = [
         //     "X-Request-ID:$requestId",
         // ];
-
-        $client = new \GuzzleHttp\Client( [
+        Log::info("[ImageModel] Start to get thumber: $lab_thumber_url");
+        $client = new \GuzzleHttp\Client([
             'timeout' => config('lab_thumb.endpoint.timeout'),
-          ] );
-          try {
-            $info = $client->get($lab_thumber_url);
-          }catch (RequestException $e) {
-            abort(500);
+        ]);
+        try {
+            $response = $client->get($lab_thumber_url, ['http_errors' => false]);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            abort(500,"[ImageModel] Get thumber error: $lab_thumber_url {$e->getMessage()}");
         }
-        if($info->getStatusCode() != 200){
-            abort(500);
-        }
-        $body = $info->getBody();
-        $content_type = $info->getHeaderLine('Content-Type');
-        return [ 'body' => $body, 'content_type' => $content_type ];
+
+        $body = $response->getBody();
+        if ($response->getStatusCode() != 200)  abort(500,"[ImageModel] something went wrong with lab-thumber. Response body: $body. ");
+
+        Log::info("[ImageModel] get thumber over: $lab_thumber_url");
+        $content_type = $response->getHeaderLine('Content-Type');
+        return ['body' => $body, 'content_type' => $content_type];
     }
 
     public function createLabThumbUrl($thumb_size = false, $action = 'getThumb')
@@ -64,7 +64,7 @@ class Image extends DaisyModelBase
 //        }
 
         # TODO: basename() や pathinfo() は unicodeファイル名に対して使えないので、しばらく正規表現を使う、後はsetlocale()でpathinfo()を正常にする
-        preg_match( "/(.*)(?:\.([^.]+$))/", $this->name, $retArr );
+        preg_match("/(.*)(?:\.([^.]+$))/", $this->name, $retArr);
         $storageKey = $upload_dir . $retArr[1] . '/original_' . $this->name;
 
         // labthumberに投げたいクエリは操作ごとに違う。
@@ -78,7 +78,7 @@ class Image extends DaisyModelBase
             case 'getThumb':
             default:
                 // sizeのプロパティが存在しなかったらsizeクエリが間違っているからdefaultサイズにしてあげる
-                if (!isset($thumb_config['thumbnails'][$thumb_size])){
+                if (!isset($thumb_config['thumbnails'][$thumb_size])) {
                     $thumb_size = $thumb_config['default_thumb_size'];
                 }
                 $thumb_size_info = $thumb_config['thumbnails'][$thumb_size]['size'];
