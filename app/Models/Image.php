@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
+
 class Image extends DaisyModelBase
 {
     protected $table = 'images';
@@ -23,20 +25,21 @@ class Image extends DaisyModelBase
         // $headers = [
         //     "X-Request-ID:$requestId",
         // ];
-
+        Log::info("[ImageModel] Start to get thumber: $lab_thumber_url");
         $client = new \GuzzleHttp\Client([
             'timeout' => config('lab_thumb.endpoint.timeout'),
         ]);
         try {
-            $info = $client->get($lab_thumber_url);
+            $response = $client->get($lab_thumber_url, ['http_errors' => false]);
         } catch (\GuzzleHttp\Exception\RequestException $e) {
-            abort(500);
+            abort(500,"[ImageModel] Get thumber error: $lab_thumber_url {$e->getMessage()}");
         }
-        if ($info->getStatusCode() != 200) {
-            abort(500);
-        }
-        $body = $info->getBody();
-        $content_type = $info->getHeaderLine('Content-Type');
+
+        $body = $response->getBody();
+        if ($response->getStatusCode() != 200)  abort(500,"[ImageModel] something went wrong with lab-thumber. Response body: $body. ");
+
+        Log::info("[ImageModel] get thumber over: $lab_thumber_url");
+        $content_type = $response->getHeaderLine('Content-Type');
         return ['body' => $body, 'content_type' => $content_type];
     }
 
