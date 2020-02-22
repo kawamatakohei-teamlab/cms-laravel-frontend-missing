@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        Log::error('Exception Be Catched in Handler: '. $exception->getMessage() ." Traceback Info: ".$exception->getTraceAsString());
         if($this->isHttpException($exception)) {
             // 403
             if($exception->getStatusCode() == 403) {
@@ -61,7 +63,7 @@ class Handler extends ExceptionHandler
             }
             // 500
             return response()->view('errors.500');
-        } 
+        }
         return parent::render($request, $exception);
     }
 }

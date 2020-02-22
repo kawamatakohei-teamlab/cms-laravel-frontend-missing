@@ -55,7 +55,7 @@
             </div>
 
             <div class="message" style="padding: 10px;">
-                @yield('message')
+                @yield('message') {{$GLOBALS["REQUEST_UNIQUE_ID"]}}
             </div>
         </div>
     </body>

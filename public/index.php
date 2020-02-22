@@ -58,4 +58,5 @@ $response = $kernel->handle(
 
 $response->send();
 
+\Illuminate\Support\Facades\Log::info("Request Over");
 $kernel->terminate($request, $response);
