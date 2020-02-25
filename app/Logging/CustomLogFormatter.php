@@ -18,6 +18,10 @@ class CustomLogFormatter implements FormatterInterface
         } else {
             $context = json_encode($context);
         }
+        # $GLOBALS["REQUEST_START_TIME"]が存在しないならつまりcliからのLog
+        if (!isset($GLOBALS["REQUEST_START_TIME"]) || !isset( $GLOBALS["REQUEST_UNIQUE_ID"])) {
+            return "$date_time [${record['level_name']}] ${record['message']} $context\n";
+        }
         $now = round(microtime(true) * 1000);
         $time_from_request_start = $now - $GLOBALS["REQUEST_START_TIME"];
         $request_id = $GLOBALS["REQUEST_UNIQUE_ID"];

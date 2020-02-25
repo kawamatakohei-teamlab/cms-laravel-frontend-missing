@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\ArticleQueried;
+
 class Article extends DaisyModelBase
 {
     protected $table = 'view_articles';
@@ -17,17 +19,15 @@ class Article extends DaisyModelBase
         $article_items = Article::where('article_type', $type);
         return $article_items;
     }
-    
-    public function getContentsAttribute($content_json)
+
+    public static function getArticlesByContentJsonValue($article_type, $json_key, $json_value, $limit = null)
     {
-        # ArticleのデータはJsonの形式で、contentフィルドに保存してるから、JsonからArrayに変換
-        if (!empty($content_json)) {
-            $content_json = json_decode($content_json, true);
+        $qb = Article::where('article_type', $article_type)->whereJsonContains("contents->$json_key", $json_value);
+        if (empty($limit)) {
+            return $qb->get();
+        } else {
+            return $qb->limit($limit)->get();
         }
-        # dynamic partsはJson Stringの中で、Json Stringの形式保存してるので、存在する場合もArrayに変換
-        if (isset($content_json['dynamic'])) {
-            $content_json['dynamic'] = json_decode($content_json['dynamic'], true);
-        }
-        return $content_json;
     }
+
 }
