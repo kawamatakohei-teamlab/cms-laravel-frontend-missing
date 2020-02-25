@@ -243,7 +243,11 @@ if(Request::url() ==  '/'){
 {{--        </div>--}}
 {{--    </section>--}}
 
-
+<?php var_dump($general_top_info);?>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js?date=20190725"></script>
+    <script src="/assets/scripts/main.js?date=20190725"></script>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PS4768"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </body>
 </html>
