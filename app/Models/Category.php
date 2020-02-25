@@ -15,18 +15,27 @@ class Category extends DaisyModelBase
         return $category_items;
     }
 
-    public static function getAllCategories(): ?Category
+    public static function getAllCategories()
     {
-        $parent_categories_items = Category::where('parent',0)->get();
-        $all_categories_items = [];
-        foreach ($parent_categories_items as $parent_category) {
-            $all_categories_items[$parent_category["slug"]]["display_name"] = $parent_category["name"];
-            $child_categories = Category::where('parent',$parent_category["id"])->orderBy('display_no','asc')->get();
-            foreach ($child_categories as $child_category) {
-                $all_categories_items[$parent_category["slug"]]["children"][$child_category["slug"]]["display_name"] = $child_category["name"];
+        $all_categories_items = Category::all();
+        $categories_items = [];
+        foreach($all_categories_items as $category_items) {
+            if($category_items["parent"] == 0) {
+                $categories_items[$category_items["slug"]]["display_name"] = $category_items["name"];
+                $categories_items[$category_items["slug"]]["children"] = Category::getChildren($category_items["id"],$all_categories_items);
             }
         }
-        return $all_categories_items;
+        return $categories_items;
     }
 
+    public static function getChildren($parent_id,$all_items) {
+        $children = [];
+        foreach ($all_items as $item) {
+            if ($item["parent"] == $parent_id){
+                $children[$item["slug"]]["display_name"] = $item["name"];
+                $children[$item["slug"]]["children"] = Category::getChildren($item["id"],$all_items);
+            }
+        }
+        if(!$children == []) return $children;;
+    }
 }
