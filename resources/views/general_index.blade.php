@@ -244,7 +244,6 @@ if(Request::url() ==  '/'){
 {{--        </div>--}}
 {{--    </section>--}}
 
-
 @foreach($general_top_info['dynamic'] as $dynamic)
     {{--調剤薬局でできること一覧--}}
     @isset($dynamic['d_what_pharmacy_can_do_top'])
@@ -337,6 +336,10 @@ if(Request::url() ==  '/'){
 
 
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js?date=20190725"></script>
+    <script src="/assets/scripts/main.js?date=20190725"></script>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PS4768"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </body>
 <footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment.min.js?date=3600"></script>
