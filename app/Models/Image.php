@@ -86,8 +86,8 @@ class Image extends DaisyModelBase
                 // この中にクエリをまとめる！
                 $query = [
                     'storagekey' => $storageKey,
-                    'w' => $thumb_size_info[0],
-                    'h' => $thumb_size_info[1],
+                    'w' => isset( $thumb_size_info[0])?  $thumb_size_info[0]: null,
+                    'h' => isset( $thumb_size_info[1])?  $thumb_size_info[1]: null,
                     'noncached' => $noncached,
                 ];
                 if (!empty($thumb_config['thumbnails'][$thumb_size]['options'])) {
