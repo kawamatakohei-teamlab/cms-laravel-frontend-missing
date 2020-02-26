@@ -1,19 +1,19 @@
 @extends('layouts.common')
 
-@include('layouts.head')
+@include('parts.head')
  
-@include('layouts.header')
+@include('parts.header')
 
-@include('layouts.main_top')
+@include('parts.main_top')
 
-@include('layouts.search_store')
+@include('parts.search_store')
 
-@include('layouts.dynamic_item')
+@include('parts.dynamic_item')
 
-@include('layouts.notice_list')
+@include('parts.notice_list')
 
-@include('layouts.event_list')
+@include('parts.event_list')
 
-@include('layouts.footer')
+@include('parts.footer')
 
-@include('layouts.javascript')
+@include('parts.javascript')
