@@ -3,7 +3,7 @@
 <head>
 @yield('head')
 </head>
-<body d="{{ $body_id }}"{{$body_class}}>
+<body id="{{ $body_id }}"{{$body_class}}>
 @yield('header')
 <main class="c-main">
 @yield('main_top')
