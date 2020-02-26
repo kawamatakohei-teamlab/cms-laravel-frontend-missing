@@ -26,6 +26,8 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $all_columns = Utils::getAllColumns(4);
         $all_events = Utils::getAreaEvent();
 
+        $notices = Article::getArticlesByContentJsonValue("notice_n_news","category_notice","17",3);
+        
         $datas = [
             'body_id' => 'topGeneral',
             'body_class' => '',
@@ -35,6 +37,8 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'checkbox_lists' => Utils::$checkbox_lists,
             'col_categories' => $col_categories,
             'all_columns' => $all_columns,
+            'notices' => $notices,
+            'notice_name' => $categories["whats_new"]["children"]["notification"]["display_name"],
             'all_events' => $all_events,
             'event_area_categories' => $event_area_categories,
         ];
