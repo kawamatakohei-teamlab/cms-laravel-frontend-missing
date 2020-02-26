@@ -337,8 +337,6 @@ if(Request::url() ==  '/'){
     <section class="c-section">
         <div class="c-section__in">
             <h2 class="c-title">お知らせ</h2>
-            <div class="l-article-column">
-                <!-- ulの実装 -->
             <div class="c-tab-content js-tab-content-03">
                 <div class="c-tab-content__block">
                     <div class="l-row-content">

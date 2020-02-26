@@ -25,8 +25,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $all_columns = Utils::getAllColumns(4);
 
         $notices = Article::getArticlesByContentJsonValue("notice_n_news","category_notice","17",3);
-        $notice =Category::where('slug', "notification")->first();
-
+        
         $datas = [
             'body_id' => 'topGeneral',
             'body_class' => '',
@@ -37,7 +36,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'col_categories' => $col_categories,
             'all_columns' => $all_columns,
             'notices' => $notices,
-            'notice_name' => $notice->name,
+            'notice_name' => $categories["whats_new"]["children"]["notification"]["display_name"],
         ];
         return view('general_index', $datas);
     }
