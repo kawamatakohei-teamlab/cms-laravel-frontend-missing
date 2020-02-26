@@ -42,7 +42,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'all_events' => $all_events,
             'event_area_categories' => $event_area_categories,
         ];
-        return view('general_index', $datas);
+        return view('pages/general_index', $datas);
     }
 
 }

@@ -5,7 +5,8 @@ if(Request::url() ==  '/'){
     $logo_tag = 'h1';
 }
 ?>
-<div class="c-header__in">
+<header class="c-header c-header--bg-white">
+    <div class="c-header__in">
         <div class="c-header__upper">
             <{{$logo_tag}} class="c-header__logo"><a class="c-header__logo-link" href="/"><img class="c-header__logo-img" src="/assets/materials/logo.png" alt="日本調剤"/></a><span class="c-header__logo-text">お客さま向け情報</span>
         </{{$logo_tag}}>
@@ -49,5 +50,6 @@ if(Request::url() ==  '/'){
             </div>
         </div>
     </div>
-</div>
+    </div>
+</header>
 @endsection
