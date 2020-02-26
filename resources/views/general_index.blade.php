@@ -117,7 +117,7 @@ if(Request::url() ==  '/'){
         <div class="c-hero-news__in">
             <div class="c-hero-news__item">
                 <div class="c-hero-news__date">{{ $important_notice->updated_at }}（NEED TO COMPLETE WEEK FUNCTION）<span class="c-hero-news__pipe">|</span><br class="only-sp"> {{ $important_notice->title }}</div>
-                <div class="c-hero-news__detail"><a class="c-hero-news__link" href="{{ $important_notice->transform_url }}">{{ $important_notice->contents['description'] }}</a></div>
+                <div class="c-hero-news__detail"><a class="c-hero-news__link" href="{{ $important_notice->transform_url }}">{{ $important_notice['description'] }}</a></div>
             </div>
         </div>
     </div>
@@ -246,10 +246,10 @@ if(Request::url() ==  '/'){
 
 @foreach($general_top_info['dynamic'] as $dynamic)
     {{--調剤薬局でできること一覧--}}
-    @isset($dynamic['d_what_pharmacy_can_do_top'])
+    @isset($dynamic->d_what_pharmacy_can_do_top)
     <section class="c-section">
         <div class="c-section__in">
-            <h2 class="c-title">{{ $dynamic['d_what_pharmacy_can_do_top']}}</h2>
+            <h2 class="c-title">{{ $dynamic->d_what_pharmacy_can_do_top}}</h2>
             <div class="l-row-content">
                 <div class="l-list-column l-list-column--col-03">
                     @for ($i = 1; $i <= 3; $i++)
@@ -257,10 +257,10 @@ if(Request::url() ==  '/'){
                     # $p_image = route('assets.image',['thumb_size'=>'original','name'=>$dynamic["d_what_pharmacy_can_do_top__image_$i"]]);
                     # TODO: imageのrouteを作る関すを作る
                     $p_image = "";
-                    $p_title = $dynamic["d_what_pharmacy_can_do_top__title_$i"];
-                    $p_body = $dynamic["d_what_pharmacy_can_do_top__body_$i"];
-                    $p_transform_url = trim($dynamic["d_what_pharmacy_can_do_top__transform_url_$i"]);
-                    $p_caption = $dynamic["d_what_pharmacy_can_do_top__caption_$i"];
+                    $p_title = $dynamic->{"d_what_pharmacy_can_do_top__title_$i"};
+                    $p_body = $dynamic->{"d_what_pharmacy_can_do_top__body_$i"};
+                    $p_transform_url = trim($dynamic->{"d_what_pharmacy_can_do_top__transform_url_$i"});
+                    $p_caption = $dynamic->{"d_what_pharmacy_can_do_top__caption_$i"};
                     ?>
                     @if (!empty($p_title))
                     <div class="l-list-column__item">
@@ -288,21 +288,21 @@ if(Request::url() ==  '/'){
             </div>
     </section>
     @endisset
-        @isset($dynamic['d_convenient_service_top'])
+        @isset($dynamic->d_convenient_service_top)
             {{--便利なサービス一覧--}}
             <section class="c-section c-section--bg-gray c-section--hidden">
-                <h2 class="c-title">{{ $dynamic["d_convenient_service_top"] }}</h2>
+                <h2 class="c-title">{{ $dynamic->d_convenient_service_top }}</h2>
                 <div class="l-row-content">
                     <div class="c-list-card-slider">
                         <div class="c-list-card-slider__in">
                             <div class="c-list-card-slider__slider">
                                 @for ($i = 1; $i <= 4; $i++)
                                 <?php
-                                $s_image = $dynamic["d_convenient_service_top__image_$i"];
-                                $s_title = $dynamic["d_convenient_service_top__title_$i"];
-                                $s_catchphrase = $dynamic["d_convenient_service_top__catchphrase_$i"];
-                                $s_body = $dynamic["d_convenient_service_top__body_$i"];
-                                $s_transform_url = $dynamic["d_convenient_service_top__transform_url_$i"];
+                                $s_image = $dynamic->{"d_convenient_service_top__image_$i"};
+                                $s_title = $dynamic->{"d_convenient_service_top__title_$i"};
+                                $s_catchphrase = $dynamic->{"d_convenient_service_top__catchphrase_$i"};
+                                $s_body = $dynamic->{"d_convenient_service_top__body_$i"};
+                                $s_transform_url = $dynamic->{"d_convenient_service_top__transform_url_$i"};
                                 $image_url = "";
                                 ?>
                                 @if(!empty($s_title) && !empty($s_body))
@@ -333,6 +333,7 @@ if(Request::url() ==  '/'){
             </section>
         @endisset
     @endforeach
+
 
 
 </main>

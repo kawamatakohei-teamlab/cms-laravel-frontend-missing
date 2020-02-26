@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Nicho;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class GeneralIndexController extends \App\Http\Controllers\Controller
@@ -18,13 +19,20 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
 
         $stores = Utils::getAllStores();
         $stores =  $stores->take($stores->count())->get();
+        # TODO: カテゴリーCache実装？
+        $categories = Category::getAllCategories();
+        $col_categories = $categories['column_type']['children'];
+        $all_columns = Utils::getAllColumns(4);
+
         $datas = [
             'body_id' => 'topGeneral',
             'body_class' => '',
-            'general_top_info' => $general_top_info->contents,
+            'general_top_info' => $general_top_info,
             'important_notice' => $important_notice,
             'area_list' => Utils::$area_list,
             'checkbox_lists' => Utils::$checkbox_lists,
+            'col_categories' => $col_categories,
+            'all_columns' => $all_columns,
         ];
         return view('general_index', $datas);
     }

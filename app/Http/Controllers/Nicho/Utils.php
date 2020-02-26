@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Nicho;
 
 
 use App\Models\Article;
+use App\Models\Category;
 
 class Utils
 {
@@ -13,6 +14,19 @@ class Utils
         # TODO: redis周りを対応
         $stores = Article::getArticlesByArticleType('store');
         return $stores;
+    }
+
+    public static function getAllColumns($limit=null)
+    {
+        # TODO: この関数性能が低い
+        $columns_articles = [];
+        $categories = Category::getAllCategories();
+        $col_categories = $categories['column_type']['children'];
+        foreach ($col_categories as $col_name => $col_category) {
+            $res = Article::getArticlesByContentJsonValue('column', 'category', $col_name,$limit);
+            $columns_articles[$col_name] = $res;
+        }
+        return $columns_articles;
     }
     function __construct() {
         $date = $this->cache_busting_date;
