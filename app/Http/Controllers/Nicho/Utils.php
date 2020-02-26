@@ -28,6 +28,53 @@ class Utils
         }
         return $columns_articles;
     }
+
+    public static function getAreaEvent($limit=null)
+    {
+        $all_events = [];
+        $categories = Category::getAllCategories();
+        $event_classification = $categories['event']['children']['classification']['children'];
+        $event_classification_ids = [];
+        foreach ($event_classification as $class_name => $c) {
+            $event_classification_ids[$c['id']] = $class_name;
+        }
+        $areas_categories = $categories['event']['children']['areas']['children'];
+        $i = 0;
+        foreach ($areas_categories as $area_slug => $area_category) {
+            $events = Article::getArticlesByContentJsonValue('event', 'area', strval($area_category['id']),$limit);
+            foreach ($events as $key => $event) {
+                $event->classification = Utils::getCorrectIds($event->classification);
+                $icon_htmls = [];
+                foreach ($event->classification as $icon_classification) {
+                    $icon_classification_name = $event_classification_ids[$icon_classification];
+                    $icon_htmls[] = '<i class="c-box-event-01__icon c-box-event-01__icon--icon-' . Utils::$event_icons[$icon_classification_name] . '"></i>';
+                }
+                $events[$key]->icon_htmls = $icon_htmls;
+
+
+            }
+
+            $all_events[$area_slug] = $events;
+            $i++;
+        }
+
+        return $all_events;
+    }
+
+    /*
+     * CMSのカテゴリリストはゴミが多いので，それを削除して整形した
+     * '"17","8"' -> ['17', '8']
+     * 良好（1/16）
+     */
+    public static function getCorrectIds($category_ids) {
+        if(is_string($category_ids) && is_array(json_decode($category_ids, true)) && (json_last_error() == JSON_ERROR_NONE)){
+            $category_ids = json_decode($category_ids);
+            $category_ids = array_diff($category_ids, array(''));
+            $category_ids = array_values($category_ids); //indexを詰める
+        }
+        return $category_ids;
+    }
+
     function __construct() {
         $date = $this->cache_busting_date;
         $this->rss_url = $this->rss_url . "?date=$date";
@@ -95,7 +142,7 @@ class Utils
     // RSSで取得したIR記事に設定するカテゴリーを指定
     public static $category_4_rss = 'IR';
 
-    public static $event_icons = array('meter','seminar','discuss','other');
+    public static $event_icons = ['health_measurement' => 'meter', 'seminar' => 'seminar', 'consultation' => 'discuss','other' => 'other'];
 
     // 都道府県リスト
     public static $area_list = [

@@ -20,9 +20,11 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $stores = Utils::getAllStores();
         $stores =  $stores->take($stores->count())->get();
         # TODO: カテゴリーCache実装？
-        $categories = Category::getAllCategories();
-        $col_categories = $categories['column_type']['children'];
+        $all_categories = Category::getAllCategories();
+        $col_categories = $all_categories['column_type']['children'];
+        $event_area_categories = $all_categories['event']['children']['areas']['children'];
         $all_columns = Utils::getAllColumns(4);
+        $all_events = Utils::getAreaEvent();
 
         $datas = [
             'body_id' => 'topGeneral',
@@ -33,6 +35,8 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'checkbox_lists' => Utils::$checkbox_lists,
             'col_categories' => $col_categories,
             'all_columns' => $all_columns,
+            'all_events' => $all_events,
+            'event_area_categories' => $event_area_categories,
         ];
         return view('general_index', $datas);
     }
