@@ -38,7 +38,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'col_categories' => $col_categories,
             'all_columns' => $all_columns,
             'notices' => $notices,
-            'notice_name' => $categories["whats_new"]["children"]["notification"]["display_name"],
+            'notice_name' => $all_categories["whats_new"]["children"]["notification"]["display_name"],
             'all_events' => $all_events,
             'event_area_categories' => $event_area_categories,
         ];
