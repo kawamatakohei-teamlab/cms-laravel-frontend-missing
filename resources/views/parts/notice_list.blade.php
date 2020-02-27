@@ -9,11 +9,11 @@
                     @foreach ($notices as $notice)
                         <div class="c-list-article__item">
                             <div class="c-list-article__head">
-                                <div class="c-list-article__date">{{ $notice->publish_at }}</div>
+                                <div class="c-list-article__date">{{ $notice["publish_at"] }}</div>
                                 <div class="c-list-article__category">{{ $notice_name }}</div>
                             </div>
                             <div class="c-list-article__info">
-                                <a class="c-list-article__link" href="/info/{{$notice->permalink}}/">{{ $notice->title }}</a>
+                                <a class="c-list-article__link" href="/info/{{$notice["permalink"]}}/">{{ $notice["title"] }}</a>
                             </div>
                         </div>
                     @endforeach

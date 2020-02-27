@@ -75,6 +75,58 @@ class Utils
         return $category_ids;
     }
 
+    /*
+     * 日付の曜日取得する
+     * example:
+     *     '2018-01-01 00:00:00' -> '月'
+     */
+    public static function getDayOfWeek($date){
+        $list = ["日", "月", "火", "水", "木", "金", "土"];
+        $date = date_create($date);
+        $week = (int)$date->format('w');
+        return $list[$week];
+    }
+
+    /*
+     * 記事掲載開始日を変換する
+     * example:
+     *     '2018-01-01 00:00:00' -> '2018.1.1'
+     * まだ使ってない（1/16）
+     */
+    public static function convertToDotDate($date){
+        $date = preg_replace('/(\d+)[-\/](\d+)[-\/](\d+) (\d+):(\d+):?(\d+)/i', '$1.$2.$3', $date);
+        return $date;
+    }
+
+    public static function createBreadcrumb($breadcrumb_list)
+    {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'];
+        $current_url = $protocol.$domainName;
+        $breadcrumbs = [];
+        foreach ($breadcrumb_list as $breadcrumb) {
+            if(strpos($breadcrumb[1], 'http') !== false){
+                $url = $breadcrumb[1];
+            }else{
+                $url = $current_url . $breadcrumb[1];
+            }
+            $breadcrumbs[] = ['title' => $breadcrumb[0], 'url' => $url];
+        }
+        return $breadcrumbs;
+    }
+
+    /*
+     * 一番上位の<p>タグを消す．
+     * wysiwygでは「文字列」を入力していても「<p>文字列</p>」が返ってくるので，消す．
+     * example:
+     *   '<p>本文が入ります。本文が入ります。</p>' -> '本文が入ります。本文が入ります。'
+     * 良好（1/16）
+     */
+    public static function formatWysiwyg($wysiwyg) {
+        return preg_replace('/\<p\>(.*)\<\/p\>/i', '$1', $wysiwyg);
+    }
+
+
     function __construct() {
         $date = $this->cache_busting_date;
         $this->rss_url = $this->rss_url . "?date=$date";

@@ -3,15 +3,12 @@
 <head>
 @yield('head')
 </head>
-<body id="{{ $body_id }}"{{$body_class}}>
+<body>
 @yield('header')
 <main class="c-main">
-@yield('main_top')
-@yield('search_store')
-@yield('dynamic_item')
-@yield('notice_list')
-@yield('event_list')
+@yield('notice_main')
 </main>
+@yield('breadcrumb')
 </body>
 @yield('footer')
 @yield('javascript')

@@ -8,6 +8,12 @@ class Category extends DaisyModelBase
 {
     protected $table = 'categories';
 
+    public static function getCategoriesById($id) 
+    {
+        $category_item = Category::where('id', $id)->first();
+        return $category_item;
+    }
+
     public static function getCategoriesBySlug($slug): ?Category
     {
         $slug_item = Category::where('slug', $slug)->first();

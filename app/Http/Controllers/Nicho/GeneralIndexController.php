@@ -26,7 +26,15 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $all_columns = Utils::getAllColumns(4);
         $all_events = Utils::getAreaEvent();
 
-        $notices = Article::getArticlesByContentJsonValue("notice_n_news","category_notice","17",3);
+        //お知らせ
+        $notices_object = Article::getArticlesByContentJsonValue("info","category_notice","17",3);
+        $notices = [];
+        foreach ($notices_object as $index => $notice) {
+            $publish_at = Utils::convertToDotDate($notice->publish_at);
+            $notices[$index]["title"] = $notice->title;
+            $notices[$index]["permalink"] = $notice->permalink;
+            $notices[$index]["publish_at"] = $publish_at;
+        }
         
         $datas = [
             'body_id' => 'topGeneral',
@@ -42,7 +50,64 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'all_events' => $all_events,
             'event_area_categories' => $event_area_categories,
         ];
-        return view('general_index', $datas);
+        return view('pages/general_index', $datas);
+    }
+
+    //お知らせ(detail)
+    public function notice_detail($permalink,Request $request) {
+        $notice = Article::getArticlesByArticleTypeAndPermalink('info',$permalink);
+        $notice_contents = json_decode($notice->contents);
+        $dynamic = json_decode($notice_contents->dynamic);
+        $dynamic_body = Utils::formatWysiwyg($dynamic[0]->d_single_body);
+        $category = Category::getCategoriesById($notice_contents->category_notice);
+        $publish_at = Utils::convertToDotDate($notice->publish_at);
+        $day_of_week = Utils::getDayOfWeek($notice->publish_at);
+        $request_uri = $request->path();
+        if(strpos($request_uri, 'corporate/newsrelease') !== false){
+            $path = '/corporate/newsrelease/';
+
+            $category_name = 'ニュースリリース';
+            $category_link = '/corporate/newsrelease/';
+            $REDIRECT_URL = '/corporate/';
+            $REDIRECT_URL_TITLE = '企業情報トップ';
+        }else{
+            $path = '/info/';
+
+            $category_name = 'お知らせ';
+            $category_link = '/info/';
+            $REDIRECT_URL = '/';
+            $REDIRECT_URL_TITLE = '日本調剤トップ';
+        }
+        $breadcrumb_list = [[$REDIRECT_URL_TITLE, $REDIRECT_URL],
+                        [$category_name, $category_link],
+                        [$notice->title,$request_uri]];
+        $breadcrumbs = Utils::createBreadcrumb($breadcrumb_list);
+
+        $articles = Article::getArticlesByArticleTypeAndPublicAt($notice->article_type,'<=',$notice->publish_at);
+        $next_article = null;
+        foreach($articles as $index => $article){
+            if($article->id == $notice->id){
+                if(isset($articles[$index + 1])){
+                    $next_article = $articles[$index + 1];
+                    break;
+                }
+            }
+        }
+        if($next_article){
+            $next_article_uri = $path . $next_article->permalink;
+        } else {
+            $next_article_uri = false;
+        }
+        $datas = [
+            'title' => $notice->title,
+            'publish_at' => $publish_at,
+            'category_name' => $category->name,
+            'day_of_week' => $day_of_week,
+            'next_article_uri' => $next_article_uri,
+            'breadcrumbs' => $breadcrumbs,
+            'dynamic_body' => $dynamic_body,
+        ];
+        return view('pages/notice_detail', $datas);
     }
 
 }
