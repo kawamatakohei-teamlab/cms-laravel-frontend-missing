@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DaisySearch extends Model
 {
@@ -15,8 +16,6 @@ class DaisySearch extends Model
     private $siteCode = ''; // サイトコード
     private $withinPublication = true;  // 掲載期間内のもののみ返すフラグ
     private $limit;    // 1ベージに表示する数（setLimitでもset可）
-    private $page = 1;    // ページ番号（setCurrentPageでもset可）
-    private $useStore = false;  //　店舗機能を考慮するか（trueにするとjoinが増える）
     private $publishedOnly = true;  //公開済みのものだけ検索するか（falseにすると全件検索）
     private $includeDynamic = false; //dynamicの値（Json文字列）を返すか
 
@@ -30,12 +29,12 @@ class DaisySearch extends Model
 
 
     function __construct($params) {
-        if(!isset($params['type'])) abort(404);
+        parent::__construct();
+        assert( isset( $params['type'] ), new \Exception("type must be set") );
         $this->type = $params['type'];
         $this->langCode = isset( $params['langCode'] )? $params['langCode'] : '';
         $this->siteCode = isset( $params['siteCode'] )? $params['siteCode'] : '';
         $this->withinPublication = isset( $params['withinPublication'] ) ? $params['withinPublication'] : true;
-        $this->useStore = isset( $params['useStore'] ) ? $params['useStore'] : false;
         $this->publishedOnly = isset( $params['publishedOnly'] ) ? $params['publishedOnly'] : true;
         $this->includeDynamic = isset( $params['includeDynamic'] ) ? $params['includeDynamic'] : false;
      }
@@ -48,6 +47,8 @@ class DaisySearch extends Model
         {
             $search_article = $search_article->where($column["column"],$column["operator"],$column["operand"]);
         }
+        if($this->langCode != '') $search_article = $search_article->where('article_language_code',$this->langCode);
+        if($this->siteCode != '') $search_article = $search_article->where('site_code',$this->siteCode);
 
         if($this->limit) {
             $search_article = $search_article->limit($this->limit)->get();
@@ -60,16 +61,19 @@ class DaisySearch extends Model
 
     //$paramはcolumnとoperatorとoperand
     public function condition($param){
-         #なぜか効かない。。エラー処理しないといけない
-        // if(!isset($params['column'])) abort(404);
-        // if(!isset($params['operator'])) abort(404);
-        // if(!isset($params['operand'])) abort(404);
+        assert( isset( $param['column'] ), new \Exception("column must be set") );
+        assert( isset( $param['operator'] ), new \Exception("operator must be set") );
+        assert( isset( $param['operand'] ), new \Exception("operand must be set") );
+        Log::info("[DaisySearchModel] condition column:". $param['column']);
+        Log::info("[DaisySearchModel] condition operator:". $param['operator']);
+        Log::info("[DaisySearchModel] condition operand:". $param['operand']);
         $this->columns[] = $param;
         return $this;
     }
 
     public function setLimit($limit) {
-        if(!isset($limit)) abort(404);
+        assert( isset( $limit ), new \Exception("limit must be set") );
+        Log::info("[DaisySearchModel] set limit:". $limit);
         $this->limit = (int) $limit;
         return $this;
     }

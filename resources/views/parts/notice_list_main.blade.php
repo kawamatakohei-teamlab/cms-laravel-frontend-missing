@@ -9,7 +9,7 @@
                 <div class="c-article-filter-head__filter">
                     <div class="c-select-year js-custom-pulldown">
                         <div class="c-select-year__text" data-text="">{{$search_year}}年度</div>
-                        <input class="c-select-year__input" data-input="" type="hidden" value="{{$search_year}}"/><!-- コード削除している -->
+                        <input class="c-select-year__input" data-input="" type="hidden" value="{{$search_year}}"/>
                         <div class="c-select-year__pulldown" data-pulldown="">
                         @foreach ($years as $year)
                         <a class="c-select-year__item" data-value="{{ $year }}" href="/info/?year={{ $year }}&category=notification">{{ $year }}年度</a>
