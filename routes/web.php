@@ -24,5 +24,6 @@ Route::get('images/{thumb_size}/{name}','AssetsController@image')->name('assets.
 Route::get('/', 'Nicho\GeneralIndexController@index' )->name('general_index');
 Route::get('/test', "TestController@index");
 
-Route::get('/info/{permalink}','Nicho\GeneralIndexController@notice_detail')->name('general_notice');
+Route::get('/info/{permalink}','Nicho\GeneralIndexController@notice_detail')->name('general_notice_detail');
+Route::get('/info','Nicho\GeneralIndexController@notice_list')->name('general_notice_list');
 

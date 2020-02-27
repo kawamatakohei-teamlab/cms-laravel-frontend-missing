@@ -110,4 +110,46 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         return view('pages/notice_detail', $datas);
     }
 
+    //お知らせ(list)
+    public function notice_list(Request $request) {
+        $years = [];
+        for($i=0;$i<9;$i++)
+        {
+            $str = "-".$i." year";
+            $years[] = date('Y', strtotime($str));
+        }
+        $query = $request->query();
+        if($query){
+            $search_year = $query["year"];
+        }else{
+            $search_year = $years[0];
+        }
+        $search_end_year = $search_year + 1;
+        $search_start = [ "operator" => '>=' ,
+                          "publish_at" => $search_year.'/04/01'];
+        $search_end = [ "operator" => '<' ,
+                          "publish_at" => $search_end_year.'/04/01'];
+        $articles = Article::getArticlesByArticleTypeAndRangePublicAt('info',$search_start,$search_end);
+        $notices = [];
+        foreach ($articles as $index => $article) {
+            $publish_at = Utils::convertToDotDate($article->publish_at);
+            $notices[$index]["title"] = $article->title;
+            $notices[$index]["publish_at"] = $publish_at;
+            $notices[$index]["permalink"] = $article->permalink;
+        }
+        $category_name = 'お知らせ';
+        $category_link = '/info/';
+        $REDIRECT_URL = '/';
+        $REDIRECT_URL_TITLE = '日本調剤トップ';
+        $breadcrumb_list = [[$REDIRECT_URL_TITLE, $REDIRECT_URL],
+                        [$category_name, $category_link]];
+        $breadcrumbs = Utils::createBreadcrumb($breadcrumb_list);
+        $datas = [
+            'years' => $years,
+            'notices' => $notices,
+            'search_year' => $search_year,
+            'breadcrumbs' => $breadcrumbs,
+        ];
+        return view('pages/notice_list',$datas);
+    }
 }
