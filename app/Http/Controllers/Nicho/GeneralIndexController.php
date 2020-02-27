@@ -55,21 +55,10 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
 
     //お知らせ(detail)
     public function notice_detail($permalink,Request $request) {
-        #ニュースリリースの実装
-        // $request_uri = $request->path();
-        //「ニュースリリース」か「お知らせ」かを判定
-        // $is_news_release;
-        // if(preg_match('/admin.*preview.*/', $request_uri)){
-        //     //バックエンドの「プレビュー」
-        //     $is_news_release = strpos($request_uri, 'news');
-        // }
-        // else {
-        //     //フロントエンド
-        //     $is_news_release = strpos($request_uri, 'corporate/newsrelease');
-        // }
-        // $category_id = $is_news_release ? $item->category_news : $item->category_notice;
         $notice = Article::getArticlesByArticleTypeAndPermalink('info',$permalink);
         $notice_contents = json_decode($notice->contents);
+        $dynamic = json_decode($notice_contents->dynamic);
+        $dynamic_body = Utils::formatWysiwyg($dynamic[0]->d_single_body);
         $category = Category::getCategoriesById($notice_contents->category_notice);
         $publish_at = Utils::convertToDotDate($notice->publish_at);
         $day_of_week = Utils::getDayOfWeek($notice->publish_at);
@@ -116,6 +105,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'day_of_week' => $day_of_week,
             'next_article_uri' => $next_article_uri,
             'breadcrumbs' => $breadcrumbs,
+            'dynamic_body' => $dynamic_body,
         ];
         return view('pages/notice_detail', $datas);
     }

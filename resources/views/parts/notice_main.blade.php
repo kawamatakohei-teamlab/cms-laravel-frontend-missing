@@ -9,6 +9,7 @@
         <h1 class="c-article-header-02__title">{{ $title }}</h1>
     </div>
     <div class="c-article-detail">
+    <div class="c-article-detail__text">{{$dynamic_body}}</div>
     </div>
     @if($next_article_uri)
         <div class="c-section-article-single__button-next"><a class="c-button" href="{{ $next_article_uri }}/"><span class="c-button__text c-button__icon c-button__icon--icon-arrow">次の記事へ</span></a>

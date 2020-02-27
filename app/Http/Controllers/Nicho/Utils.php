@@ -115,6 +115,18 @@ class Utils
         return $breadcrumbs;
     }
 
+    /*
+     * 一番上位の<p>タグを消す．
+     * wysiwygでは「文字列」を入力していても「<p>文字列</p>」が返ってくるので，消す．
+     * example:
+     *   '<p>本文が入ります。本文が入ります。</p>' -> '本文が入ります。本文が入ります。'
+     * 良好（1/16）
+     */
+    public static function formatWysiwyg($wysiwyg) {
+        return preg_replace('/\<p\>(.*)\<\/p\>/i', '$1', $wysiwyg);
+    }
+
+
     function __construct() {
         $date = $this->cache_busting_date;
         $this->rss_url = $this->rss_url . "?date=$date";
