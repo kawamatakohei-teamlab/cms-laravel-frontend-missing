@@ -98,6 +98,23 @@ class Utils
         return $date;
     }
 
+    public static function createBreadcrumb($breadcrumb_list)
+    {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'];
+        $current_url = $protocol.$domainName;
+        $breadcrumbs = [];
+        foreach ($breadcrumb_list as $breadcrumb) {
+            if(strpos($breadcrumb[1], 'http') !== false){
+                $url = $breadcrumb[1];
+            }else{
+                $url = $current_url . $breadcrumb[1];
+            }
+            $breadcrumbs[] = ['title' => $breadcrumb[0], 'url' => $url];
+        }
+        return $breadcrumbs;
+    }
+
     function __construct() {
         $date = $this->cache_busting_date;
         $this->rss_url = $this->rss_url . "?date=$date";

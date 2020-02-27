@@ -8,6 +8,7 @@
 <main class="c-main">
 @yield('notice_main')
 </main>
+@yield('breadcrumb')
 </body>
 @yield('footer')
 @yield('javascript')

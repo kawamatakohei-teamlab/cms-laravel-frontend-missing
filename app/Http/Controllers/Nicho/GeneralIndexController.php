@@ -64,12 +64,27 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $category = Category::getCategoriesById($notice_contents->category_notice);
         $publish_at = Utils::convertToDotDate($notice->publish_at);
         $day_of_week = Utils::getDayOfWeek($notice->publish_at);
-        $request_url = $request->url();
-        if(strpos($request_url, 'corporate/newsrelease') !== false){
+        $request_uri = $request->path();
+        if(strpos($request_uri, 'corporate/newsrelease') !== false){
             $path = '/corporate/newsrelease/';
+
+            $category_name = 'ニュースリリース';
+            $category_link = '/corporate/newsrelease/';
+            $REDIRECT_URL = '/corporate/';
+            $REDIRECT_URL_TITLE = '企業情報トップ';
         }else{
             $path = '/info/';
+
+            $category_name = 'お知らせ';
+            $category_link = '/info/';
+            $REDIRECT_URL = '/';
+            $REDIRECT_URL_TITLE = '日本調剤トップ';
         }
+        $breadcrumb_list = [[$REDIRECT_URL_TITLE, $REDIRECT_URL],
+                        [$category_name, $category_link],
+                        [$notice->title,$request_uri]];
+        $breadcrumbs = Utils::createBreadcrumb($breadcrumb_list);
+
         $articles = Article::getArticlesByArticleTypeAndPublicAt($notice->article_type,'<=',$notice->publish_at);
         $next_article = null;
         foreach($articles as $index => $article){
@@ -91,6 +106,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'category_name' => $category->name,
             'day_of_week' => $day_of_week,
             'next_article_uri' => $next_article_uri,
+            'breadcrumbs' => $breadcrumbs,
         ];
         return view('pages/notice_detail', $datas);
     }
