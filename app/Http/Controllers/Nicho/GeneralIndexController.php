@@ -45,4 +45,54 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         return view('pages/general_index', $datas);
     }
 
+    public function notice($permalink,Request $request) {
+        // $request_uri = $request->path();
+        //「ニュースリリース」か「お知らせ」かを判定
+        // $is_news_release;
+        // if(preg_match('/admin.*preview.*/', $request_uri)){
+        //     //バックエンドの「プレビュー」
+        //     $is_news_release = strpos($request_uri, 'news');
+        // }
+        // else {
+        //     //フロントエンド
+        //     $is_news_release = strpos($request_uri, 'corporate/newsrelease');
+        // }
+        // $category_id = $is_news_release ? $item->category_news : $item->category_notice;
+        $notice = Article::getArticlesByArticleTypeAndPermalink('info',$permalink);
+        $notice_contents = json_decode($notice->contents);
+        // dd($notice);
+        $category = Category::getCategoriesById($notice_contents->category_notice);
+        $publish_at = Utils::convertToDotDate($notice->publish_at);
+        $day_of_week = Utils::getDayOfWeek($notice->publish_at);
+        $request_url = $request->url();
+        if(strpos($request_url, 'corporate/newsrelease') !== false){
+            $path = '/corporate/newsrelease/';
+        }else{
+            $path = '/info/';
+        }
+        $articles = Article::getArticlesByArticleTypeAndPublicAt($notice->article_type,'<=',$notice->publish_at);
+        $next_article = null;
+        foreach($articles as $index => $article){
+            if($article->id == $notice->id){
+                if(isset($articles[$index + 1])){
+                    $next_article = $articles[$index + 1];
+                    break;
+                }
+            }
+        }
+        if($next_article){
+            $next_article_uri = $path . $next_article->permalink;
+        } else {
+            $next_article_uri = false;
+        }
+        $datas = [
+            'title' => $notice->title,
+            'publish_at' => $publish_at,
+            'category_name' => $category->name,
+            'day_of_week' => $day_of_week,
+            'next_article_uri' => $next_article_uri,
+        ];
+        return view('pages/notice_detail', $datas);
+    }
+
 }

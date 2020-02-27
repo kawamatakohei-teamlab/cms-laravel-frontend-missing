@@ -75,6 +75,29 @@ class Utils
         return $category_ids;
     }
 
+    /*
+     * 日付の曜日取得する
+     * example:
+     *     '2018-01-01 00:00:00' -> '月'
+     */
+    public static function getDayOfWeek($date){
+        $list = ["日", "月", "火", "水", "木", "金", "土"];
+        $date = date_create($date);
+        $week = (int)$date->format('w');
+        return $list[$week];
+    }
+
+    /*
+     * 記事掲載開始日を変換する
+     * example:
+     *     '2018-01-01 00:00:00' -> '2018.1.1'
+     * まだ使ってない（1/16）
+     */
+    public static function convertToDotDate($date){
+        $date = preg_replace('/(\d+)[-\/](\d+)[-\/](\d+) (\d+):(\d+):?(\d+)/i', '$1.$2.$3', $date);
+        return $date;
+    }
+
     function __construct() {
         $date = $this->cache_busting_date;
         $this->rss_url = $this->rss_url . "?date=$date";
