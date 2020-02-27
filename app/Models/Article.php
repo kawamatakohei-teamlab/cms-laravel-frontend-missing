@@ -26,6 +26,12 @@ class Article extends DaisyModelBase
         return $article_items;
     }
 
+    public static function getArticlesByArticleTypeAndRangePublicAt($article_type,$start_publish,$end_publish)
+    {
+        $article_items = Article::where('article_type', $article_type)->where('publish_at', $start_publish["operator"], $start_publish["publish_at"])->where('publish_at', $end_publish["operator"], $end_publish["publish_at"])->orderBy('publish_at', 'desc')->get();
+        return $article_items;
+    }
+
     public static function getArticlesByArticleTypeAndPermalink($article_type,$permalink) 
     {
         $article_items = Article::where('article_type', $article_type)->where('permalink',$permalink)->first();
