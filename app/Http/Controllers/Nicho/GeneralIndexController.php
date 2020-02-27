@@ -26,7 +26,15 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         $all_columns = Utils::getAllColumns(4);
         $all_events = Utils::getAreaEvent();
 
-        $notices = Article::getArticlesByContentJsonValue("notice_n_news","category_notice","17",3);
+        //お知らせ
+        $notices_object = Article::getArticlesByContentJsonValue("info","category_notice","17",3);
+        $notices = [];
+        foreach ($notices_object as $index => $notice) {
+            $publish_at = Utils::convertToDotDate($notice->publish_at);
+            $notices[$index]["title"] = $notice->title;
+            $notices[$index]["permalink"] = $notice->permalink;
+            $notices[$index]["publish_at"] = $publish_at;
+        }
         
         $datas = [
             'body_id' => 'topGeneral',
@@ -45,7 +53,9 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         return view('pages/general_index', $datas);
     }
 
-    public function notice($permalink,Request $request) {
+    //お知らせ(detail)
+    public function notice_detail($permalink,Request $request) {
+        #ニュースリリースの実装
         // $request_uri = $request->path();
         //「ニュースリリース」か「お知らせ」かを判定
         // $is_news_release;
@@ -60,7 +70,6 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
         // $category_id = $is_news_release ? $item->category_news : $item->category_notice;
         $notice = Article::getArticlesByArticleTypeAndPermalink('info',$permalink);
         $notice_contents = json_decode($notice->contents);
-        // dd($notice);
         $category = Category::getCategoriesById($notice_contents->category_notice);
         $publish_at = Utils::convertToDotDate($notice->publish_at);
         $day_of_week = Utils::getDayOfWeek($notice->publish_at);
