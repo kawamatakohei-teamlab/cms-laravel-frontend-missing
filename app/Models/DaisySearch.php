@@ -17,7 +17,6 @@ class DaisySearch extends Model
     private $withinPublication = true;  // 掲載期間内のもののみ返すフラグ
     private $limit;    // 1ベージに表示する数（setLimitでもset可）
     private $publishedOnly = true;  //公開済みのものだけ検索するか（falseにすると全件検索）
-    private $includeDynamic = false; //dynamicの値（Json文字列）を返すか
 
     // Whereするカラム
     private $columns = [];
@@ -42,7 +41,7 @@ class DaisySearch extends Model
     public function search()
     {
         $search_article = DB::table('search_view_article')->join('view_articles', 'search_view_article.id', '=', 'view_articles.id')
-        ->where("search_view_article.article_type",$this->type);
+        ->where("search_view_article.article_type",$this->type)->distinct()->select('search_view_article.id','view_articles.*');
         foreach($this->columns as $column)
         {
             $search_article = $search_article->where($column["column"],$column["operator"],$column["operand"]);
@@ -51,9 +50,19 @@ class DaisySearch extends Model
         if($this->siteCode != '') $search_article = $search_article->where('site_code',$this->siteCode);
 
         if($this->withinPublication){
-            $date = new \DateTime();
+            $date = new \DateTime('2019-08-01 23:01:05');
             $now_date = $date->format('Y-m-d H:i:s');
             $search_article = $search_article->where('publish_at','<=',$now_date)->where('expire_at','>',$now_date);
+        }
+
+        // 全件検索する場合は、バージョン情報最新の物のみ取得する
+        if($this->publishedOnly){
+            $search_article = $search_article->whereNotExists(function ($query) {
+                $query->select(DB::raw(1))
+                      ->from('view_articles as v')
+                      ->whereRaw('view_articles.article_id = v.article_id')
+                      ->whereRaw('view_articles.number < v.number');
+            });
         }
 
         if($this->limit) {
