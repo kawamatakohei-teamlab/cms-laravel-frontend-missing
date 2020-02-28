@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Nicho;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\DaisySearch;
 use Illuminate\Http\Request;
 
 class GeneralIndexController extends \App\Http\Controllers\Controller
@@ -150,6 +151,17 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             'search_year' => $search_year,
             'breadcrumbs' => $breadcrumbs,
         ];
+
+        $a = new DaisySearch(['type'=>'ec_info','siteCode'=>'001','withinPublication'=>true]);
+        $a = $a->setLimit(3)
+        ->condition([
+            'column' => 'publish_at',
+            'operator' => '<',
+            'operand' => '2018-11-01 00:00:00',
+            ])
+        ->search();
+        dd($a);
+
         return view('pages/notice_list',$datas);
     }
 }

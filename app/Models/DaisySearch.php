@@ -50,6 +50,12 @@ class DaisySearch extends Model
         if($this->langCode != '') $search_article = $search_article->where('article_language_code',$this->langCode);
         if($this->siteCode != '') $search_article = $search_article->where('site_code',$this->siteCode);
 
+        if($this->withinPublication){
+            $date = new \DateTime();
+            $now_date = $date->format('Y-m-d H:i:s');
+            $search_article = $search_article->where('publish_at','<=',$now_date)->where('expire_at','>',$now_date);
+        }
+
         if($this->limit) {
             $search_article = $search_article->limit($this->limit)->get();
         } else {
