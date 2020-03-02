@@ -16,13 +16,14 @@ Route::prefix('assets')->group(function () {
     Route::get('materials/{name}', 'AssetsController@material')->name('assets.materials');
 });
 
-Route::get('files/{name}','AssetsController@file')->name('files');
+Route::get('files/{name}','AssetsController@file')->name('assets.files');
 
-Route::get('images/{thumber_size}/{name}','AssetsController@image')->name('images');
+Route::get('images/{thumb_size}/{name}','AssetsController@image')->name('assets.image');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Nicho\GeneralIndexController@index' )->name('general_index');
 Route::get('/test', "TestController@index");
+
+Route::get('/info/{permalink}','Nicho\GeneralIndexController@notice_detail')->name('general_notice_detail');
+Route::get('/info','Nicho\GeneralIndexController@notice_list')->name('general_notice_list');
 
