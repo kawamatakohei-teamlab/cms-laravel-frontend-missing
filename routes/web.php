@@ -15,3 +15,7 @@ Route::get('/', 'Nicho\GeneralIndexController@index' )->name('general_index');
 Route::get('/info/{permalink}','Nicho\GeneralIndexController@notice_detail')->name('general_notice_detail');
 Route::get('/info','Nicho\GeneralIndexController@notice_list')->name('general_notice_list');
 
+
+// お知らせ
+Route::get('/info/{key}', 'Articles\InfoController@show')->name('info_show');
+Route::get('/info',       'Articles\InfoController@index')->name('info_index');
