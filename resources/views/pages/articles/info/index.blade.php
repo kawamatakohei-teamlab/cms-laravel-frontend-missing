@@ -19,61 +19,16 @@
                             <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
                             <label class="filter-list__label" for="category0">ALL</label>
                         </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category1" type="radio" name="category" value="入試">
-                            <label class="filter-list__label" for="category1">入試</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category2" type="radio" name="category" value="お知らせ">
-                            <label class="filter-list__label" for="category2">お知らせ</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category3" type="radio" name="category" value="アート・展覧会">
-                            <label class="filter-list__label" for="category3">アート・展覧会</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category4" type="radio" name="category" value="演奏会・音楽会">
-                            <label class="filter-list__label" for="category4">演奏会・音楽会</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category5" type="radio" name="category" value="映像・映画・舞台">
-                            <label class="filter-list__label" for="category5">映像・映画・舞台</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category6" type="radio" name="category" value="出版">
-                            <label class="filter-list__label" for="category6">出版</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category7" type="radio" name="category" value="講演会・セミナー">
-                            <label class="filter-list__label" for="category7">講演会・セミナー</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category8" type="radio" name="category" value="受賞">
-                            <label class="filter-list__label" for="category8">受賞</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category9" type="radio" name="category" value="芸能活動（教員）">
-                            <label class="filter-list__label" for="category9">芸能活動（教員）</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category10" type="radio" name="category" value="芸能活動（学生・卒業生）">
-                            <label class="filter-list__label" for="category10">芸能活動（学生・卒業生）</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category11" type="radio" name="category" value="研究・産学連携">
-                            <label class="filter-list__label" for="category11">研究・産学連携</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category12" type="radio" name="category" value="国際交流">
-                            <label class="filter-list__label" for="category12">国際交流</label>
-                        </div>
-                        <div class="li filter-list__item">
-                            <input class="filter-list__input" id="category13" type="radio" name="category" value="学内向け">
-                            <label class="filter-list__label" for="category13">学内向け</label>
-                        </div>
+                        @foreach ($infoCategories as $infoCategory)
+                            <div class="li filter-list__item">
+                                <input class="filter-list__input" id="category_{{ $infoCategory->id}}" type="radio" name="category" value="{{ $infoCategory->slug }}">
+                                <label class="filter-list__label" for="category1">{{ $infoCategory->name }}</label>
+                            </div>
+                        @endforeach
                     </ul>
                 </div>
             </div>
+
             <ul class="information-list">
                 <li class="information-list__item" data-category="[&quot;入試&quot;]"><a class="information-list__wrap" href="">
                     <div class="information-list__detail">
@@ -219,6 +174,7 @@
                     </div>
                     <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
             </ul>
+
             <div class="pagination">
                 <button class="pagination__arrow pagination__arrow--prev" type="button"><span></span></button>
                 <button class="pagination__item pagination__item--first" type="button">1</button>
