@@ -1,6 +1,6 @@
 <?php
 
-namespace App\CmsCore\Models;
+namespace App\Models;
 
 class Article extends DaisyModelBase
 {
