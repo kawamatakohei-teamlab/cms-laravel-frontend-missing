@@ -1,33 +1,11 @@
-@section('breadcrumb')
-<div class="c-breadcrumb">
-  <div class="c-breadcrumb__in">
-  @foreach ($breadcrumbs as $breadcrumb)
-    @if($loop->last)
-        <span class="c-breadcrumb__item"><span class="c-breadcrumb__text">{{ $breadcrumb['title']}}</span></span>           
-    @else
-        <span class="c-breadcrumb__item"><a class="c-breadcrumb__link" href="{{ $breadcrumb['url'] }}">{{ $breadcrumb['title'] }}</a></span>  
-    @endif
-  @endforeach
-  </div>
+{{-- <HAKC:>動的に生成する</HAKC:> --}}
+<div class="breadcrumbs-block">
+    <ul class="breadcrumbs" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumbs__link" href="/" itemprop="item"><span itemprop="name">ホーム</span>
+            <meta itemprop="position" content="1"></a>
+        </li>
+        <li class="breadcrumbs__item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a class="breadcrumbs__link" href="https://google.com" itemprop="item" aria-current="page"><span itemprop="name">お知らせ一覧</span>
+            <meta itemprop="position" content="2"></a>
+        </li>
+    </ul>
 </div>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement":
-  [
-    @foreach ($breadcrumbs as $breadcrumb)
-    {
-      "@type": "ListItem",
-      "position": {{ $loop->index }},
-      "item":
-      {
-        "@id": "{{ $breadcrumb['url'] }}",
-        "name": "{{ $breadcrumb['title']}}"
-      }
-    } @if(!$loop->last){{ "," }}@endif
-    @endforeach
-  ]
-}
-</script>
-@endsection

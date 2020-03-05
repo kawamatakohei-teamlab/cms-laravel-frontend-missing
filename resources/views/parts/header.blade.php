@@ -1,55 +1,25 @@
-@section('header')
-<?php
-$logo_tag = 'div';
-if(Request::url() ==  '/'){
-    $logo_tag = 'h1';
-}
-?>
-<header class="c-header c-header--bg-white">
-    <div class="c-header__in">
-        <div class="c-header__upper">
-            <{{$logo_tag}} class="c-header__logo"><a class="c-header__logo-link" href="/"><img class="c-header__logo-img" src="/assets/materials/logo.png" alt="日本調剤"/></a><span class="c-header__logo-text">お客さま向け情報</span>
-        </{{$logo_tag}}>
-        <div class="c-header__menu-sp">
-            <div class="c-header__button-search"></div>
-            <div class="c-header__button-menu"><span class="c-header__button-menu__item"></span><span class="c-header__button-menu__item"></span><span class="c-header__button-menu__item"></span><span class="c-header__button-menu__item"></span></div>
-        </div>
-    </div>
-    <div class="c-header__lower">
-        <div class="c-header__nav-container">
-            <nav class="c-nav-global">
-                <ul class="c-nav-global__list">
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/tenpo">店舗検索</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/pharmacy">薬局でできること</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/service">便利なサービス</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/column">お役立ちコラム</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/info">お知らせ</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/event">イベント</a></li>
-                    <li class="c-nav-global__list-item"><a class="c-nav-global__link" href="/inquiry#inquiry">お問い合わせ</a></li>
-                </ul>
-            </nav>
-            <div class="c-header-utility"><a class="c-header-utility__button-link" href="/corporate"><span class="c-header-utility__button-text">企業情報<span class='c-header-utility__button-text-sp'>ページ</span></span></a><a class="c-header-utility__button-link c-header-utility__button-link--bg-white" href="/en"><span class="c-header-utility__button-text">English</span></a>
-                <div class="c-header-font">
-                    <p class="c-header-font__text">文字</p>
-                    <ul class="c-header-font__list">
-                        <li class="c-header-font__list-item"><span class="c-header-font__link" data-font="normal">あ</span></li>
-                        <li class="c-header-font__list-item"><span class="c-header-font__link c-header-font__link--large" data-font="large">あ</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="c-header-search">
-            <div class="c-header-search__in">
-                <form action="/search" method="GET">
-                    <input class="c-header-search__input js-search-autocomplete" type="text" name="word" placeholder="検索" value="" autocomplete="off"/>
-                    <input type="hidden" type="text" name="referer" value="general"/>
-                    <ul class="c-header-search__autocomplete">
-                    </ul>
-                    <button class="c-header-search__button"></button>
-                </form>
-            </div>
-        </div>
-    </div>
+<header class="g-header" id="g-header">
+    <div class="g-header__inner">
+      <div class="g-header__logo-wrap">
+        <button class="g-header__menu modal-button" id="modal-button"><span class="modal-button__border"></span><span class="modal-button__border"></span><span class="modal-button__border"></span></button>
+        <div class="g-header__logo"><a href="/"><img class="g-header__logo-img g-header__logo-img--pc" src="/assets/images/logo.png" alt="大阪芸術大学 OSAKA UNIVERSITY OF ARTS"><img class="g-header__logo-img g-header__logo-img--sp" src="/assets/images/logo_black.png" alt="大阪芸術大学 OSAKA UNIVERSITY OF ARTS"></a></div>
+      </div>
+      <div class="g-header__nav-area">
+        <nav class="g-header__links">
+          <ul class="g-header__links-list">
+            <li class="g-header__links-item g-header__links-item--large"><a href="/geidai/entrance/index.html">受験生の方</a></li>
+            <li class="g-header__links-item g-header__links-item--large"><a href="/geidai/student/index.html">在学生の方</a></li>
+            <li class="g-header__links-item g-header__links-item--large"><a href="/geidai/parent/index.html">保護者の方</a></li>
+            <li class="g-header__links-item"><a href="/geidai/graduate/index.html">卒業生の方</a></li>
+            <li class="g-header__links-item"><a href="/geidai/general/index.html">企業・研究/教育機関の方</a></li>
+            <li class="g-header__links-item"><a href="https://webmail.osaka-geidai.ac.jp/am_bin/amlogin">メールログイン</a></li>
+            <li class="g-header__links-item"><a href="https://u1.osaka-geidai.ac.jp/daiup/faces/login/Com00501A.jsp">大阪芸大UNIPA</a></li>
+            <li class="g-header__links-item"><a href="/geidai/site/teacher.html">教員専用</a></li>
+            <li class="g-header__links-item"><a href="/geidai/english/index.html">English</a></li>
+          </ul>
+        </nav>
+        <!--.g-header__documenta(href="/geidai/request/index.html") 資料請求
+        -->
+      </div>
     </div>
 </header>
-@endsection

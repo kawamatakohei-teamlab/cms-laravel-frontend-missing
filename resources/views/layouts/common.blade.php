@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-@yield('head')
-</head>
-<body id="{{ $body_id }}"{{$body_class}}>
-@yield('header')
-<main class="c-main">
-@yield('main_top')
-@yield('search_store')
-@yield('dynamic_item')
-@yield('notice_list')
-@yield('event_list')
-</main>
-</body>
-@yield('footer')
-@yield('javascript')
+  <head>
+    @include('parts.head')
+    @include('parts.head_javascript')
+  </head>
+  <body class="base-page">
+    @yield('header_javascript')
+    @include('parts.header')
+    @include('parts.breadcrumb')
+
+    <div class="layout-base">
+      @yield('main')
+    </div>
+
+    @include('parts.footer')
+    @include('parts.modal')
+    @include('parts.footer_javascript')
+    </body>
 </html>
