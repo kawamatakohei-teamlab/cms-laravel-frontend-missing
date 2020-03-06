@@ -6,6 +6,18 @@ class Article extends DaisyModelBase
 {
     protected $table = 'view_articles';
 
+    /**
+     * 日付を変形する属性
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'publish_at',
+        'expire_at'
+    ];
+
     public static function getArticleByID($id): ?Article
     {
         $article_item = Article::where('article_id', $id)->first();

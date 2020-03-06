@@ -21,7 +21,7 @@
                         </div>
                         @foreach ($infoCategories as $infoCategory)
                             <div class="li filter-list__item">
-                                <input class="filter-list__input" id="category_{{ $infoCategory->id}}" type="radio" name="category" value="{{ $infoCategory->slug }}">
+                                <input class="filter-list__input" id="category_{{ $infoCategory->id }}" type="radio" name="category" value="{{ $infoCategory->slug }}">
                                 <label class="filter-list__label" for="category1">{{ $infoCategory->name }}</label>
                             </div>
                         @endforeach
@@ -30,149 +30,39 @@
             </div>
 
             <ul class="information-list">
-                <li class="information-list__item" data-category="[&quot;入試&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">入試</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;お知らせ&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">カテゴリーカテゴリーカテゴリー</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/100x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;アート・展覧会&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">アート・展覧会</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/20x20.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;演奏会・音楽会&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">演奏会・音楽会</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/500x500.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;映像・映画・舞台&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">映像・映画・舞台</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;出版&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">出版</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;講演会・セミナー&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">講演会・セミナー</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;受賞&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">受賞</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;芸能活動（教員）&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">芸能活動（教員）</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;芸能活動（学生・卒業生）&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">芸能活動（学生・卒業生）</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;研究・産学連携&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">研究・産学連携</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;国際交流&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">国際交流</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
-                <li class="information-list__item" data-category="[&quot;学内向け&quot;]"><a class="information-list__wrap" href="">
-                    <div class="information-list__detail">
-                        <div class="information-list__date-block">
-                        <div class="information-list__category">
-                            <div class="information-list__category-text">学内向け</div>
-                        </div>
-                        <div class="information-list__date">2018.01.18</div>
-                        </div>
-                        <div class="information-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                    </div>
-                    <div class="information-list__image"><img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt=""></div></a></li>
+                @foreach ($infoArticles as $infoArticle)
+                    <?php
+                        // HACK: json_decodeした際のデータがおかしいので、保存時の処理を確かめる。
+                        $content = json_decode($infoArticle->contents);
+                        $infoCategory = $infoCategories->first(function ($infoCategory) use ($content){
+                            // var_dump(json_decode($content->notice_type)[0]);
+                            return $infoCategory->id == 40;//$content['notice_type'];
+                        });
+                    ?>
+
+                    <li class="information-list__item" data-category="[&quot;入試&quot;]">
+                        <a class="information-list__wrap" href="">
+                            <div class="information-list__detail">
+                                <div class="information-list__date-block">
+                                    <div class="information-list__category">
+                                        <div class="information-list__category-text">
+                                            {{ $infoCategory ? $infoCategory->name : 'ALL' }}
+                                        </div>
+                                    </div>
+                                    <div class="information-list__date">
+                                        {{ $infoArticle->publish_at->format('Y.m.d') }}
+                                    </div>
+                                </div>
+                                <div class="information-list__title">
+                                    <span>{{ $infoArticle->title }}</span>
+                                </div>
+                            </div>
+                            <div class="information-list__image">
+                                <img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt="">
+                            </div>
+                        </a>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="pagination">
