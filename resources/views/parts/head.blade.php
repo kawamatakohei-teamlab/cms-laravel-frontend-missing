@@ -13,7 +13,10 @@
     <link rel="shortcut icon"  href="/favicon48px.ico?date=20190725" sizes="48x48">
     <link rel="shortcut icon"  href="/favicon64px.ico?date=20190725" sizes="64x64">
     <link rel="shortcut icon"  href="/favicon128px.ico?date=20190725" sizes="128x128">
-    <link rel="stylesheet" href="/assets/styles/style.css?date=20190725">
+
+
+    <!-- --->
+    <link rel="stylesheet" href="{{cssUrl('style.css')}}">
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

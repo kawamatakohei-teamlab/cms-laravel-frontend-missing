@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\CmsCore\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models;
+use App\CmsCore\Models;
 
 class AssetsController extends Controller
 {

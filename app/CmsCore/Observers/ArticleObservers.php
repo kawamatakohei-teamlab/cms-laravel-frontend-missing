@@ -1,11 +1,10 @@
 <?php
 
 
-namespace App\Observers;
+namespace App\CmsCore\Observers;
 
 
-use App\Models\Article;
-use Illuminate\Support\Facades\Log;
+use App\CmsCore\Models\Article;
 
 class ArticleObservers
 {

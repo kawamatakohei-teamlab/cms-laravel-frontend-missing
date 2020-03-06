@@ -4,8 +4,8 @@
 namespace App\Http\Controllers\Nicho;
 
 
-use App\Models\Article;
-use App\Models\Category;
+use App\CmsCore\Models\Article;
+use App\CmsCore\Models\Category;
 
 class Utils
 {

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\CmsCore\Models;
 
-use App\Events\ArticleQueried;
 
 class Article extends DaisyModelBase
 {

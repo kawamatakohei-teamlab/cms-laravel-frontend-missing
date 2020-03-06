@@ -1,6 +1,6 @@
 <?php
-$GLOBALS["REQUEST_START_TIME"] = round(microtime(true) * 1000);
-$GLOBALS["REQUEST_UNIQUE_ID"]= uniqid("PHP_RUID_");
+# CMS coreのLog機能に必要なグローバル変数を初期化（このファイルを一番最初に呼び出す必要がある）
+require __DIR__.'/../app/CmsCore/Logging/logGlobalVarInit.php';
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
