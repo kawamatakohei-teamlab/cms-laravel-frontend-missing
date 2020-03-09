@@ -15,15 +15,15 @@
                 <div class="filter-list__title">すべてのカテゴリ</div>
                 <div class="filter-list__wrap">
                     <ul class="filter-list__list js-filter-information-list">
-                        <div class="li filter-list__item">
+                        <li class="filter-list__item" style="width: 200px;">
                             <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
                             <label class="filter-list__label" for="category0">ALL</label>
-                        </div>
+                        </li>
                         @foreach ($infoCategories as $infoCategory)
-                            <div class="li filter-list__item">
+                            <li class="filter-list__item">
                                 <input class="filter-list__input" id="category_{{ $infoCategory->id }}" type="radio" name="category" value="{{ $infoCategory->slug }}">
                                 <label class="filter-list__label" for="category1">{{ $infoCategory->name }}</label>
-                            </div>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -35,18 +35,18 @@
                         // HACK: json_decodeした際のデータがおかしいので、保存時の処理を確かめる。
                         $content = json_decode($infoArticle->contents);
                         $infoCategory = $infoCategories->first(function ($infoCategory) use ($content){
-                            // var_dump(json_decode($content->notice_type)[0]);
-                            return $infoCategory->id == 40;//$content['notice_type'];
+                            return $infoCategory->id == $content->notice_type[0];
                         });
+                        $info_category_name = $infoCategory ? $infoCategory->name : 'ALL';
                     ?>
 
-                    <li class="information-list__item" data-category="[&quot;入試&quot;]">
-                        <a class="information-list__wrap" href="">
+                    <li class="information-list__item" data-category="[&quot;{{ $info_category_name }}&quot;]">
+                        <a class="information-list__wrap" href="{{ route('info_show', ['key' => $infoArticle->permalink]) }}">
                             <div class="information-list__detail">
                                 <div class="information-list__date-block">
                                     <div class="information-list__category">
                                         <div class="information-list__category-text">
-                                            {{ $infoCategory ? $infoCategory->name : 'ALL' }}
+                                            {{ $info_category_name }}
                                         </div>
                                     </div>
                                     <div class="information-list__date">
@@ -65,19 +65,9 @@
                 @endforeach
             </ul>
 
-            <div class="pagination">
-                <button class="pagination__arrow pagination__arrow--prev" type="button"><span></span></button>
-                <button class="pagination__item pagination__item--first" type="button">1</button>
-                <div class="pagination__omit"><span></span></div>
-                <button class="pagination__item" type="button">3</button>
-                <button class="pagination__item" type="button">4</button>
-                <div class="pagination__item pagination__item--current">5</div>
-                <button class="pagination__item" type="button">6</button>
-                <button class="pagination__item" type="button">7</button>
-                <div class="pagination__omit"><span></span></div>
-                <button class="pagination__item pagination__item--last" type="button">18</button>
-                <button class="pagination__arrow pagination__arrow--next" type="button"><span></span></button>
-            </div>
+            {{-- paginate --}}
+            {!! $infoArticles->links('pagination.default') !!}
+            {{-- / paginate --}}
         </div>
     </div>
 </main>

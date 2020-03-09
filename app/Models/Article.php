@@ -26,7 +26,7 @@ class Article extends DaisyModelBase
 
     public static function getArticlesByArticleType($type)
     {
-        $article_items = Article::where('article_type', $type);
+        $article_items = Article::where('article_type', $type)->publishing();
         return $article_items;
     }
 
@@ -58,4 +58,11 @@ class Article extends DaisyModelBase
         }
     }
 
+    // ローカルスコープ
+
+    // TODO: 記事を表示する条件をグローバルスコープに置き換えたほうが良いか検討する
+    public function scopePublishing($query)
+    {
+        return $query->where('status', '=', 'publishing');
+    }
 }
