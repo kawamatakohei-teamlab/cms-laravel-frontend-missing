@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Articles;
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\File;
 
 class WhatsNewController extends ArticleController
 {
@@ -26,8 +27,37 @@ class WhatsNewController extends ArticleController
         $infoCategories = Category::getCategoriesBySlug(self::$INFO_PARENT_CATEGORY_SLUG);
         $infoArticle = Article::findPublishArticleByPermalink($key);
 
+        $files = $this->getFilesByInfoArticle($infoArticle);
+
         return view('pages/articles/whats_new/show', compact(
-            'infoCategories', 'infoArticle',
+            'infoCategories', 'infoArticle', 'files'
         ));
+    }
+
+    /**
+     * Aticleに紐づく動的コンテンツ要素が必要とする静的ファイルをすべて取得する
+     *
+     * @param Article $infoArticle
+     * @return Collection
+     */
+    private function getFilesByInfoArticle($infoArticle)
+    {
+        $useUploadFileContentsKeys = [
+            'notice_image',
+            'notice_pdf'
+        ];
+
+        $contents = json_decode($infoArticle->contents);
+
+        $idList = [];
+        foreach ($contents->dynamic as $dynamic) {
+            foreach ($useUploadFileContentsKeys as $key) {
+                if(property_exists($dynamic, $key)){
+                    $idList[] = $dynamic->$key;
+                }
+            }
+        }
+
+        return File::whereInByIdList($idList)->get();
     }
 }

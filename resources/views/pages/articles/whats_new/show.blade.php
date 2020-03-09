@@ -28,6 +28,7 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
         </div>
 
         <?php
+        // TODO: ここは別の箇所で定数として固めるべきかもしれない。考えておく。
         $dynamicTypeKeys = [
             'single_body',
             'single_body_background_on', // HACK: backend側で未実装？ 要確認
@@ -40,7 +41,10 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
         @foreach ($contents->dynamic as $dynamic)
             @foreach ($dynamicTypeKeys as $dynamicTypeKey)
                 @if (property_exists($dynamic, $dynamicTypeKey ))
-                    @includeIf('parts.dynamic.' . $dynamicTypeKey, ['dynamicContents' => $dynamic])
+                    @includeIf('parts.dynamic.' . $dynamicTypeKey, [
+                        'dynamicContents' => $dynamic,
+                        'files' => $files
+                    ])
                 @endif
             @endforeach
         @endforeach
