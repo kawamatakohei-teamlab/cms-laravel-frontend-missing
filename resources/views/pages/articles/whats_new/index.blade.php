@@ -32,21 +32,20 @@
             <ul class="information-list">
                 @foreach ($infoArticles as $infoArticle)
                     <?php
-                        // HACK: json_decodeした際のデータがおかしいので、保存時の処理を確かめる。
-                        $content = json_decode($infoArticle->contents);
-                        $infoCategory = $infoCategories->first(function ($infoCategory) use ($content){
-                            return $infoCategory->id == $content->notice_type[0];
+                        $contents = json_decode($infoArticle->contents);
+                        $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
+                            return $infoCategory->id == $contents->notice_type[0];
                         });
-                        $info_category_name = $infoCategory ? $infoCategory->name : 'ALL';
+                        $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
                     ?>
 
-                    <li class="information-list__item" data-category="[&quot;{{ $info_category_name }}&quot;]">
+                    <li class="information-list__item" data-category="[&quot;{{ $infoCategoryName }}&quot;]">
                         <a class="information-list__wrap" href="{{ route('whats_new_show', ['key' => $infoArticle->permalink]) }}">
                             <div class="information-list__detail">
                                 <div class="information-list__date-block">
                                     <div class="information-list__category">
                                         <div class="information-list__category-text">
-                                            {{ $info_category_name }}
+                                            {{ $infoCategoryName }}
                                         </div>
                                     </div>
                                     <div class="information-list__date">

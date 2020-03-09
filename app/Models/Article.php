@@ -48,6 +48,11 @@ class Article extends DaisyModelBase
         return $article_items;
     }
 
+    public static function findPublishArticleByPermalink($permalink)
+    {
+        return Article::where('permalink', $permalink)->publishing()->first();
+    }
+
     public static function getArticlesByContentJsonValue($article_type, $json_key, $json_value, $limit = null)
     {
         $qb = Article::where('article_type', $article_type)->whereJsonContains("contents->$json_key", $json_value)->orderBy('publish_at','desc');

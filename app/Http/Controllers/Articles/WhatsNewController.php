@@ -23,7 +23,11 @@ class WhatsNewController extends ArticleController
 
     public function show($key)
     {
+        $infoCategories = Category::getCategoriesBySlug(self::$INFO_PARENT_CATEGORY_SLUG);
+        $infoArticle = Article::findPublishArticleByPermalink($key);
 
-        return view('pages/articles/whats_new/show', []);
+        return view('pages/articles/whats_new/show', compact(
+            'infoCategories', 'infoArticle',
+        ));
     }
 }
