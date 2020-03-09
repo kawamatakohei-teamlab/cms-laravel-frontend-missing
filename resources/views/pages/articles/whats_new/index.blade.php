@@ -15,7 +15,7 @@
                 <div class="filter-list__title">すべてのカテゴリ</div>
                 <div class="filter-list__wrap">
                     <ul class="filter-list__list js-filter-information-list">
-                        <li class="filter-list__item" style="width: 200px;">
+                        <li class="filter-list__item">
                             <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
                             <label class="filter-list__label" for="category0">ALL</label>
                         </li>
@@ -41,7 +41,7 @@
                     ?>
 
                     <li class="information-list__item" data-category="[&quot;{{ $info_category_name }}&quot;]">
-                        <a class="information-list__wrap" href="{{ route('info_show', ['key' => $infoArticle->permalink]) }}">
+                        <a class="information-list__wrap" href="{{ route('whats_new_show', ['key' => $infoArticle->permalink]) }}">
                             <div class="information-list__detail">
                                 <div class="information-list__date-block">
                                     <div class="information-list__category">

@@ -6,7 +6,7 @@ use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 use App\Models\Category;
 
-class InfoController extends ArticleController
+class WhatsNewController extends ArticleController
 {
     static $INFO_PARENT_CATEGORY_SLUG = 'info_category';
     static $INFO_ARTICLE_TYPE         = 'info';
@@ -16,7 +16,7 @@ class InfoController extends ArticleController
         $infoCategories = Category::getCategoriesBySlug(self::$INFO_PARENT_CATEGORY_SLUG);
         $infoArticles   = Article::getArticlesByArticleType(self::$INFO_ARTICLE_TYPE)->paginate(10);
 
-        return view('pages/articles/info/index', compact(
+        return view('pages/articles/whats_new/index', compact(
             'infoCategories', 'infoArticles'
         ));
     }
@@ -24,6 +24,6 @@ class InfoController extends ArticleController
     public function show($key)
     {
 
-        return view('pages/articles/info/show', []);
+        return view('pages/articles/whats_new/show', []);
     }
 }
