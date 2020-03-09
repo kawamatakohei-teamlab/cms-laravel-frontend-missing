@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\CmsCore\Models;
 
 class Stylesheet extends DaisyModelBase
 {

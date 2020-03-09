@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Nicho;
 
-use App\Models\Article;
-use App\Models\Category;
-use App\Models\DaisySearch;
+use App\CmsCore\Models\Article;
+use App\CmsCore\Models\Category;
+use App\CmsCore\Models\DaisySearch;
 use Illuminate\Http\Request;
 
 class GeneralIndexController extends \App\Http\Controllers\Controller
@@ -36,7 +36,7 @@ class GeneralIndexController extends \App\Http\Controllers\Controller
             $notices[$index]["permalink"] = $notice->permalink;
             $notices[$index]["publish_at"] = $publish_at;
         }
-        
+
         $datas = [
             'body_id' => 'topGeneral',
             'body_class' => '',

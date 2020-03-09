@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Article;
-use App\Observers\ArticleObservers;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Article::observe(ArticleObservers::class);
+        # [CmsCore部分] ここでCmsを初期化する。内容はArticleモデルの設定、Bladeテンプレートの拡張関数設定など
+        \App\CmsCore\Init::init();
     }
 }

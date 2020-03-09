@@ -44,6 +44,7 @@ return [
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
+            'formatter' =>  \App\CmsCore\Logging\CustomLogFormatter::class,
             'level' => 'debug',
         ],
 
@@ -52,6 +53,7 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
             'days' => 14,
+            'formatter' =>  \App\CmsCore\Logging\CustomLogFormatter::class,
         ],
 
         'slack' => [
@@ -75,7 +77,7 @@ return [
         'stderr' => [
             'driver' => 'monolog',
             'handler' => StreamHandler::class,
-            'formatter' =>  \App\Logging\CustomLogFormatter::class,
+            'formatter' => \App\CmsCore\Logging\CustomLogFormatter::class,
             'with' => [
                 'stream' => 'php://stderr',
             ],
@@ -84,7 +86,7 @@ return [
         'stdout' => [
             'driver' => 'monolog',
             'handler' => StreamHandler::class,
-            'formatter' =>  \App\Logging\CustomLogFormatter::class,
+            'formatter' => \App\CmsCore\Logging\CustomLogFormatter::class,
             'with' => [
                 'stream' => 'php://stdout',
             ],

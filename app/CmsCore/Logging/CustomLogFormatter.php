@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Logging;
+namespace App\CmsCore\Logging;
 
 
 use Monolog\Formatter\FormatterInterface;
@@ -18,7 +18,7 @@ class CustomLogFormatter implements FormatterInterface
         } else {
             $context = json_encode($context);
         }
-        # $GLOBALS["REQUEST_START_TIME"]が存在しないならつまりcliからのLog
+        # $GLOBALS["REQUEST_START_TIME"]が存在しないならつまり index.php が呼び出されていない、cliからのLog
         if (!isset($GLOBALS["REQUEST_START_TIME"]) || !isset( $GLOBALS["REQUEST_UNIQUE_ID"])) {
             return "$date_time [${record['level_name']}] ${record['message']} $context\n";
         }
