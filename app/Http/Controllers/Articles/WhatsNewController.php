@@ -20,6 +20,7 @@ class WhatsNewController extends ArticleController
         return view('pages/articles/whats_new/index', compact(
             'infoCategories', 'infoArticles'
         ));
+        return view('pages/articles/info/index', compact('infoCategories'));
     }
 
     public function show($key)
