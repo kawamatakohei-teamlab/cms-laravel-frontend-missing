@@ -41,7 +41,7 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
         @foreach ($contents->dynamic as $dynamic)
             @foreach ($dynamicTypeKeys as $dynamicTypeKey)
                 @if (property_exists($dynamic, $dynamicTypeKey ))
-                    @includeIf('parts.dynamic.' . $dynamicTypeKey, [
+                    @includeIf('parts.dynamic.whats_new.' . $dynamicTypeKey, [
                         'dynamicContents' => $dynamic,
                         'files' => $files
                     ])
