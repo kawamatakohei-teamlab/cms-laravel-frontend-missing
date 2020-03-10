@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\CmsCore\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use League\Flysystem\FileNotFoundException;
 

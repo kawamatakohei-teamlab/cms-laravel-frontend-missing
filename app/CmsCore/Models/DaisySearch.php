@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\CmsCore\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class DaisySearch extends Model
+class DaisySearch extends DaisyModelBase
 {
     protected $table = 'search_view_article';
 
@@ -23,7 +22,7 @@ class DaisySearch extends Model
 
     public function article()
     {
-        return $this->hasMany('App\Models\Article','id','id');
+        return $this->hasMany('App\CmsCore\Models\Article','id','id');
     }
 
 
