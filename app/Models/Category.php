@@ -11,6 +11,8 @@ class Category extends Model
     const POSITION_PARENT_CATEGORY_SLUG = 'position';
     const DEPARTMENT_PARENT_CATEGORY_SLUG = 'department';
 
+    const INFO_PARENT_CATEGORY_SLUG = 'info_category';
+
     public static function getCategoriesById($id)
     {
         $category_item = Category::where('id', $id)->first();

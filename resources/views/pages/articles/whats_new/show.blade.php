@@ -2,21 +2,13 @@
 
 @section('main')
 
-<?php
-$contents = json_decode($infoArticle->contents);
-$infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
-    return $infoCategory->id == $contents->notice_type[0];
-});
-$infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
-?>
-
 <div class="layout-base__inner layout-base__inner--column">
     <main class="layout-base__main">
         <div class="js-scroll animation-slide-in-bottom">
             <div class="info-header">
                 <div class="info-header__heading">Information</div>
                 <div class="info-header__category">
-                    <span class="info-header__category-text">{{$infoCategoryName}}</span>
+                    <span class="info-header__category-text">{{ $infoCategory ? $infoCategory->name : 'ALL' }}</span>
                 </div>
                 <h1 class="info-header__title">
                     {{ $infoArticle->title }}
@@ -28,10 +20,11 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
         </div>
 
         <?php
+        $contents = json_decode($infoArticle->contents);
         // TODO: ここは別の箇所で定数として固めるべきかもしれない。考えておく。
         $dynamicTypeKeys = [
             'single_body',
-            'single_body_background_on', // HACK: backend側で未実装？ 要確認
+            'single_body_background_on',
             'notice_image',
             'notice_youtube',
             'notice_pdf'
@@ -91,40 +84,39 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
     </main>
 
 
-
-
-
     {{-- Sidebar --}}
     <aside class="layout-base__side">
         <div class="js-scroll animation-slide-in-bottom">
             <div class="side-list">
                 <div class="side-list__title">
-                    <strong>芸術活動 教員</strong>の新着
+                    <strong>{{ $infoCategory ? $infoCategory->name : 'お知らせ' }}</strong>の新着
                 </div>
                 <div class="side-list__list">
                     <ul class="side-link-list">
-                        <li class="side-link-list__item"><a class="side-link-list__wrap" href="">
-                            <div class="side-link-list__title"><span>Both Sides,Now 中西學・菅原一剛展</span></div>
-                            <div class="side-link-list__image"><img class="side-link-list__image-img" src="http://placehold.jp/30x30.png" alt=""></div></a>
-                        </li>
-                        <li class="side-link-list__item"><a class="side-link-list__wrap" href="">
-                            <div class="side-link-list__title"><span>林康夫 陶展 ～五条坂より～</span></div>
-                            <div class="side-link-list__image"><img class="side-link-list__image-img" src="http://placehold.jp/200x100.png" alt=""></div></a>
-                        </li>
-                        <li class="side-link-list__item"><a class="side-link-list__wrap" href="">
-                            <div class="side-link-list__title"><span>田嶋悦子　花咲きぬ</span></div>
-                            <div class="side-link-list__image"><img class="side-link-list__image-img" src="http://placehold.jp/100x200.png" alt=""></div></a>
-                        </li>
-                        <li class="side-link-list__item"><a class="side-link-list__wrap" href="">
-                            <div class="side-link-list__title"><span>堀内充 BALLET COLLECTION 2019</span></div>
-                            <div class="side-link-list__image"><img class="side-link-list__image-img" src="http://placehold.jp/60x60.png" alt=""></div></a>
-                        </li>
+                        @foreach ($sameInfoCategoryArticles as $infoArticle)
+                            <li class="side-link-list__item">
+                                <a class="side-link-list__wrap" href="{{ route('whats_new_show', ['key' => $infoArticle->permalink]) }}">
+                                    <div class="side-link-list__title">
+                                        <span>{{ $infoArticle->title }}</span>
+                                    </div>
+                                    <div class="side-link-list__image">
+                                        <img class="side-link-list__image-img" src="http://placehold.jp/30x30.png" alt="">
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="side-list__link">
                     <!-- mixinを定義-->
                     <div class="link-more">
-                        <a class="link-more__link" href="">一覧を見る</a>
+                        <?php
+                            $infoIndexUrl = route('whats_new_index');
+                            if($infoCategory){
+                                $infoIndexUrl = route('whats_new_index', ['category' => $infoCategory->slug]);
+                            }
+                        ?>
+                        <a class="link-more__link" href="{{ $infoIndexUrl }}">一覧を見る</a>
                     </div>
                 </div>
             </div>

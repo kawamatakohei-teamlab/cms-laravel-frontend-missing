@@ -6,16 +6,14 @@ use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 use App\Models\Category;
 use App\CmsCore\Models\File;
+use App\Models\SearchArticle\SearchInfoArticle;
 
 class WhatsNewController extends ArticleController
 {
-    static $INFO_PARENT_CATEGORY_SLUG = 'info_category';
-    static $INFO_ARTICLE_TYPE         = 'info';
-
     public function index()
     {
-        $infoCategories = Category::getCategoriesBySlug(self::$INFO_PARENT_CATEGORY_SLUG);
-        $infoArticles   = Article::getArticlesByArticleType(self::$INFO_ARTICLE_TYPE)->paginate(10);
+        $infoCategories = Category::getCategoriesBySlug(Category::INFO_PARENT_CATEGORY_SLUG);
+        $infoArticles   = Article::getArticlesByArticleType(SearchInfoArticle::INFO_ARTICLE_TYPE)->paginate(10);
 
         return view('pages/articles/whats_new/index', compact(
             'infoCategories', 'infoArticles'
@@ -25,13 +23,24 @@ class WhatsNewController extends ArticleController
 
     public function show($key)
     {
-        $infoCategories = Category::getCategoriesBySlug(self::$INFO_PARENT_CATEGORY_SLUG);
-        $infoArticle = Article::findPublishArticleByPermalink($key);
+        $infoArticle = Article::findPublishedByPermalinkWithArticleType($key, SearchInfoArticle::INFO_ARTICLE_TYPE);
+        if (is_null($infoArticle)) abort(404,"[ArticleController] info article slug: $key not exists in DB.");
 
+        $contents = json_decode($infoArticle->contents);
+        $infoCategories = Category::getCategoriesBySlug(Category::INFO_PARENT_CATEGORY_SLUG);
+        $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
+            return $infoCategory->id == $contents->notice_type[0];
+        });
+        // 対象記事のcontentsに紐づくすべてのファイル
         $files = $this->getFilesByInfoArticle($infoArticle);
 
+        // 対象記事と同一notice_typeの記事を取得
+        $sameInfoCategoryArticles = SearchInfoArticle::getSameNoticeTypeArticleQuery($infoCategory ? $infoCategory->id : null)
+            ->limit(4)
+            ->get();
+
         return view('pages/articles/whats_new/show', compact(
-            'infoCategories', 'infoArticle', 'files'
+            'infoCategory', 'infoArticle', 'files', 'sameInfoCategoryArticles'
         ));
     }
 

@@ -51,9 +51,12 @@ class Article extends Model
         return $article_items;
     }
 
-    public static function findPublishArticleByPermalink($permalink)
+    public static function findPublishedByPermalinkWithArticleType($permalink, $article_type)
     {
-        return Article::where('permalink', $permalink)->publishing()->first();
+        return Article::where('permalink', $permalink)
+            ->where('article_type', $article_type)
+            ->publishing()
+            ->first();
     }
 
     public static function getArticlesByContentJsonValue($article_type, $json_key, $json_value, $limit = null)
