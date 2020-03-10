@@ -51,17 +51,41 @@ $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
 
         <div class="js-scroll animation-slide-in-bottom">
             <div class="page-navi">
-                <div class="page-navi__inner"><a class="page-navi__block" href="">
-                    <div class="page-navi__text">
-                        <div class="page-navi__name">前の記事</div>
-                        <div class="page-navi__title"><span>タイトルタイトル</span></div>
-                    </div>
-                    <div class="page-navi__image"><img class="page-navi__image-img" src="http://placehold.jp/100x200.png" alt=""></div></a><a class="page-navi__block" href="">
-                    <div class="page-navi__text">
-                        <div class="page-navi__name">次の記事</div>
-                        <div class="page-navi__title"><span>タイトルタイトルタイトルタイトル</span></div>
-                    </div>
-                <div class="page-navi__image"><img class="page-navi__image-img" src="http://placehold.jp/50x50.png" alt=""></div></a></div>
+                <div class="page-navi__inner">
+                    <?php
+                    $infoPreviousArticle = $infoArticle->previous();
+                    ?>
+                    @if ($infoPreviousArticle)
+                        <a class="page-navi__block" href="{{ route('whats_new_show', ['key' => $infoPreviousArticle->permalink]) }}">
+                            <div class="page-navi__text">
+                                <div class="page-navi__name">前の記事</div>
+                                <div class="page-navi__title">
+                                    <span>{{$infoPreviousArticle->title}}</span>
+                                </div>
+                            </div>
+                            <div class="page-navi__image">
+                                <img class="page-navi__image-img" src="http://placehold.jp/100x200.png" alt="">
+                            </div>
+                        </a>
+                    @endif
+
+                    <?php
+                    $infoNextArticle = $infoArticle->next();
+                    ?>
+                    @if ($infoNextArticle)
+                        <a class="page-navi__block" href="{{ route('whats_new_show', ['key' => $infoNextArticle->permalink]) }}">
+                            <div class="page-navi__text">
+                                <div class="page-navi__name">次の記事</div>
+                                <div class="page-navi__title">
+                                    <span>{{ $infoNextArticle->title }}</span>
+                                </div>
+                            </div>
+                            <div class="page-navi__image">
+                                <img class="page-navi__image-img" src="http://placehold.jp/50x50.png" alt="">
+                            </div>
+                        </a>
+                    @endif
+                </div>
             </div>
         </div>
     </main>

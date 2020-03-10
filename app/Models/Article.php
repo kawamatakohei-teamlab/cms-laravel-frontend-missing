@@ -29,7 +29,7 @@ class Article extends Model
 
     public static function getArticlesByArticleType($type)
     {
-        $article_items = Article::where('article_type', $type)->publishing();
+        $article_items = Article::where('article_type', $type)->publishing()->normalOrder();
         return $article_items;
     }
 
@@ -66,11 +66,78 @@ class Article extends Model
         }
     }
 
+    /**
+     * 同一article_typeで、前に公開された記事。
+     *
+     * @return Article|null
+     */
+    public function previous()
+    {
+        // 同一公開日のデータが有った場合、対象の記事id以前のid記事を取得する。
+        $samePublishAtArticles = Article::where('article_type', $this->article_type)
+            ->publishing()
+            ->where('publish_at', '=', $this->publish_at)
+            ->where('id', '<', $this->id);
+
+        if($samePublishAtArticles->count()) {
+            return $samePublishAtArticles
+                ->normalOrder()
+                ->first();
+        }
+
+        // 同一公開日がない場合、対象記事より公開時期が早い記事を取得する
+        return Article::where('article_type', $this->article_type)
+            ->where('publish_at', '<', $this->publish_at)
+            ->normalOrder()
+            ->first();
+    }
+
+    /**
+     * 同一article_typeで、次に公開された記事。
+     *
+     * @return Article|null
+     */
+    public function next()
+    {
+        // 同一公開日のデータが有った場合、対象の記事id以降のid記事を取得する。
+        $samePublishAtArticles = Article::where('article_type', $this->article_type)->publishing()
+            ->where('publish_at', '=', $this->publish_at)
+            ->where('id', '>', $this->id);
+
+        if($samePublishAtArticles->count()) {
+            return $samePublishAtArticles
+                ->reverseOrder()
+                ->first();
+        }
+
+        // 同一公開日がない場合、対象記事より公開時期が遅い記事を取得する
+        return Article::where('article_type', $this->article_type)
+            ->publishing()
+            ->where('publish_at', '>', $this->publish_at)
+            ->reverseOrder()
+            ->first();
+    }
+
+
     // ローカルスコープ
 
     // TODO: 記事を表示する条件をグローバルスコープに置き換えたほうが良いか検討する
+    // 公開中の記事を取得
     public function scopePublishing($query)
     {
         return $query->where('status', '=', 'publishing');
+    }
+
+    // 公開順かつ、ID順にソートする
+    public function scopeNormalOrder($query)
+    {
+        return $query->orderBy('publish_at', 'desc')
+            ->orderBy('id', 'desc');
+    }
+    // 公開順、ID順を逆順にソートする
+    public function scopeReverseOrder($query)
+    {
+        return $query->orderBy('publish_at', 'asc')
+            ->orderBy('id', 'asc');
     }
 }
