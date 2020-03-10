@@ -16,3 +16,6 @@ Route::get('/', 'Nicho\GeneralIndexController@index' )->name('general_index');
 // お知らせ
 Route::get('/whatsnew/{key}', 'Articles\WhatsNewController@show')->name('whats_new_show');
 Route::get('/whatsnew',       'Articles\WhatsNewController@index')->name('whats_new_index');
+
+// 
+Route::get('/teachers', 'Articles\TeacherController@index')->name('teacher_index');
