@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Articles;
 use App\Http\Controllers\ArticleController;
 use App\Models\Article;
 use App\Models\Category;
-use App\Models\File;
+use App\CmsCore\Models\File;
 
 class WhatsNewController extends ArticleController
 {

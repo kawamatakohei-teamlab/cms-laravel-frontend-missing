@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-class Article extends DaisyModelBase
+use Illuminate\Database\Eloquent\Model;
+class Article extends Model
 {
     protected $table = 'view_articles';
 

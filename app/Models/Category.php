@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 
-class Category extends DaisyModelBase
+class Category extends Model
 {
     protected $table = 'categories';
 

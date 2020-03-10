@@ -8,7 +8,7 @@
     ?>
 
     <div class="js-scroll animation-slide-in-bottom">
-        <a class="download" href="{{ route('assets.files', ['name' => $fileName]) }}">
+        <a class="download" href="{{ fileUrl($fileName) }}">
             <div class="download__icon">
                 {{-- HACK: pdfのアイコンに差し替える --}}
                 <img src="http://placehold.jp/27x32.png" alt="PDF">
