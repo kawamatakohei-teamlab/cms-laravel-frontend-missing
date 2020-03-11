@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $table = 'view_articles';
+    const TEACHER_ARTICLE_TYPE = 'teacher_detail';
 
     /**
      * 日付を変形する属性

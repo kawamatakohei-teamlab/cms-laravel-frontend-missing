@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Collection;
 class Category extends Model
 {
     protected $table = 'categories';
+    const POSITION_PARENT_CATEGORY_SLUG = 'position';
+    const DEPARTMENT_PARENT_CATEGORY_SLUG = 'department';
 
     public static function getCategoriesById($id)
     {
