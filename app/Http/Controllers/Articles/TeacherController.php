@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Articles;
 
 use App\Http\Controllers\ArticleController;
-use App\Models\Article;
-use App\Models\Category;
+use App\CmsCore\Models\Article;
+use App\CmsCore\Models\Category;
 
 class TeacherController extends ArticleController
 {
