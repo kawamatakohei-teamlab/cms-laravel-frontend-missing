@@ -38,7 +38,7 @@
                         </h3>
                         <div class="name-list">
                             @if ($contents->url)
-                                <div class="name-list__item" data-category="{{ $contents->department }}">
+                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $contents->department) }}&quot;]">
                                     <a class="name-list__wrap" href="{{ $contents->url }}">
                                         <div class="link-external">
                                             <span class="name-list__text">{{ $teacherArticle->title }}</span>
@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                             @else
-                                <div class="name-list__item" data-category="{{ $contents->department }}">
+                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $contents->department) }}&quot;]">
                                     <div class="name-list__wrap">
                                         <div class="name-list__text"><span>{{ $teacherArticle->title }}</span></div>
                                     </div>
