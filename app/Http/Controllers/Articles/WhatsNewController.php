@@ -18,7 +18,7 @@ class WhatsNewController extends ArticleController
         $filterCategory = self::checkFillterCategory($request, $infoCategories);
 
         if(is_null($filterCategory)){
-            $infoArticles = Article::getArticlesByArticleType(SearchInfoArticle::INFO_ARTICLE_TYPE)
+            $infoArticles = Article::getArticlesByArticleType(Article::INFO_ARTICLE_TYPE)
                 ->paginate(10);
         } else {
             $infoArticles = SearchInfoArticle::getSameNoticeTypeArticleQuery($filterCategory->id)
@@ -33,7 +33,7 @@ class WhatsNewController extends ArticleController
 
     public function show($key)
     {
-        $infoArticle = Article::findPublishedByPermalinkWithArticleType($key, SearchInfoArticle::INFO_ARTICLE_TYPE);
+        $infoArticle = Article::findPublishedByPermalinkWithArticleType($key, Article::INFO_ARTICLE_TYPE);
         if (is_null($infoArticle)) abort(404,"[ArticleController] info article slug: $key not exists in DB.");
 
         $contents = json_decode($infoArticle->contents);

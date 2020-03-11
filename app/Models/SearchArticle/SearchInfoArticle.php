@@ -3,7 +3,6 @@
 namespace App\Models\SearchArticle;
 
 use App\Models\Article;
-use App\Models\Category;
 use App\Models\SearchArticle;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -24,7 +23,7 @@ class SearchInfoArticle extends SearchArticle
             $articleIds = self::getSameNoticeTypeArticleIds($noticeTypeId);
         }
 
-        $articles = Article::getArticlesByArticleType(self::INFO_ARTICLE_TYPE);
+        $articles = Article::getArticlesByArticleType(Article::INFO_ARTICLE_TYPE);
         if($articleIds) {
             return $articles->whereIn('id', $articleIds);
         }
@@ -34,7 +33,7 @@ class SearchInfoArticle extends SearchArticle
 
     public static function getSameNoticeTypeArticleIds($noticeTypeId)
     {
-        return SearchInfoArticle::where('article_type', self::INFO_ARTICLE_TYPE)
+        return SearchInfoArticle::where('article_type', Article::INFO_ARTICLE_TYPE)
             ->where('content_key', 'notice_type')
             ->where('content_value', 'LIKE', "%\"$noticeTypeId\"%")
             ->pluck('id');

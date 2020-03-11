@@ -9,6 +9,8 @@ class Article extends Model
     protected $table = 'view_articles';
     const TEACHER_ARTICLE_TYPE = 'teacher_detail';
 
+    const INFO_ARTICLE_TYPE = 'info';
+
     /**
      * 日付を変形する属性
      *
