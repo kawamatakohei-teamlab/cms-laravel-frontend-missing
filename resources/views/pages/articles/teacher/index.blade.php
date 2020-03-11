@@ -7,6 +7,12 @@
               <h2 class="heading-large-white heading-large-white--low js-scroll">
                 <div class="heading-large-white__wrap">
                   <div class="heading-large-white__text">教員一覧</div>
+                        @foreach ($departmentCategories as $departmentCategory)
+                            <div class="li filter-list__item">
+                                <input class="filter-list__input" id="category{{$loop->iteration}}" type="radio" name="category" value="{{ $departmentCategory->id }}">
+                                <label class="filter-list__label" for="category{{$loop->iteration}}">{{ $departmentCategory->name }}</label>
+                            </div>
+                        @endforeach
                 </div>
               </h2>
     <div class="js-scroll animation-slide-in-bottom">
@@ -19,13 +25,6 @@
               <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
               <label class="filter-list__label" for="category0">ALL</label>
             </div>
-            {{ $i = 1 }}
-            @foreach ($departmentCategories as $departmentCategory)
-              <div class="li filter-list__item">
-                <input class="filter-list__input" id="category{{$i}}" type="radio" name="category" value="{{ $departmentCategory->id }}">
-                <label class="filter-list__label" for="category{{$i}}">{{ $departmentCategory->name }}</label>
-              </div>
-              {{ $i++ }}
             @endforeach
           </ul>
         </div>
