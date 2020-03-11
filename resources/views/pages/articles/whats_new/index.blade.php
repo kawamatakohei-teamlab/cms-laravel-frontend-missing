@@ -39,10 +39,11 @@
                         $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
                             return $infoCategory->id == $contents->notice_type[0];
                         });
+                        $infoCategorySlug = $infoCategory ? $infoCategory->slug : 'all';
                         $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
                     ?>
 
-                    <li class="information-list__item" data-category="[&quot;{{ $infoCategory->slug }}&quot;]">
+                    <li class="information-list__item" data-category="[&quot;{{ $infoCategorySlug }}&quot;]">
                         <a class="information-list__wrap" href="{{ route('whats_new_show', ['key' => $infoArticle->permalink]) }}">
                             <div class="information-list__detail">
                                 <div class="information-list__date-block">
