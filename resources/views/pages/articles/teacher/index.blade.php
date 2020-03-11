@@ -15,14 +15,14 @@
         <div class="filter-list__title">すべてのカテゴリ</div>
         <div class="filter-list__wrap">
           <ul class="filter-list__list js-filter-name-list">
-            {{ $i = 0 }}
+            <div class="li filter-list__item">
+              <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
+              <label class="filter-list__label" for="category0">ALL</label>
+            </div>
+            {{ $i = 1 }}
             @foreach ($departmentCategories as $departmentCategory)
               <div class="li filter-list__item">
-                @if ($departmentCategory->name == "ALL")
-                  <input class="filter-list__input" id="category{{$i}}" type="radio" name="category" value="" checked>
-                @else
-                  <input class="filter-list__input" id="category{{$i}}" type="radio" name="category" value="{{ $departmentCategory->id }}">
-                @endif
+                <input class="filter-list__input" id="category{{$i}}" type="radio" name="category" value="{{ $departmentCategory->id }}">
                 <label class="filter-list__label" for="category{{$i}}">{{ $departmentCategory->name }}</label>
               </div>
               {{ $i++ }}
