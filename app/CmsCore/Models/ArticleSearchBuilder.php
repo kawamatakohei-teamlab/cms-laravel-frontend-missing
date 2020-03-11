@@ -72,7 +72,6 @@ class ArticleSearchBuilder extends Builder
         return $this;
     }
 
-    public function orderByContentValue($content_key,)
 
     /***
      * Limitを設定

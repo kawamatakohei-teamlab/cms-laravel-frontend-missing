@@ -8,6 +8,19 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ArticleBuilder extends Builder
 {
+    /**
+     * @param null $article_type Article Type
+     * @param null $lang_code ArticleのLanguage Code
+     * @param bool $can_be_showed 公開期限内のものを返すかどうか
+     * @return $this
+     */
+    public function setArticleInfo($article_type = null, $lang_code = null, $can_be_showed = true){
+        if (!is_null($article_type)) $this->setArticleType($article_type);
+        if (!is_null($lang_code)) $this->setLangCode($lang_code);
+        if ($can_be_showed) $this->setPublishedOnly();
+        return $this;
+
+    }
     /***
      * 記事のIDsが分かるなら、直接IDを指定できる
      * @param array $article_ids 記事のID値（数列）
@@ -36,6 +49,16 @@ class ArticleBuilder extends Builder
     {
         $now = date("Y-m-d H:i:s");
         return $this->where('publish_at', '<=', $now)->where('expire_at', '>', $now);
+
+    }
+
+    /**
+     * LangCodeを設定
+     * @return ArticleBuilder
+     */
+    public function setLangCode($lang_code)
+    {
+        return $this->where('article_language_code', $lang_code);
 
     }
 
