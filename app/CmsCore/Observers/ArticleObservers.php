@@ -17,9 +17,6 @@ class ArticleObservers
         foreach ($content_json as $key => $value) {
             $article->{$key} = $value;
         }
-        # dynamic partsはJson Stringの中で、Json Stringの形式保存してるので、存在する場合もArrayに変換
-        if (isset($content_json['dynamic'])) {
-            $article->dynamic = json_decode($content_json['dynamic']);
-        }
+        $article->contents = $content_json;
     }
 }

@@ -2,17 +2,16 @@
 
 namespace App\CmsCore\Models;
 
-
-class Article extends DaisyModelBase
+class ArticleSearch extends DaisyModelBase
 {
     /***
-     * この関数で、モデルのEloquentBuilderを ArticleSearchBuilder に指定。具体な使い方は ArticleSearchBuilder を参照
+     * この関数で、EloquentBuilderを ArticleSearchBuilder に指定。具体な使い方は ArticleSearchBuilder を参照
      * @param \Illuminate\Database\Query\Builder $query
-     * @return ArticleBuilder
+     * @return ArticleSearchBuilder
      */
     public function newEloquentBuilder($query)
     {
-        return new ArticleBuilder($query);
+        return new ArticleSearchBuilder($query);
     }
 
     /***
@@ -28,8 +27,10 @@ class Article extends DaisyModelBase
 
     public static function getDefaultTableName()
     {
-        # TODO: 切り替わる条件はまだ分からないので、将来は edit_article テーブルも対応。
-        return 'view_articles';
+        # TODO: 切り替わる条件はまだ分からないので、将来は search_edit_article テーブルも対応。
+        return 'search_view_article';
+
     }
+
 
 }
