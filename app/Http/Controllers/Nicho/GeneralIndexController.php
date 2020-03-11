@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Nicho;
 
 use App\CmsCore\Models\Article;
 use App\CmsCore\Models\Category;
-use App\CmsCore\Models\DaisySearch;
 use Illuminate\Http\Request;
 
 class GeneralIndexController extends \App\Http\Controllers\Controller
 {
     public function index(Request $request)
     {
-        $article = Article::getArticleByID(1);
+        $res = ArticleSearch('pages','jp',true)->searchContent('head_title','LIKE','%日本%')->get();
+        dd($res);
+
         $general_top_infos = Article::getArticlesByArticleType('general_top');
         $general_top_info = $general_top_infos->first();
 
