@@ -7,16 +7,26 @@ use App\Models\Article;
 use App\Models\Category;
 use App\CmsCore\Models\File;
 use App\Models\SearchArticle\SearchInfoArticle;
+use Illuminate\Http\Request;
 
 class WhatsNewController extends ArticleController
 {
-    public function index()
+    public function index(Request $request)
     {
+
         $infoCategories = Category::getCategoriesBySlug(Category::INFO_PARENT_CATEGORY_SLUG);
-        $infoArticles   = Article::getArticlesByArticleType(SearchInfoArticle::INFO_ARTICLE_TYPE)->paginate(10);
+        $filterCategory = self::checkFillterCategory($request, $infoCategories);
+
+        if(is_null($filterCategory)){
+            $infoArticles = Article::getArticlesByArticleType(SearchInfoArticle::INFO_ARTICLE_TYPE)
+                ->paginate(10);
+        } else {
+            $infoArticles = SearchInfoArticle::getSameNoticeTypeArticleQuery($filterCategory->id)
+                ->paginate(10);
+        }
 
         return view('pages/articles/whats_new/index', compact(
-            'infoCategories', 'infoArticles'
+            'infoCategories', 'filterCategory', 'infoArticles'
         ));
         return view('pages/articles/info/index', compact('infoCategories'));
     }
@@ -42,6 +52,22 @@ class WhatsNewController extends ArticleController
         return view('pages/articles/whats_new/show', compact(
             'infoCategory', 'infoArticle', 'files', 'sameInfoCategoryArticles'
         ));
+    }
+
+
+    /**
+     * $infoCategoriesの中からGET['category']として飛んできたslugが存在するかチェックし、存在すれば対象のcategoryを返す
+     *
+     * @param Article $infoArticle
+     * @return String|null
+     */
+    public static function checkFillterCategory(Request $request, $infoCategories)
+    {
+        $categorySlug = $request->input('category');
+        $filterCategory = $infoCategories->first(function ($infoCategory) use ($categorySlug){
+            return $infoCategory->slug == $categorySlug;
+        });
+        return $filterCategory ? $filterCategory : null;
     }
 
     /**

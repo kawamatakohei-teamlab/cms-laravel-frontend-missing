@@ -15,14 +15,17 @@
                 <div class="filter-list__title">すべてのカテゴリ</div>
                 <div class="filter-list__wrap">
                     <ul class="filter-list__list js-filter-information-list">
+                        {{-- HACK: カテゴリーがリンクではなく、動的な切り替え --}}
                         <li class="filter-list__item">
-                            <input class="filter-list__input" id="category0" type="radio" name="category" value="" checked>
+                            <input class="filter-list__input" id="category0" type="radio" name="category" value="{{ $filterCategory ? $filterCategory->slug : '' }}" {{ $filterCategory ? '' : 'checked' }}>
                             <label class="filter-list__label" for="category0">ALL</label>
                         </li>
                         @foreach ($infoCategories as $infoCategory)
                             <li class="filter-list__item">
-                                <input class="filter-list__input" id="category_{{ $infoCategory->id }}" type="radio" name="category" value="{{ $infoCategory->slug }}">
-                                <label class="filter-list__label" for="category1">{{ $infoCategory->name }}</label>
+                                <input class="filter-list__input" id="category{{ $infoCategory->id }}" type="radio" name="category" value="{{ $infoCategory->slug }}" {{ $filterCategory && $filterCategory->id == $infoCategory->id ? 'checked' : ''}}>
+                                <a href="{{ route('whats_new_index', ['category' => $infoCategory->slug]) }}">
+                                    <label class="filter-list__label" for="category{{ $infoCategory->id }}">{{ $infoCategory->name }}</label>
+                                </a>
                             </li>
                         @endforeach
                     </ul>
@@ -39,7 +42,7 @@
                         $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
                     ?>
 
-                    <li class="information-list__item" data-category="[&quot;{{ $infoCategoryName }}&quot;]">
+                    <li class="information-list__item" data-category="[&quot;{{ $infoCategory->slug }}&quot;]">
                         <a class="information-list__wrap" href="{{ route('whats_new_show', ['key' => $infoArticle->permalink]) }}">
                             <div class="information-list__detail">
                                 <div class="information-list__date-block">
