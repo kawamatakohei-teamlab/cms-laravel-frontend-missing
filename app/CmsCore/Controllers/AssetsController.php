@@ -64,19 +64,20 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function file(Request $request, $arg)
+    public function file(Request $request)
     {
+        $name_or_id = 123;
         $route_name = request()->route()->getName();
         # ID かつ ファイル名でファイルを取得
         if ($route_name == 'assets.file.name') {
-            $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($arg));
+            $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($name_or_id));
             $file = Models\File::getItemByName($name);
         }elseif($route_name == 'assets.file.id'){
-            if (!is_numeric($arg)) abort(404,'File id needs int.');
-            $file = Models\File::getItemById($arg);
+            if (!is_numeric($name_or_id)) abort(404,'File id needs int.');
+            $file = Models\File::getItemById($name_or_id);
         };
-        if (is_null($file)) abort(404, "[FileController] File : $arg not exists in DB.");
-        if (!$file->itemIsPublished()) abort(404, "[FileController] File : $arg not published.");
+        if (is_null($file)) abort(404, "[FileController] File : $name_or_id not exists in DB.");
+        if (!$file->itemIsPublished()) abort(404, "[FileController] File : $name_or_id not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $file->checkIfModified($ifModifiedSince);
@@ -89,15 +90,22 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function image($size, $name, Request $request)
+    public function image(Request $request,$size, $name_or_id)
     {
-        // urlエンコードされて来るのでdecodeしないとdbの検索できない
-        // 何故か削除されてたけど削除すると日本語とか404になるので必要です。
-        $name = preg_match('/\?/', $name) ? str_replace(['&', '?'], ['%26', '%3F'], urldecode($name)) : urldecode($name);
-        if (empty($name) || empty($size)) abort(422,"[ImageController] Image name: $name, thumber size: $size in query parameter may be empty.");
-        $image = Models\Image::getItemByNameOrId($name);
-        if (is_null($image)) abort(404,"[ImageController] Image name: $name not exists in DB.");
-        if (!$image->itemIsPublished()) abort(404, "[ImageController] Image name: $name not published");
+        $route_name = request()->route()->getName();
+        if ($route_name == 'assets.image.name') {
+            // urlエンコードされて来るのでdecodeしないとdbの検索できない
+            // 何故か削除されてたけど削除すると日本語とか404になるので必要です。
+            $name = preg_match('/\?/', $name_or_id) ? str_replace(['&', '?'], ['%26', '%3F'], urldecode($name_or_id)) : urldecode($name_or_id);
+            if (empty($name) || empty($size)) abort(422,"[ImageController] Image name: $name, thumber size: $size in query parameter may be empty.");
+            $image = Models\Image::getItemByName($name);
+        }elseif($route_name == 'assets.image.id'){
+            if (!is_numeric($name_or_id)) abort(404,'Image id needs int.');
+            $image = Models\Image::getItemById($name_or_id);
+        }
+
+        if (is_null($image)) abort(404,"[ImageController] Image: $name_or_id not exists in DB.");
+        if (!$image->itemIsPublished()) abort(404, "[ImageController] Image: $name_or_id not published");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $image->checkIfModified($ifModifiedSince);
