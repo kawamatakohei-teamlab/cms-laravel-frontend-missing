@@ -64,12 +64,19 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function file($name, Request $request)
+    public function file(Request $request, $arg)
     {
-        $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($name));
-        $file = Models\File::getItemByName($name);
-        if (is_null($file)) abort(404, "[FileController] File name: $name not exists in DB.");
-        if (!$file->itemIsPublished()) abort(404, "[FileController] File name: $name not published.");
+        $route_name = request()->route()->getName();
+        # ID かつ ファイル名でファイルを取得
+        if ($route_name == 'assets.file.name') {
+            $name = str_replace(['&', '?'], ['%26', '%3F'], urldecode($arg));
+            $file = Models\File::getItemByName($name);
+        }elseif($route_name == 'assets.file.id'){
+            if (!is_numeric($arg)) abort(404,'File id needs int.');
+            $file = Models\File::getItemById($arg);
+        };
+        if (is_null($file)) abort(404, "[FileController] File : $arg not exists in DB.");
+        if (!$file->itemIsPublished()) abort(404, "[FileController] File : $arg not published.");
 
         $ifModifiedSince = $request->header('if-modified-since');
         $lastModifiedTime = $file->checkIfModified($ifModifiedSince);
