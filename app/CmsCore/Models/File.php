@@ -11,8 +11,12 @@ class File extends DaisyModelBase
 
     public static function getItemByName($name): ?File
     {
-        $item = File::where('name', $name)->first();
-        return $item;
+        return File::where('name', $name)->first();
+    }
+
+    public static function getItemById($id): ?File
+    {
+        return File::find($id);
     }
 
     public function getFileObjectAsResponse()
