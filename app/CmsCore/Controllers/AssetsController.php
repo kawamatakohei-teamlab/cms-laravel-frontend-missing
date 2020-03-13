@@ -64,9 +64,8 @@ class AssetsController extends Controller
         return $response;
     }
 
-    public function file(Request $request)
+    public function file(Request $request, $name_or_id)
     {
-        $name_or_id = 123;
         $route_name = request()->route()->getName();
         # ID かつ ファイル名でファイルを取得
         if ($route_name == 'assets.file.name') {
