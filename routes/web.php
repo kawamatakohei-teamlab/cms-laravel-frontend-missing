@@ -36,6 +36,10 @@ Route::prefix('guide')->group(function () {
 Route::get('/whatsnew/{key}', 'WhatsNewController@show')->name('whats_new_show');
 Route::get('/whatsnew',       'WhatsNewController@index')->name('whats_new_index');
 
+// Topics
+Route::get('/topics/{key}', 'Articles\TopicController@show')->name('topic_show');
+Route::get('/topics',       'Articles\TopicController@index')->name('topic_index');
+
 // 教員
 Route::get('/teachers', 'TeacherController@index')->name('teacher_index');
 
