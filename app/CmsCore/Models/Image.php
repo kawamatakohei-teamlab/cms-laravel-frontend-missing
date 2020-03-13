@@ -8,11 +8,15 @@ class Image extends DaisyModelBase
 {
     protected $table = 'images';
 
-    public static function getItemByNameOrId($name_or_id): ?Image
+    public static function getItemByName($name): ?Image
     {
-        $item = Image::where('name', $name_or_id)->first();
-        if (is_null($item)) $item = Image::find($name_or_id);
-        return $item;
+        return Image::where('name', $name)->first();
+    }
+
+    public static function getItemById($id): ?Image
+    {
+
+        return Image::find($id);
     }
 
     public function getImageThumb($thumb_size)
@@ -55,7 +59,7 @@ class Image extends DaisyModelBase
         // apiのURL
         $thumberapp = $protocol . $host . $port . '/?';
         $upload_dir = '/' . $image_prefix . '/';
-        # TODO: GCPの場合も考えないと
+        # TODO: GCPの場合も考えないと?
 //         gcsの仕様上urlの最初にスラッシュいらないので、gcsの場合削除
 //        if (self::$manage_images->publish_strategy == "gcs") {
 //            $upload_dir = mb_substr($upload_dir, 0, mb_strpos($upload_dir, '$filename')); // $filenameが入らないように文字列切り取り
