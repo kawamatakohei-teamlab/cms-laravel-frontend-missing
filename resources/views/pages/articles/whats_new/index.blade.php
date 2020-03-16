@@ -64,12 +64,12 @@
                             </div>
                             <div class="information-list__image">
                                 <?php
-                                    $imageId = firstPartsByKey($contents, 'notice_image');
+                                    $noticeImageContents = firstPartsByCmsDefinedKey($contents, 'notice_image');
                                     // TODO: サムネイルのダミー画像を指定するように修正する
                                     $imageSrc = 'http://placehold.jp/300x200.png';
-                                    if (!is_null($imageId)) {
+                                    if (isset($noticeImageContents)) {
                                         // TODO: サムネイルのサイズに合わせた画像サイズを指定する
-                                        $imageSrc = imageUrlById($imageId);
+                                        $imageSrc = imageUrlById($noticeImageContents->notice_image);
                                     }
                                 ?>
                                 <img class="information-list__image-img" src="{{ $imageSrc }}" alt="">

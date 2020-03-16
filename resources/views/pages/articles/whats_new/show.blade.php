@@ -59,12 +59,12 @@
                             </div>
                             <div class="page-navi__image">
                                 <?php
-                                $imageId = firstPartsByKey($infoPreviousArticle->contents, 'notice_image');
+                                $noticeImageContents = firstPartsByCmsDefinedKey($infoPreviousArticle->contents, 'notice_image');
                                 // TODO: サムネイルのダミー画像を指定するように修正する
                                 $imageSrc = 'http://placehold.jp/100x200.png';
-                                if (!is_null($imageId)) {
+                                if (isset($noticeImageContents)) {
                                     // TODO: サムネイルのサイズに合わせた画像サイズを指定する
-                                    $imageSrc = imageUrlById($imageId);
+                                    $imageSrc = imageUrlById($noticeImageContents->notice_image);
                                 }
                                 ?>
                                 <img class="page-navi__image-img" src="{{ $imageSrc }}" alt="">
@@ -85,12 +85,12 @@
                             </div>
                             <div class="page-navi__image">
                                 <?php
-                                $imageId = firstPartsByKey($infoNextArticle->contents, 'notice_image');
+                                $noticeImageContents = firstPartsByCmsDefinedKey($infoNextArticle->contents, 'notice_image');
                                 // TODO: サムネイルのダミー画像を指定するように修正する
                                 $imageSrc = 'http://placehold.jp/50x50.png';
-                                if (!is_null($imageId)) {
+                                if (isset($noticeImageContents)) {
                                     // TODO: サムネイルのサイズに合わせた画像サイズを指定する
-                                    $imageSrc = imageUrlById($imageId);
+                                    $imageSrc = imageUrlById($noticeImageContents->notice_image);
                                 }
                                 ?>
                                 <img class="page-navi__image-img" src="{{ $imageSrc }}" alt="">
@@ -120,12 +120,12 @@
                                     </div>
                                     <div class="side-link-list__image">
                                         <?php
-                                        $imageId = firstPartsByKey($contents, 'notice_image');
+                                        $noticeImageContents = firstPartsByCmsDefinedKey($contents, 'notice_image');
                                         // TODO: サムネイルのダミー画像を指定するように修正する
                                         $imageSrc = 'http://placehold.jp/30×30.png';
-                                        if (!is_null($imageId)) {
+                                        if (isset($noticeImageContents)) {
                                             // TODO: サムネイルのサイズに合わせた画像サイズを指定する
-                                            $imageSrc = imageUrlById($imageId);
+                                            $imageSrc = imageUrlById($noticeImageContents->notice_image);
                                         }
                                         ?>
                                         <img class="side-link-list__image-img" src="{{ $imageSrc }}" alt="">
