@@ -5,12 +5,16 @@
     <div class="layout-base__inner">
         <h2 class="heading-large-white heading-large-white--low js-scroll">
             <div class="heading-large-white__wrap">
-                <div class="heading-large-white__text">施設案内</div>
+                <div class="heading-large-white__text">
+                    {{ $facilityArticle->title }}
+                </div>
             </div>
         </h2>
         <div class="js-scroll animation-slide-in-bottom">
             <div class="back-link">
-                <a class="back-link__item" href="">大学案内TOP</a>
+                <a class="back-link__item" href="{{ route('guide_index') }}">
+                    大学案内TOP
+                </a>
             </div>
         </div>
 
@@ -20,15 +24,15 @@
         @foreach ($facilityDetailArticles as $facilityDetailArticle)
             @if ($loop->iteration <= 1)
                 {{-- 特大サイズ --}}
-                @include('parts.dynamic.guide.facility.extra_large_block', ['facilityDetailArticle' => $facilityDetailArticle])
+                @include('parts.dynamic.guide.facility.extra_large_block', [
+                    'facilityDetailArticle' => $facilityDetailArticle
+                ])
             @elseif ($loop->iteration <= 6)
-                @if ($left)
-                    {{-- 大サイズ　左 --}}
-                    @include('parts.dynamic.guide.facility.left_large_block', ['facilityDetailArticle' => $facilityDetailArticle])
-                @else
-                    {{-- 大サイズ　右 --}}
-                    @include('parts.dynamic.guide.facility.right_large_block', ['facilityDetailArticle' => $facilityDetailArticle])
-                @endif
+                {{-- 大サイズ　左 --}}
+                @include('parts.dynamic.guide.facility.large_block', [
+                    'facilityDetailArticle' => $facilityDetailArticle,
+                    'left' => $left
+                ])
                 <?php $left = !$left; ?>
             @endif
         @endforeach

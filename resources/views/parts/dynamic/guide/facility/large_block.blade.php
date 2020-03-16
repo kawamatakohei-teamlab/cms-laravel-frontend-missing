@@ -1,22 +1,28 @@
-{{-- 小サイズ --}}
-<div class="visual-block-column__item">
-    <div class="visual-block visual-block--gallery-s">
+{{-- 大サイズ --}}
+<div class="js-scroll animation-slide-in-bottom">
+    <div class="visual-block visual-block--{{ $left ? 'left' : 'right'}}">
         <div class="visual-block__visual">
-            <div class="js-scroll animation-image-ratio">
+            <picture class="js-scroll animation-image-ratio">
+                <source srcset="/assets/images/_dummy-img01.png" media="(min-width: 768px)">
+                <source srcset="/assets/images/_dummy-img02.png" media="(max-width: 767px)">
                 {{-- TODO: cms coreを更新しimageUrlByIdを使って画像を表示する --}}
                 {{-- imageUrlById($contents->facility_image) --}}
-                <img class="visual-block__visual-image animation-image-ratio__img" src="http://placehold.jp/1100x586.png" alt="">
-            </div>
+                <img class="visual-block__visual-image animation-image-ratio__img" src="/assets/images/_dummy-img01.png" alt="">
+            </picture>
         </div>
         <div class="visual-block__detail">
+            <div class="visual-block__heading">
+                {{ $facilityDetailArticle->title }}
+            </div>
+
+            <?php $contents = json_decode($facilityDetailArticle->contents); ?>
             <div class="visual-block__description">
-                <?php $contents = json_decode($facilityDetailArticle->contents); ?>
                 <div class="visual-block__description-title">
                     {{ $contents->facility_headline }}
                 </div>
-                <p class="visual-block__description-text">
+                <div class="visual-block__description-text">
                     {{ $contents->facility_description }}
-                </p>
+                </div>
                 @if (!empty($contents->facility_detail_related_url))
                     <div class="visual-block__link">
                         <a class="link link--arrow" href="{{ route('guide_facility_detail_show', ['permalink' => $contents->facility_detail_related_url]) }}">
@@ -25,6 +31,7 @@
                     </div>
                 @endif
             </div>
+
         </div>
     </div>
 </div>

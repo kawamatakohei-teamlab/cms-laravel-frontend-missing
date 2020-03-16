@@ -10,7 +10,7 @@ class FacilityController extends Controller
     /**
      * 施設案内TOP
      */
-    public function index($permalink)
+    public function show($permalink)
     {
         // 施設案内の記事取得
         $facilityArticle = Article::findPublishedByPermalinkWithArticleType($permalink, Article::FACILITY_ARTICLE_TYPE);
@@ -29,7 +29,7 @@ class FacilityController extends Controller
 
         \Debugbar::info($facilityDetailArticles);
 
-        return view('pages/guide/facility/index', compact(
+        return view('pages/guide/facility/show', compact(
             'facilityArticle', 'facilityDetailArticles'
         ));
     }
