@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $table = 'view_articles';
-    const TEACHER_ARTICLE_TYPE = 'teacher_detail';
-
+    const CHANNEL_ARTICLE_TYPE = 'channel';
     const INFO_ARTICLE_TYPE = 'info';
+    const TEACHER_ARTICLE_TYPE = 'teacher_detail';
+    const INTRODUCTION_RELATED_PAGE = 'introduction_related_page';
 
     /**
      * 日付を変形する属性
