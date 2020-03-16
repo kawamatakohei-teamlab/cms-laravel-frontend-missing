@@ -18,23 +18,33 @@
             </div>
         </div>
 
+        <?php
+        /**
+         * 表示サイズと表示数に合わせてfacilityDetailArticlesを分解
+         * TODO: 表示数は固定でいいのかは確認する。
+         */
+        $displayExtraLargeArticles = $facilityDetailArticles->slice(0,1);
+        $displayLargeArticles      = $facilityDetailArticles->slice(1,5);
+        $displayRegularArticles    = $facilityDetailArticles->slice(6,4);
+        $displaySmallArticles      = $facilityDetailArticles->slice(10,3);
+        ?>
 
         {{-- 特大＆大サイズ --}}
+        @foreach ($displayExtraLargeArticles as $facilityDetailArticle)
+            {{-- 特大サイズ --}}
+            @include('parts.dynamic.guide.facility.extra_large_block', [
+                'facilityDetailArticle' => $facilityDetailArticle
+            ])
+        @endforeach
+
         <?php $left = true; ?>
-        @foreach ($facilityDetailArticles as $facilityDetailArticle)
-            @if ($loop->iteration <= 1)
-                {{-- 特大サイズ --}}
-                @include('parts.dynamic.guide.facility.extra_large_block', [
-                    'facilityDetailArticle' => $facilityDetailArticle
-                ])
-            @elseif ($loop->iteration <= 6)
-                {{-- 大サイズ　左 --}}
-                @include('parts.dynamic.guide.facility.large_block', [
-                    'facilityDetailArticle' => $facilityDetailArticle,
-                    'left' => $left
-                ])
-                <?php $left = !$left; ?>
-            @endif
+        @foreach ($displayLargeArticles as $facilityDetailArticle)
+        {{-- 大サイズ　左 --}}
+            @include('parts.dynamic.guide.facility.large_block', [
+                'facilityDetailArticle' => $facilityDetailArticle,
+                'left' => $left
+            ])
+            <?php $left = !$left; ?>
         @endforeach
 
 
@@ -43,26 +53,14 @@
             <div class="visual-block-column">
                 {{-- 中サイズ --}}
                 <div class="visual-block-column__list">
-                    @foreach ($facilityDetailArticles as $facilityDetailArticle)
-                        @if ($loop->iteration <= 6)
-                            @continue
-                        @endif
-
-                        @if ($loop->iteration <= 10)
-                            @include('parts.dynamic.guide.facility.regular_block', ['facilityDetailArticle' => $facilityDetailArticle])
-                        @else
-                            @break
-                        @endif
+                    @foreach ($displayRegularArticles as $facilityDetailArticle)
+                        @include('parts.dynamic.guide.facility.regular_block', ['facilityDetailArticle' => $facilityDetailArticle])
                     @endforeach
                 </div>
 
                 {{-- 小サイズ --}}
                 <div class="visual-block-column__list visual-block-column__list--column3">
-                    @foreach ($facilityDetailArticles as $facilityDetailArticle)
-                        @if ($loop->iteration <= 10)
-                            @continue
-                        @endif
-
+                    @foreach ($displaySmallArticles as $facilityDetailArticle)
                         @include('parts.dynamic.guide.facility.small_block', ['facilityDetailArticle' => $facilityDetailArticle])
                     @endforeach
                 </div>
