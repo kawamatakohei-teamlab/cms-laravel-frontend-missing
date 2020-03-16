@@ -1,5 +1,7 @@
 @extends('layouts.common')
 
+@section('breadcrumb', Breadcrumbs::render('teacherIndex'))
+
 @section('main')
 <main class="layout-base__main-center">
     <div class="layout-base__inner">

@@ -1,5 +1,7 @@
 @extends('layouts.common')
 
+@section('breadcrumb', Breadcrumbs::render('whatsNewShow', $infoArticle))
+
 @section('main')
 
 <div class="layout-base__inner layout-base__inner--column">

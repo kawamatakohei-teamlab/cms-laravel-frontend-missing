@@ -7,7 +7,8 @@
   <body class="base-page">
     @yield('header_javascript')
     @include('parts.header')
-    @include('parts.breadcrumb')
+
+    @yield('breadcrumb')
 
     <div class="layout-base">
       @yield('main')

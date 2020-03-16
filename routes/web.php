@@ -11,11 +11,12 @@ require __DIR__.'/../app/CmsCore/Routes/web.php';
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', 'Nicho\GeneralIndexController@index' )->name('general_index');
+// トップページ
+Route::get('/', 'TopController@index' )->name('top.index');
 
 // お知らせ
 Route::get('/whatsnew/{key}', 'Articles\WhatsNewController@show')->name('whats_new_show');
 Route::get('/whatsnew',       'Articles\WhatsNewController@index')->name('whats_new_index');
 
-// 
+//
 Route::get('/teachers', 'Articles\TeacherController@index')->name('teacher_index');
