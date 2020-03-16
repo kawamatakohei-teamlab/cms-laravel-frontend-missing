@@ -20,3 +20,6 @@ Route::get('/whatsnew',       'Articles\WhatsNewController@index')->name('whats_
 
 //
 Route::get('/teachers', 'Articles\TeacherController@index')->name('teacher_index');
+
+// 学科
+Route::get('/departments', 'Articles\DepartmentController@index')->name('department_index');
