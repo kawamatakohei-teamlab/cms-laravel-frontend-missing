@@ -7,7 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $table = 'view_articles';
+
     const CHANNEL_ARTICLE_TYPE = 'channel';
+    const FACILITY_DETAIL_ARTICLE_TYPE = 'facility_detail';
+    const FACILITY_ARTICLE_TYPE = 'facility';
     const INFO_ARTICLE_TYPE = 'info';
     const TEACHER_ARTICLE_TYPE = 'teacher_detail';
     const INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE = 'introduction_related_page';

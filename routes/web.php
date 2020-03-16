@@ -18,8 +18,20 @@ Route::prefix('guide')->group(function () {
     // 大学案内TOP
     Route::get('/', 'GuideController@index')->name('guide_index');
 
-    // 施設案内TOP
-    Route::get('/facilities', 'Guide\FacilityController@index')->name('guide_facility_index');
+    // // 詳細（孫）
+    // Route::get('/detail/{permalink}', 'Guide\FacilityController@index')
+    //     ->where('permalink', '.+')
+    //     ->name('guide_facility_index');
+
+    // // キャンパスマップ
+    // Route::get('/campasmap/{permalink}', 'Guide\FacilityController@index')
+    //     ->where('permalink', '.+')
+    //     ->name('guide_facility_index');
+
+    // 施設案内 + 施設詳細
+    Route::get('/{permalink}', 'Guide\FacilityController@index')
+        ->where('permalink', '.+')
+        ->name('guide_facility_index');
 });
 
 // お知らせ
