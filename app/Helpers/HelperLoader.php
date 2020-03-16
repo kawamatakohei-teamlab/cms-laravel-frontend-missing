@@ -14,3 +14,5 @@ function testHelper()
  OR
 require_once __DIR__ . '/XXXXHelper.php';
 */
+
+require_once dirname(__FILE__) . '/DynamicContentHelper.php';

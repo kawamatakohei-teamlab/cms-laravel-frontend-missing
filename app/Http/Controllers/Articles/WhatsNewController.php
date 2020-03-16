@@ -28,7 +28,6 @@ class WhatsNewController extends ArticleController
         return view('pages/articles/whats_new/index', compact(
             'infoCategories', 'filterCategory', 'infoArticles'
         ));
-        return view('pages/articles/info/index', compact('infoCategories'));
     }
 
     public function show($key)
@@ -41,8 +40,6 @@ class WhatsNewController extends ArticleController
         $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
             return $infoCategory->id == $contents->notice_type[0];
         });
-        // 対象記事のcontentsに紐づくすべてのファイル
-        $files = $this->getFilesByInfoArticle($infoArticle);
 
         // 対象記事と同一notice_typeの記事を取得
         $sameInfoCategoryArticles = SearchInfoArticle::getSameNoticeTypeArticleQuery($infoCategory ? $infoCategory->id : null)
@@ -50,7 +47,7 @@ class WhatsNewController extends ArticleController
             ->get();
 
         return view('pages/articles/whats_new/show', compact(
-            'infoCategory', 'infoArticle', 'files', 'sameInfoCategoryArticles'
+            'infoCategory', 'infoArticle', 'sameInfoCategoryArticles'
         ));
     }
 
@@ -68,32 +65,5 @@ class WhatsNewController extends ArticleController
             return $infoCategory->slug == $categorySlug;
         });
         return $filterCategory ? $filterCategory : null;
-    }
-
-    /**
-     * Aticleに紐づく動的コンテンツ要素が必要とする静的ファイルをすべて取得する
-     *
-     * @param Article $infoArticle
-     * @return Collection
-     */
-    private function getFilesByInfoArticle($infoArticle)
-    {
-        $useUploadFileContentsKeys = [
-            'notice_image',
-            'notice_pdf'
-        ];
-
-        $contents = json_decode($infoArticle->contents);
-
-        $idList = [];
-        foreach ($contents->dynamic as $dynamic) {
-            foreach ($useUploadFileContentsKeys as $key) {
-                if(property_exists($dynamic, $key)){
-                    $idList[] = $dynamic->$key;
-                }
-            }
-        }
-
-        return File::whereInByIdList($idList)->get();
     }
 }

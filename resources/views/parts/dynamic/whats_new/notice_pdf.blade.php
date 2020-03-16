@@ -1,16 +1,9 @@
 {{-- notice_pdf --}}
-@if ($dynamicContents && $files)
-    <?php
-        $file = $files->first(function ($file) use ($dynamicContents){
-            return $file->id == $dynamicContents->notice_pdf;
-        });
-        $fileName = $file ? $file->name : ''
-    ?>
-
+@if ($dynamicContents)
     <div class="js-scroll animation-slide-in-bottom">
-        <a class="download" href="{{ fileUrl($fileName) }}">
+        <a class="download" href="{{ fileUrlById($dynamicContents->notice_pdf) }}">
             <div class="download__icon">
-                {{-- HACK: pdfのアイコンに差し替える --}}
+                {{-- TODO: pdfのアイコンに差し替える --}}
                 <img src="http://placehold.jp/27x32.png" alt="PDF">
             </div>
             <div class="download__detail">

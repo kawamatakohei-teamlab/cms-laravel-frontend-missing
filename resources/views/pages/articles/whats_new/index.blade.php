@@ -17,7 +17,7 @@
                 <div class="filter-list__title">すべてのカテゴリ</div>
                 <div class="filter-list__wrap">
                     <ul class="filter-list__list js-filter-information-list">
-                        {{-- HACK: カテゴリーがリンクではなく、動的な切り替え --}}
+                        {{-- TODO: カテゴリーがリンクではなく、動的な切り替え --}}
                         <li class="filter-list__item">
                             <input class="filter-list__input" id="category0" type="radio" name="category" value="{{ $filterCategory ? $filterCategory->slug : '' }}" {{ $filterCategory ? '' : 'checked' }}>
                             <label class="filter-list__label" for="category0">ALL</label>
@@ -63,7 +63,16 @@
                                 </div>
                             </div>
                             <div class="information-list__image">
-                                <img class="information-list__image-img" src="http://placehold.jp/300x200.png" alt="">
+                                <?php
+                                    $imageId = firstPartsByKey($contents, 'notice_image');
+                                    // TODO: サムネイルのダミー画像を指定するように修正する
+                                    $imageSrc = 'http://placehold.jp/300x200.png';
+                                    if (!is_null($imageId)) {
+                                        // TODO: サムネイルのサイズに合わせた画像サイズを指定する
+                                        $imageSrc = imageUrlById($imageId);
+                                    }
+                                ?>
+                                <img class="information-list__image-img" src="{{ $imageSrc }}" alt="">
                             </div>
                         </a>
                     </li>

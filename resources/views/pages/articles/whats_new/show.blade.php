@@ -38,7 +38,6 @@
                 @if (property_exists($dynamic, $dynamicTypeKey ))
                     @includeIf('parts.dynamic.whats_new.' . $dynamicTypeKey, [
                         'dynamicContents' => $dynamic,
-                        'files' => $files
                     ])
                 @endif
             @endforeach
@@ -59,7 +58,16 @@
                                 </div>
                             </div>
                             <div class="page-navi__image">
-                                <img class="page-navi__image-img" src="http://placehold.jp/100x200.png" alt="">
+                                <?php
+                                $imageId = firstPartsByKey($infoPreviousArticle->contents, 'notice_image');
+                                // TODO: サムネイルのダミー画像を指定するように修正する
+                                $imageSrc = 'http://placehold.jp/100x200.png';
+                                if (!is_null($imageId)) {
+                                    // TODO: サムネイルのサイズに合わせた画像サイズを指定する
+                                    $imageSrc = imageUrlById($imageId);
+                                }
+                                ?>
+                                <img class="page-navi__image-img" src="{{ $imageSrc }}" alt="">
                             </div>
                         </a>
                     @endif
@@ -76,7 +84,16 @@
                                 </div>
                             </div>
                             <div class="page-navi__image">
-                                <img class="page-navi__image-img" src="http://placehold.jp/50x50.png" alt="">
+                                <?php
+                                $imageId = firstPartsByKey($infoNextArticle->contents, 'notice_image');
+                                // TODO: サムネイルのダミー画像を指定するように修正する
+                                $imageSrc = 'http://placehold.jp/50x50.png';
+                                if (!is_null($imageId)) {
+                                    // TODO: サムネイルのサイズに合わせた画像サイズを指定する
+                                    $imageSrc = imageUrlById($imageId);
+                                }
+                                ?>
+                                <img class="page-navi__image-img" src="{{ $imageSrc }}" alt="">
                             </div>
                         </a>
                     @endif
@@ -102,7 +119,16 @@
                                         <span>{{ $infoArticle->title }}</span>
                                     </div>
                                     <div class="side-link-list__image">
-                                        <img class="side-link-list__image-img" src="http://placehold.jp/30x30.png" alt="">
+                                        <?php
+                                        $imageId = firstPartsByKey($contents, 'notice_image');
+                                        // TODO: サムネイルのダミー画像を指定するように修正する
+                                        $imageSrc = 'http://placehold.jp/30×30.png';
+                                        if (!is_null($imageId)) {
+                                            // TODO: サムネイルのサイズに合わせた画像サイズを指定する
+                                            $imageSrc = imageUrlById($imageId);
+                                        }
+                                        ?>
+                                        <img class="side-link-list__image-img" src="{{ $imageSrc }}" alt="">
                                     </div>
                                 </a>
                             </li>

@@ -26,7 +26,6 @@
             <div class="movie-block__inner">
                 <div class="movie-block__movie js-video">
                     <input type="hidden" value="{{ $youtubeMovieKey }}" id="movieId">
-                    {{-- HACK: 初期画像はどうやって用意する？ --}}
                     <img class="movie-block__cover" src="https://img.youtube.com/vi/{{ $youtubeMovieKey }}/hqdefault.jpg" alt="">
                     {{-- IDはyoutube player.jsの利用するため必須 --}}
                     <div class="movie-block__video" id="{{ Str::random(8) }}">
@@ -38,15 +37,6 @@
                         </svg>
                     </div>
                 </div>
-                {{-- HACK: 要確認。この箇所notice_youtubeに定義されていない --}}
-{{--
-                <div class="movie-block__detail">
-                    <div class="movie-block__title">ゲームクリエイター<span>上田 文人 さん</span>
-                </div>
-                <div class="movie-block__text">
-                    「ゲームの企画というのは、それがおもしろいかどうかは、実際に作って動かしてみるまでわからないことが多いのです」
-                </div>
- --}}
             </div>
         </div>
     </div>

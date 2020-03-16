@@ -1,5 +1,5 @@
 {{-- notice_image --}}
-{{-- HACK: backend側で画像アップロードの不具合により未確認。 --}}
+{{-- TODO: backend側で画像アップロードの不具合により未確認。 --}}
 @if ($dynamicContents)
     {{-- type: image --}}
     <div class="js-scroll animation-slide-in-bottom">
@@ -13,7 +13,7 @@
         </figure>
     </div>
 
-    {{-- HACK: ギャラリー機能とはなにか確認する。 --}}
+    {{-- TODO: ギャラリー機能とはなにか確認する。 --}}
     <div class="gallery js-gallery" id="modal-image-block">
         <div class="gallery__inner">
             <div class="gallery__body">

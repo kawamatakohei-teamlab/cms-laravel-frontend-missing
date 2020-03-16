@@ -53,7 +53,7 @@
 
     @else
         {{-- non pagination --}}
-        {{-- HACK: ページーネーションが存在しない場合のデザインを確認する --}}
+        {{-- TODO: ページーネーションが存在しない場合のデザインを確認する --}}
         <div class="pagination__item pagination__item--current">1</div>
     @endif
 </div>

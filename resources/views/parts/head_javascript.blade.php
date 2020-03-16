@@ -10,7 +10,7 @@
 </script>
 <script src="/javascripts/switch-css.js"></script>
 
-{{-- HACK: 後ほど正しいGAのタグを聞いて対処する --}}
+{{-- TODO: 後ほど正しいGAのタグを聞いて対処する --}}
 {{--
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21612772-1"></script>
