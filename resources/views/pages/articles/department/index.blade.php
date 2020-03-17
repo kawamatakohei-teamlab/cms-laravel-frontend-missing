@@ -5,12 +5,15 @@
     <div class="layout-base__inner">
         <h2 class="heading-large-white heading-large-white--low js-scroll">
             <div class="heading-large-white__wrap">
-                <div class="heading-large-white__text">学科一覧</div>
+                <div class="heading-large-white__text">{{ $departmentListArticle->title }}</div>
             </div>
         </h2>
         <h2 class="heading-large heading-large--low js-scroll">
             <div class="heading-large__wrap">
-                <div class="heading-large__text">多彩な教育を展開する{{ $departmentArticles->count() }}学科</div>
+                <?php
+                    $contents = json_decode($departmentListArticle->contents);
+                ?>
+                <div class="heading-large__text">{{ $contents->headline }}</div>
             </div>
         </h2>
         <div class="js-scroll animation-slide-in-bottom">

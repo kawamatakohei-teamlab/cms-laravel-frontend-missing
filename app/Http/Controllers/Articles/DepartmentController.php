@@ -15,11 +15,12 @@ class DepartmentController extends ArticleController
                 $contents = json_decode($departmentArticle->contents);
                 return $contents->department_sortnumber;
             });
-            
+
+        $departmentListArticle = Article::getArticlesByArticleType(Article::DEPARTMENT_LIST_ARTICLE_TYPE)->first();    
         $introductionRelatedPageArticle = Article::getArticlesByArticleType(Article::INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE)->first();
 
         return view('pages/articles/department/index', compact(
-            'departmentArticles', 'introductionRelatedPageArticle'
+            'departmentArticles', 'departmentListArticle', 'introductionRelatedPageArticle'
         ));
     }
 }
