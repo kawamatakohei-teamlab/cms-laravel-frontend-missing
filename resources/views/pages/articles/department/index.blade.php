@@ -30,7 +30,15 @@
                                 <div class="thumbnail-list__wrap">
                                     <div class="thumbnail-list__image">
                                         <div class="js-scroll animation-image-ratio">
-                                            <img class="animation-image-ratio__img" src="{{ $contents->thumbnail_image }}" alt="">
+                                            <?php
+                                                // TODO: サムネイルのダミー画像を指定するように修正する
+                                                $imageSrc = 'http://placehold.jp/254x150.png';
+                                                if (isset($contents->thumbnail_image)) {
+                                                    // TODO: サムネイルのサイズに合わせた画像サイズを指定する
+                                                    $imageSrc = imageUrlById($contents->thumbnail_image);
+                                                }
+                                            ?>
+                                            <img class="animation-image-ratio__img" src="{{ $imageSrc }}" alt="">
                                         </div>
                                     </div>
                                 </div>
