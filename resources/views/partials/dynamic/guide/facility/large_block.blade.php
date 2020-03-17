@@ -1,19 +1,28 @@
-{{-- 中サイズ --}}
-<div class="visual-block-column__item">
-    <div class="visual-block visual-block--gallery">
+{{-- 特大 or 大サイズ --}}
+<?php
+$class = 'right';
+if(isset($extraLarge) && $extraLarge) {
+    $class = 'center';
+} else if (isset($left) && $left) {
+    $class = 'left';
+}
+
+$contents = json_decode($facilityDetailArticle->contents);
+?>
+
+<div class="js-scroll animation-slide-in-bottom">
+    <div class="visual-block visual-block--{{ $class }}">
         <div class="visual-block__visual">
-            <div class="js-scroll animation-image-ratio">
-                {{-- TODO: cms coreを更新しimageUrlByIdを使って画像を表示する --}}
-                {{-- imageUrlById($contents->facility_image) --}}
-                <img class="visual-block__visual-image animation-image-ratio__img" src="http://placehold.jp/1100x586.png" alt="">
-            </div>
+            <picture class="js-scroll animation-image-ratio">
+                <source srcset="/assets/images/_dummy-img01.png" media="(min-width: 768px)">
+                <source srcset="/assets/images/_dummy-img02.png" media="(max-width: 767px)">
+                <img class="visual-block__visual-image animation-image-ratio__img" src="{{ imageUrlById($contents->facility_image) }}" alt="">
+            </picture>
         </div>
         <div class="visual-block__detail">
             <div class="visual-block__heading">
-                {{ $facilityDetailArticle->title }}
+                {!! $facilityDetailArticle->title !!}
             </div>
-
-            <?php $contents = json_decode($facilityDetailArticle->contents); ?>
             <div class="visual-block__description">
                 <div class="visual-block__description-title">
                     {{ $contents->facility_headline }}
@@ -29,6 +38,7 @@
                     </div>
                 @endif
             </div>
+
         </div>
     </div>
 </div>

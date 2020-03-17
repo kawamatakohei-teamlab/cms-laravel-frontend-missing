@@ -29,8 +29,22 @@ class FacilityController extends Controller
                 ->get();
         }
 
+        /**
+         * 表示サイズと表示数に合わせてfacilityDetailArticlesを分解
+         * TODO: 表示数は固定でいいのかは確認する。
+         * HACK: 必要に応じてsliceする処理はmodelクラスに移譲するなど検討する
+         */
+        $displayExtraLargeArticles = $facilityDetailArticles->slice(0, 1);
+        $displayLargeArticles      = $facilityDetailArticles->slice(1, 5);
+        $displayRegularArticles    = $facilityDetailArticles->slice(6, 4);
+        $displaySmallArticles      = $facilityDetailArticles->slice(10, 3);
+
         return view('pages/guide/facility/show', compact(
-            'facilityArticle', 'facilityDetailArticles'
+            'facilityArticle',
+            'displayExtraLargeArticles',
+            'displayLargeArticles',
+            'displayRegularArticles',
+            'displaySmallArticles'
         ));
     }
 }

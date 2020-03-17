@@ -18,29 +18,19 @@
             </div>
         </div>
 
-        <?php
-        /**
-         * 表示サイズと表示数に合わせてfacilityDetailArticlesを分解
-         * TODO: 表示数は固定でいいのかは確認する。
-         */
-        $displayExtraLargeArticles = $facilityDetailArticles->slice(0,1);
-        $displayLargeArticles      = $facilityDetailArticles->slice(1,5);
-        $displayRegularArticles    = $facilityDetailArticles->slice(6,4);
-        $displaySmallArticles      = $facilityDetailArticles->slice(10,3);
-        ?>
-
         {{-- 特大＆大サイズ --}}
         @foreach ($displayExtraLargeArticles as $facilityDetailArticle)
             {{-- 特大サイズ --}}
-            @include('parts.dynamic.guide.facility.extra_large_block', [
-                'facilityDetailArticle' => $facilityDetailArticle
+            @include('partials.dynamic.guide.facility.large_block', [
+                'facilityDetailArticle' => $facilityDetailArticle,
+                'extraLarge' => true
             ])
         @endforeach
 
         <?php $left = true; ?>
         @foreach ($displayLargeArticles as $facilityDetailArticle)
         {{-- 大サイズ　左 --}}
-            @include('parts.dynamic.guide.facility.large_block', [
+            @include('partials.dynamic.guide.facility.large_block', [
                 'facilityDetailArticle' => $facilityDetailArticle,
                 'left' => $left
             ])
@@ -54,14 +44,19 @@
                 {{-- 中サイズ --}}
                 <div class="visual-block-column__list">
                     @foreach ($displayRegularArticles as $facilityDetailArticle)
-                        @include('parts.dynamic.guide.facility.regular_block', ['facilityDetailArticle' => $facilityDetailArticle])
+                        @include('partials.dynamic.guide.facility.regular_block', [
+                            'facilityDetailArticle' => $facilityDetailArticle
+                        ])
                     @endforeach
                 </div>
 
                 {{-- 小サイズ --}}
                 <div class="visual-block-column__list visual-block-column__list--column3">
                     @foreach ($displaySmallArticles as $facilityDetailArticle)
-                        @include('parts.dynamic.guide.facility.small_block', ['facilityDetailArticle' => $facilityDetailArticle])
+                        @include('partials.dynamic.guide.facility.regular_block', [
+                            'facilityDetailArticle' => $facilityDetailArticle,
+                            'small' => true
+                        ])
                     @endforeach
                 </div>
             </div>

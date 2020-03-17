@@ -1,22 +1,32 @@
-{{-- 小サイズ --}}
+{{-- 中 & 小サイズ --}}
+<?php
+$displaySmall = true;
+if (isset($small) && $small) {
+    $displaySmall = false;
+}
+$contents = json_decode($facilityDetailArticle->contents);
+?>
+
 <div class="visual-block-column__item">
-    <div class="visual-block visual-block--gallery-s">
+    <div class="visual-block visual-block--gallery{{ $displaySmall ? '--s' : '' }}">
         <div class="visual-block__visual">
             <div class="js-scroll animation-image-ratio">
-                {{-- TODO: cms coreを更新しimageUrlByIdを使って画像を表示する --}}
-                {{-- imageUrlById($contents->facility_image) --}}
-                <img class="visual-block__visual-image animation-image-ratio__img" src="http://placehold.jp/1100x586.png" alt="">
+                <img class="visual-block__visual-image animation-image-ratio__img" src="{{ imageUrlById($contents->facility_image) }}" alt="">
             </div>
         </div>
         <div class="visual-block__detail">
+            @if ($displaySmall)
+                <div class="visual-block__heading">
+                    {{ $facilityDetailArticle->title }}
+                </div>
+            @endif
             <div class="visual-block__description">
-                <?php $contents = json_decode($facilityDetailArticle->contents); ?>
                 <div class="visual-block__description-title">
                     {{ $contents->facility_headline }}
                 </div>
-                <p class="visual-block__description-text">
+                <div class="visual-block__description-text">
                     {{ $contents->facility_description }}
-                </p>
+                </div>
                 @if (!empty($contents->facility_detail_related_url))
                     <div class="visual-block__link">
                         <a class="link link--arrow" href="{{ route('guide_facility_detail_show', ['permalink' => $contents->facility_detail_related_url]) }}">
