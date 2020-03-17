@@ -24,3 +24,9 @@ Breadcrumbs::for('teacherIndex', function ($trail) {
     $trail->parent('topPage');
     $trail->push('教員一覧', route('teacher_index'));
 });
+
+// 学科一覧
+Breadcrumbs::for('departmentIndex', function ($trail) {
+    $trail->parent('topPage');
+    $trail->push('学科一覧', route('department_index'));
+});
