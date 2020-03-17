@@ -1,21 +1,21 @@
 {{-- 中 & 小サイズ --}}
 <?php
-$displaySmall = true;
-if (isset($small) && $small) {
-    $displaySmall = false;
+$isDisplaySmall = false;
+if (isset($isSmall) && $isSmall) {
+    $isDisplaySmall = true;
 }
 $contents = json_decode($facilityDetailArticle->contents);
 ?>
 
 <div class="visual-block-column__item">
-    <div class="visual-block visual-block--gallery{{ $displaySmall ? '--s' : '' }}">
+    <div class="visual-block visual-block--gallery{{ $isDisplaySmall ? '--s' : '' }}">
         <div class="visual-block__visual">
             <div class="js-scroll animation-image-ratio">
                 <img class="visual-block__visual-image animation-image-ratio__img" src="{{ imageUrlById($contents->facility_image) }}" alt="">
             </div>
         </div>
         <div class="visual-block__detail">
-            @if ($displaySmall)
+            @if (!$isDisplaySmall)
                 <div class="visual-block__heading">
                     {{ $facilityDetailArticle->title }}
                 </div>

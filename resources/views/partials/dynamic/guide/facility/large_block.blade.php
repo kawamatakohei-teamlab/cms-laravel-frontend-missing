@@ -1,9 +1,9 @@
 {{-- 特大 or 大サイズ --}}
 <?php
 $class = 'right';
-if(isset($extraLarge) && $extraLarge) {
+if(isset($isExtraLarge) && $isExtraLarge) {
     $class = 'center';
-} else if (isset($left) && $left) {
+} else if (isset($isLeft) && $isLeft) {
     $class = 'left';
 }
 

@@ -23,7 +23,7 @@
             {{-- 特大サイズ --}}
             @include('partials.dynamic.guide.facility.large_block', [
                 'facilityDetailArticle' => $facilityDetailArticle,
-                'extraLarge' => true
+                'isExtraLarge' => true
             ])
         @endforeach
 
@@ -32,7 +32,7 @@
         {{-- 大サイズ　左 --}}
             @include('partials.dynamic.guide.facility.large_block', [
                 'facilityDetailArticle' => $facilityDetailArticle,
-                'left' => $left
+                'isLeft' => $left
             ])
             <?php $left = !$left; ?>
         @endforeach
@@ -55,7 +55,7 @@
                     @foreach ($displaySmallArticles as $facilityDetailArticle)
                         @include('partials.dynamic.guide.facility.regular_block', [
                             'facilityDetailArticle' => $facilityDetailArticle,
-                            'small' => true
+                            'isSmall' => true
                         ])
                     @endforeach
                 </div>
