@@ -16,7 +16,7 @@ class DepartmentController extends ArticleController
                 return $contents->department_sortnumber;
             });
             
-        $introductionRelatedPageArticle = Article::getArticlesByArticleType(Article::INTRODUCTION_RELATED_PAGE_TYPE)->first();
+        $introductionRelatedPageArticle = Article::getArticlesByArticleType(Article::INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE)->first();
 
         return view('pages/articles/department/index', compact(
             'departmentArticles', 'introductionRelatedPageArticle'
