@@ -4,5 +4,7 @@
  */
 
 return [
+    'NO_IMAGE_FILE_PATH' => '/noImage.png',
+
     'COMMA' => ','
 ];

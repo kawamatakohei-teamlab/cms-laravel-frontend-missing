@@ -25,6 +25,16 @@ Breadcrumbs::for('guideFacilityShow', function ($trail, $facilityArticle) {
     $trail->push($facilityArticle->title, route('guide_facility_show', ['permalink' => $facilityArticle->permalink]));
 });
 
+// Topics
+Breadcrumbs::for('topicIndex', function ($trail) {
+    $trail->parent('topPage');
+    $trail->push('Topics', route('topic_index'));
+});
+
+Breadcrumbs::for('topicShow', function ($trail, $topicArticle) {
+    $trail->parent('topicIndex');
+    $trail->push(strip_tags($topicArticle->title), route('topic_show', ['permalink' => $topicArticle->permalink]));
+});
 
 // 教員一覧
 Breadcrumbs::for('teacherIndex', function ($trail) {

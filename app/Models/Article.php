@@ -10,6 +10,7 @@ class Article extends CmsCoreArticle
     const FACILITY_DETAIL_ARTICLE_TYPE = 'facility_detail';
     const FACILITY_ARTICLE_TYPE = 'facility';
     const INFO_ARTICLE_TYPE = 'info';
+    const TOPIC_ARTICLE_TYPE = 'topics';
     const TEACHER_ARTICLE_TYPE = 'teacher_detail';
     const DEPARTMENT_LIST_ARTICLE_TYPE = 'department_list';
     const INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE = 'introduction_related_page';
