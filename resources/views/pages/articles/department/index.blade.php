@@ -10,7 +10,7 @@
         </h2>
         <h2 class="heading-large heading-large--low js-scroll">
             <div class="heading-large__wrap">
-                <div class="heading-large__text">多彩な教育を展開する15学科</div>
+                <div class="heading-large__text">多彩な教育を展開する{{ $departmentArticles->count() }}学科</div>
             </div>
         </h2>
         <div class="js-scroll animation-slide-in-bottom">
