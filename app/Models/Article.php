@@ -10,7 +10,7 @@ class Article extends Model
     const CHANNEL_ARTICLE_TYPE = 'channel';
     const INFO_ARTICLE_TYPE = 'info';
     const TEACHER_ARTICLE_TYPE = 'teacher_detail';
-    const INTRODUCTION_RELATED_PAGE = 'introduction_related_page';
+    const INTRODUCTION_RELATED_PAGE_TYPE = 'introduction_related_page';
 
     /**
      * 日付を変形する属性
