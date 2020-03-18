@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Articles;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 
-class DepartmentController extends ArticleController
+class DepartmentController extends Controller
 {
     public function index()
     {
@@ -16,10 +16,10 @@ class DepartmentController extends ArticleController
                 return $contents->department_sortnumber;
             });
 
-        $departmentListArticle = Article::getArticlesByArticleType(Article::DEPARTMENT_LIST_ARTICLE_TYPE)->first();    
+        $departmentListArticle = Article::getArticlesByArticleType(Article::DEPARTMENT_LIST_ARTICLE_TYPE)->first();
         $introductionRelatedPageArticle = Article::getArticlesByArticleType(Article::INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE)->first();
 
-        return view('pages/articles/department/index', compact(
+        return view('pages/department/index', compact(
             'departmentArticles', 'departmentListArticle', 'introductionRelatedPageArticle'
         ));
     }

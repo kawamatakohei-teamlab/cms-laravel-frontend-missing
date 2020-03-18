@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Articles;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
-use App\CmsCore\Models\File;
 use App\Models\SearchArticle\SearchInfoArticle;
 use Illuminate\Http\Request;
 
-class WhatsNewController extends ArticleController
+class WhatsNewController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,7 +24,7 @@ class WhatsNewController extends ArticleController
                 ->paginate(10);
         }
 
-        return view('pages/articles/whats_new/index', compact(
+        return view('pages/whats_new/index', compact(
             'infoCategories', 'filterCategory', 'infoArticles'
         ));
     }
@@ -46,7 +45,7 @@ class WhatsNewController extends ArticleController
             ->limit(4)
             ->get();
 
-        return view('pages/articles/whats_new/show', compact(
+        return view('pages/whats_new/show', compact(
             'infoCategory', 'infoArticle', 'sameInfoCategoryArticles'
         ));
     }
