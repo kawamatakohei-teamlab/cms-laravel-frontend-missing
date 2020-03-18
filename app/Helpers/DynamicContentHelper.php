@@ -12,9 +12,6 @@
 function firstPartsByCmsDefinedKey($contents, $cmsDefinedKey)
 {
     $result = null;
-    if (is_string($contents)) {
-        $contents = json_decode($contents);
-    }
 
     foreach ($contents->dynamic as $dynamic) {
         if(property_exists($dynamic, $cmsDefinedKey)){

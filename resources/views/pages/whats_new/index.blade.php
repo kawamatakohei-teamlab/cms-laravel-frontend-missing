@@ -37,9 +37,8 @@
             <ul class="information-list">
                 @foreach ($infoArticles as $infoArticle)
                     <?php
-                        $contents = json_decode($infoArticle->contents);
-                        $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
-                            return $infoCategory->id == $contents->notice_type[0];
+                        $infoCategory = $infoCategories->first(function ($infoCategory) use ($infoArticle){
+                            return $infoCategory->id == $infoArticle->notice_type[0];
                         });
                         $infoCategorySlug = $infoCategory ? $infoCategory->slug : 'all';
                         $infoCategoryName = $infoCategory ? $infoCategory->name : 'ALL';
@@ -64,7 +63,7 @@
                             </div>
                             <div class="information-list__image">
                                 <?php
-                                    $noticeImageContents = firstPartsByCmsDefinedKey($contents, 'notice_image');
+                                    $noticeImageContents = firstPartsByCmsDefinedKey($infoArticle->contents, 'notice_image');
                                     // TODO: サムネイルのダミー画像を指定するように修正する
                                     $imageSrc = 'http://placehold.jp/300x200.png';
                                     if (isset($noticeImageContents)) {

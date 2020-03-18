@@ -34,10 +34,9 @@ class WhatsNewController extends Controller
         $infoArticle = Article::findPublishedByPermalinkWithArticleType($key, Article::INFO_ARTICLE_TYPE);
         if (is_null($infoArticle)) abort(404,"[ArticleController] info article slug: $key not exists in DB.");
 
-        $contents = json_decode($infoArticle->contents);
         $infoCategories = Category::getCategoriesBySlug(Category::INFO_PARENT_CATEGORY_SLUG);
-        $infoCategory = $infoCategories->first(function ($infoCategory) use ($contents){
-            return $infoCategory->id == $contents->notice_type[0];
+        $infoCategory = $infoCategories->first(function ($infoCategory) use ($infoArticle){
+            return $infoCategory->id == $infoArticle->contents->notice_type[0];
         });
 
         // 対象記事と同一notice_typeの記事を取得

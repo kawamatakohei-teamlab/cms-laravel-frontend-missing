@@ -17,17 +17,18 @@ class FacilityController extends Controller
         if (is_null($facilityArticle)) abort(404,"[FacilityController] facility article slug: $permalink not exists in DB.");
 
         // 施設詳細の記事取得
-        $getFacilityList = json_decode($facilityArticle->contents)->get_facility_list;
+        // TODO: 件数取得ロジックを改めて改修する
+        // $getFacilityList = $facilityArticle->contents->get_facility_list;
         $facilityDetailArticles = Article::getArticlesByArticleType(Article::FACILITY_DETAIL_ARTICLE_TYPE);
-        if(is_null($getFacilityList) || empty($getFacilityList)){
+        // if(is_null($getFacilityList) || empty($getFacilityList)){
             $facilityDetailArticles = $facilityDetailArticles->get();
-        } else {
-            // 取得記事に指定があればそのとおり取得する
-            // TODO: 取得順序をどうするか確認する。
-            $facilityDetailArticles = $facilityDetailArticles
-                ->setArticleIds(explode(config('const.utils.COMMA'), $getFacilityList))
-                ->get();
-        }
+        // } else {
+        //     // 取得記事に指定があればそのとおり取得する
+        //     // TODO: 取得順序をどうするか確認する。
+        //     $facilityDetailArticles = $facilityDetailArticles
+        //         ->setArticleIds(explode(config('const.utils.COMMA'), $getFacilityList))
+        //         ->get();
+        // }
 
         /**
          * 表示サイズと表示数に合わせてfacilityDetailArticlesを分解
