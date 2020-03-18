@@ -1,3 +1,5 @@
 <?php
-require_once dirname(__FILE__) . '/AssetsHelper.php';
-require_once dirname(__FILE__) . '/ArticleSearch.php';
+require_once __DIR__ . '/AssetsHelper.php';
+require_once __DIR__ . '/ArticleSearch.php';
+# 各案件独立な Helper 関数定義ファイルを呼び出す
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../app/Helpers/HelperLoader.php';
