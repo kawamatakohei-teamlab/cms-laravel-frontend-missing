@@ -18,6 +18,9 @@ class SearchInfoArticle extends SearchArticle
      */
     public static function getSameNoticeTypeArticleQuery($noticeTypeId = null): Builder
     {
+
+        // TODO: CmsCoreのArticleSearchのメソッドを使ったものに書き換える
+
         $articleIds = [];
         if(!is_null($noticeTypeId)){
             $articleIds = self::getSameNoticeTypeArticleIds($noticeTypeId);
