@@ -19,9 +19,7 @@ class Init
      */
     public static function init()
     {
-        # Articleモデルが毎回Queryされる時に、contentsをJsonに変換する
-        Models\Article::observe(Observers\ArticleObservers::class);
-        Models\ArticleSearch::observe(Observers\ArticleSearchObservers::class);
+
     }
 
 }

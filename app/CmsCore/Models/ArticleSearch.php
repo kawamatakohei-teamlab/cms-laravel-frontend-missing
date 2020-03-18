@@ -32,5 +32,20 @@ class ArticleSearch extends DaisyModelBase
 
     }
 
+    protected static function booted()
+    {
+        # ArticleSearch が bootした後に、 retrieved eventを登録
+        static::retrieved(function (ArticleSearch $article_search) {
+            # ArticleのデータはJson文字列の形式で、contentフィルドに保存してるから、JsonからArrayに変換
+            if (empty($article_search->contents)) return;
 
+            $content_json = json_decode($article_search->contents);
+            foreach ($content_json as $key => $value) {
+                # もし記事の内容に DB のカラムと同じ名前のKEYがあるなら、DBのカラムを上書きさせないようにする
+                if (isset($article_search->{$key})) continue;
+                $article_search->{$key} = $value;
+            }
+            $article_search->contents = $content_json;
+        });
+    }
 }
