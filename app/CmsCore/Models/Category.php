@@ -2,18 +2,19 @@
 
 namespace App\CmsCore\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 
 class Category extends DaisyModelBase
 {
     protected $table = 'categories';
 
-    public static function getCategoriesById($id) 
+    public static function getCategoriesById($id)
     {
         $category_item = Category::where('id', $id)->first();
         return $category_item;
     }
 
-    public static function getCategoriesBySlug($slug): ?Category
+    public static function getCategoriesBySlug($slug): ?Collection
     {
         $slug_item = Category::where('slug', $slug)->first();
         $category_items = Category::where('parent',$slug_item["id"])->orderBy('display_no','asc')->get();

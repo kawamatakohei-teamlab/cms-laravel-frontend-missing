@@ -5,6 +5,18 @@ namespace App\CmsCore\Models;
 
 class Article extends DaisyModelBase
 {
+    /**
+     * 日付をCarbonで取得できるように設定
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'publish_at',
+        'expire_at'
+    ];
+
     /***
      * この関数で、モデルのEloquentBuilderを ArticleSearchBuilder に指定。具体な使い方は ArticleSearchBuilder を参照
      * @param \Illuminate\Database\Query\Builder $query
