@@ -38,6 +38,23 @@ class Article extends DaisyModelBase
         $this->setTable($this::getDefaultTableName());
     }
 
+    protected static function booted()
+    {
+        # ArticleSearch が bootした後に、 retrieved eventを登録
+        static::retrieved(function (Article $article) {
+            # ArticleのデータはJson文字列の形式で、contentフィルドに保存してるから、JsonからArrayに変換
+            if (empty($article->contents)) return;
+
+            $content_json = json_decode($article->contents);
+            foreach ($content_json as $key => $value) {
+                # もし記事の内容に DB のカラムと同じ名前のKEYがあるなら、DBのカラムを上書きさせないようにする
+                if (isset($article->{$key})) continue;
+                $article->{$key} = $value;
+            }
+            $article->contents = $content_json;
+        });
+    }
+
     public static function getDefaultTableName()
     {
         # TODO: 切り替わる条件はまだ分からないので、将来は edit_article テーブルも対応。

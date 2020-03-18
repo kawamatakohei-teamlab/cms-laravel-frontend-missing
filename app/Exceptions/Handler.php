@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use Exception;
+use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Log;
 
@@ -35,7 +35,7 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
-    public function report(Exception $exception)
+    public function report(Throwable $exception)
     {
         parent::report($exception);
     }
@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
-    public function render($request, Exception $exception)
+    public function render($request, Throwable $exception)
     {
         Log::error('Exception Be Catched in Handler: '. $exception->getMessage() ." Traceback Info: ".$exception->getTraceAsString());
         if($this->isHttpException($exception)) {
