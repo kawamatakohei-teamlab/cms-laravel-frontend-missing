@@ -19,6 +19,13 @@ Breadcrumbs::for('whatsNewShow', function ($trail, $infoArticle) {
     $trail->push($infoArticle->title, route('whats_new_show', ['key' => $infoArticle->permalink]));
 });
 
+// 施設案内
+Breadcrumbs::for('guideFacilityShow', function ($trail, $facilityArticle) {
+    $trail->parent('topPage');
+    $trail->push($facilityArticle->title, route('guide_facility_show', ['permalink' => $facilityArticle->permalink]));
+});
+
+
 // 教員一覧
 Breadcrumbs::for('teacherIndex', function ($trail) {
     $trail->parent('topPage');
