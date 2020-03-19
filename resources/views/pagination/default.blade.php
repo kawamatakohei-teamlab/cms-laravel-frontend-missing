@@ -5,14 +5,13 @@
             <a class="pagination__arrow pagination__arrow--prev" href="{{ $paginator->previousPageUrl() }}">
                 <span></span>
             </a>
-            <a class="pagination__item pagination__item--first" href="">
+            <a class="pagination__item pagination__item--first" href="{{ $paginator->url(1) }}">
                 1
             </a>
+            <div class="pagination__omit">
+                <span></span>
+            </div>
         @endif
-
-        <div class="pagination__omit">
-            <span></span>
-        </div>
 
         @if ($paginator->currentPage() - 2 > 1)
             <a class="pagination__item" href="{{ $paginator->url($paginator->currentPage() - 2) }}">
@@ -38,11 +37,10 @@
             </a>
         @endif
 
-        <div class="pagination__omit">
-            <span></span>
-        </div>
-
         @if ($paginator->lastPage() != $paginator->currentPage())
+            <div class="pagination__omit">
+                <span></span>
+            </div>
             <a class="pagination__item pagination__item--last" href="{{ $paginator->url($paginator->lastPage()) }}">
                 {{ $paginator->lastPage() }}
             </a>
