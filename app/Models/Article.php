@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\CmsCore\Models\Article as CmsCoreArticle;
 
-class Article extends Model
+class Article extends CmsCoreArticle
 {
-    protected $table = 'view_articles';
-
     const CHANNEL_ARTICLE_TYPE = 'channel';
     const FACILITY_DETAIL_ARTICLE_TYPE = 'facility_detail';
     const FACILITY_ARTICLE_TYPE = 'facility';
@@ -15,18 +13,6 @@ class Article extends Model
     const TEACHER_ARTICLE_TYPE = 'teacher_detail';
     const DEPARTMENT_LIST_ARTICLE_TYPE = 'department_list';
     const INTRODUCTION_RELATED_PAGE_ARTICLE_TYPE = 'introduction_related_page';
-
-    /**
-     * 日付を変形する属性
-     *
-     * @var array
-     */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'publish_at',
-        'expire_at'
-    ];
 
     public static function getArticlesByArticleType($type)
     {
@@ -98,6 +84,7 @@ class Article extends Model
     // ローカルスコープ
 
     // TODO: 記事を表示する条件をグローバルスコープに置き換えたほうが良いか検討する
+    // グローバルスコープにするならCmsCoreの方に移したい
     // 公開中の記事を取得
     public function scopePublishing($query)
     {

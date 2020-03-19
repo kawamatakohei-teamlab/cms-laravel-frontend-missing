@@ -12,8 +12,7 @@ class DepartmentController extends Controller
         $departmentArticles = Article::getArticlesByArticleType(Article::CHANNEL_ARTICLE_TYPE)
             ->get()
             ->sortBy(function($departmentArticle) {
-                $contents = json_decode($departmentArticle->contents);
-                return $contents->department_sortnumber;
+                return $departmentArticle->contents->department_sortnumber;
             });
 
         $departmentListArticle = Article::getArticlesByArticleType(Article::DEPARTMENT_LIST_ARTICLE_TYPE)->first();

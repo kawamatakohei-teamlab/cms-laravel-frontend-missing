@@ -22,7 +22,6 @@
         </div>
 
         <?php
-        $contents = json_decode($infoArticle->contents);
         // TODO: ここは別の箇所で定数として固めるべきかもしれない。考えておく。
         $dynamicTypeKeys = [
             'single_body',
@@ -33,7 +32,7 @@
         ]
         ?>
         {{-- dynamic parts類表示 --}}
-        @foreach ($contents->dynamic as $dynamic)
+        @foreach ($infoArticle->dynamic as $dynamic)
             @foreach ($dynamicTypeKeys as $dynamicTypeKey)
                 @if (property_exists($dynamic, $dynamicTypeKey ))
                     @includeIf('parts.dynamic.whats_new.' . $dynamicTypeKey, [
@@ -120,7 +119,7 @@
                                     </div>
                                     <div class="side-link-list__image">
                                         <?php
-                                        $noticeImageContents = firstPartsByCmsDefinedKey($contents, 'notice_image');
+                                        $noticeImageContents = firstPartsByCmsDefinedKey($infoArticle->contents, 'notice_image');
                                         // TODO: サムネイルのダミー画像を指定するように修正する
                                         $imageSrc = 'http://placehold.jp/30×30.png';
                                         if (isset($noticeImageContents)) {

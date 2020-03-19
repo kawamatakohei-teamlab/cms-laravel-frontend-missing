@@ -31,24 +31,21 @@
             </div>
             @foreach ($positionCategories as $positionCategory)
                 @foreach ($teacherArticles as $teacherArticle)
-                    <?php
-                        $contents = json_decode($teacherArticle->contents);
-                    ?>
-                    @if ($contents->position == $positionCategory->id)
+                    @if ($teacherArticle->position == $positionCategory->id)
                         <h3 class="heading-middle">
                             <div class="heading-middle__text">{{ $positionCategory->name }}</div>
                         </h3>
                         <div class="name-list">
-                            @if ($contents->url)
-                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $contents->department) }}&quot;]">
-                                    <a class="name-list__wrap" href="{{ $contents->url }}">
+                            @if ($teacherArticle->url)
+                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $teacherArticle->department) }}&quot;]">
+                                    <a class="name-list__wrap" href="{{ $teacherArticle->url }}">
                                         <div class="link-external">
                                             <span class="name-list__text">{{ $teacherArticle->title }}</span>
                                         </div>
                                     </a>
                                 </div>
                             @else
-                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $contents->department) }}&quot;]">
+                                <div class="name-list__item" data-category="[&quot;{{ implode('&quot;,&quot;', $teacherArticle->department) }}&quot;]">
                                     <div class="name-list__wrap">
                                         <div class="name-list__text"><span>{{ $teacherArticle->title }}</span></div>
                                     </div>
