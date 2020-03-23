@@ -8,10 +8,7 @@ $galleryImages = [];
 <div class="photo-gallery js-gallerylist-open">
     @foreach ($dynamicContents as $key => $value)
         <?php
-        $imageSrc = config('consts.utils.NO_IMAGE_FILE_PATH');
-        if ($value) {
-            $imageSrc = imageUrlById($value);
-        }
+        $imageSrc = createImageUrlById($value);
         array_push($galleryImages, $imageSrc);
         ?>
 
@@ -41,7 +38,8 @@ $galleryImages = [];
                     <span></span>
                 </button>
                 <div class="gallery__page js-landscape-toggle">
-                    <span class="gallery__current-number">1</span>&#047;
+                    <span class="gallery__current-number">1</span>
+                    &#047;
                     <span class="gallery__total-number">10</span>
                 </div>
                 <button class="gallery__close js-gallery-close js-landscape-toggle" type="button">

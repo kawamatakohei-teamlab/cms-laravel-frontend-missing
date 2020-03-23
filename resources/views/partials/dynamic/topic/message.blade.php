@@ -3,13 +3,7 @@
 <div class="message">
     <div class="message__header">
         <div class="message__photo">
-            <?php
-                $imageSrc = config('consts.utils.NO_IMAGE_FILE_PATH');
-                if ($dynamicContents->message__image) {
-                    $imageSrc = imageUrlById($dynamicContents->message__image);
-                }
-            ?>
-            <img src="{{ $imageSrc }}" alt="">
+            <img src="{{ createImageUrlById($dynamicContents->message__image) }}" alt="">
         </div>
         <div class="message__text">
             <div class="message__title">
