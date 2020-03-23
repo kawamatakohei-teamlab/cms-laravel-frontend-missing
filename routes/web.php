@@ -25,12 +25,10 @@ Route::prefix('guide')->group(function () {
 
     // 詳細（孫）
     Route::get('/detail/{permalink}', 'Guide\FacilityDetailController@show')
-        ->where('permalink', '.+')
         ->name('guide_facility_detail_show');
 
     // 施設案内 + 施設詳細
     Route::get('/{permalink}', 'Guide\FacilityController@show')
-        ->where('permalink', '.+')
         ->name('guide_facility_show');
 });
 

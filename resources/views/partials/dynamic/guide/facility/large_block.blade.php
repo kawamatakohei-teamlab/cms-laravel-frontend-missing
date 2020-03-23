@@ -12,7 +12,8 @@ if(isset($isExtraLarge) && $isExtraLarge) {
     <div class="visual-block visual-block--{{ $class }}">
         <div class="visual-block__visual">
             <picture class="js-scroll animation-image-ratio">
-                <source srcset="/assets/images/_dummy-img01.png" media="(min-width: 768px)">
+                <source srcset="{{ imageUrlById($facilityDetailArticle->facility_image) }}" media="(min-width: 768px)">
+                {{-- TODO: SPとPCで表示する画像が違うが、これはどうするのか。確認する --}}
                 <source srcset="/assets/images/_dummy-img02.png" media="(max-width: 767px)">
                 <img class="visual-block__visual-image animation-image-ratio__img" src="{{ imageUrlById($facilityDetailArticle->facility_image) }}" alt="">
             </picture>

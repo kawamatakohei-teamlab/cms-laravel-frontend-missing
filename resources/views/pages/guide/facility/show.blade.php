@@ -1,5 +1,7 @@
 @extends('layouts.common')
 
+@section('breadcrumb', Breadcrumbs::render('guideFacilityShow', $facilityArticle))
+
 @section('main')
 <main class="layout-base__main-center">
     <div class="layout-base__inner">
@@ -18,7 +20,6 @@
             </div>
         </div>
 
-        {{-- 特大＆大サイズ --}}
         @foreach ($displayExtraLargeArticles as $facilityDetailArticle)
             {{-- 特大サイズ --}}
             @include('partials.dynamic.guide.facility.large_block', [
@@ -29,7 +30,7 @@
 
         <?php $left = true; ?>
         @foreach ($displayLargeArticles as $facilityDetailArticle)
-        {{-- 大サイズ　左 --}}
+            {{-- 大サイズ --}}
             @include('partials.dynamic.guide.facility.large_block', [
                 'facilityDetailArticle' => $facilityDetailArticle,
                 'isLeft' => $left
