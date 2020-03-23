@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
+    {{-- site setting meta --}}
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="format-detection" content="telephone=no, address=no, email=no">
     <meta name="robots" content="follow,index">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>title</title>
+    {{-- site information --}}
+    <title>
+        @yield('title', config('consts.siteInfo.default.title'))
+    </title>
+    <meta name="description" content="@yield('description', config('consts.siteInfo.default.description'))">
     <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta property="og:title" content="大阪芸術大学">
-    <meta property="og:description" content="">
-    <meta property="og:url" content="siteURL/">
+
+    {{-- site icons --}}
+    <link rel="icon" sizes="196x196" href="{{ imageUrl(config('consts.siteInfo.default.faviconImageName')) }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ imageUrl(config('consts.siteInfo.default.appleTouchIconImageName')) }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ imageUrl(config('consts.siteInfo.default.shortcutIconImageName')) }}">
+
+    {{-- og meta --}}
+    <meta property="og:title" content="@yield('title', config('consts.siteInfo.default.title'))">
+    <meta property="og:description" content="@yield('description', config('consts.siteInfo.default.description'))">
+    <meta property="og:url" content="{{ request()->fullUrl() }}">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="http://www.osaka-geidai.ac.jp/assets/images/ogp.jpg">
-    <link rel="icon" sizes="196x196" href="/assets/images/favicon-196x196.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152.png">
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <meta property="og:image" content="{{ imageUrl(config('consts.siteInfo.default.ogpImageName')) }}">
+
+    {{-- Windows settings --}}
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="msapplication-TileImage" content="/assets/images/mstile-144x144.png">
+    <meta name="msapplication-TileImage" content="{{ imageUrl(config('consts.siteInfo.default.msapplicationTileImageName')) }}">
     <meta name="msapplication-TileColor" content="#fff">
+
+    {{-- smart phone browser theme setting --}}
     <meta name="theme-color" content="#fff">
+
+    {{-- stylesheets --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Hind:400,500,600,700">
     <link rel="stylesheet" href="/styles/touch-device-style.css">
 
-    @include('partials.layout.head')
     @include('partials.layout.head_javascript')
   </head>
   <body class="base-page">
