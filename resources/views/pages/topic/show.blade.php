@@ -42,27 +42,11 @@
                 </div>
             </div>
 
-            <?php
-            // TODO: ここは別の箇所で定数として固めるべきかもしれない。考えておく。
-            $dynamicTypeKeys = [
-                'overview_frame', // 概要_枠付き
-                'middle_heading', // 中見出し
-                'single_body', // 本文
-                'three_images', // 画像３枚
-                'image_description', // 画像と本文
-                'single_image', // 画像
-                'single_movie', // 動画
-                'topics_text', // Topicsテキスト
-                'message', // メッセージ
-                'underline_headline_28px', // 下線中見出し
-                'nine_images', //画像21枚
-            ]
-            ?>
-            @foreach ($topicArticle->dynamic as $dynamic)
-                @foreach ($dynamicTypeKeys as $dynamicTypeKey)
-                    @if (property_exists($dynamic, $dynamicTypeKey))
+            @foreach ($topicArticle->convertDynamicData() as $dynamic)
+                @foreach ($topicArticleDynamicDefinedKeys as $dynamicDefinedKey)
+                    @if (property_exists($dynamic, $dynamicDefinedKey))
                         <div class="js-scroll animation-slide-in-bottom">
-                            @includeIf('partials.dynamic.topic.' . $dynamicTypeKey, [
+                            @includeIf('partials.dynamic.topic.' . $dynamicDefinedKey, [
                                 'dynamicContents' => $dynamic,
                             ])
                         </div>

@@ -6,14 +6,9 @@ $galleryId = 'gallery' . Str::random(8);
 $galleryImages = [];
 ?>
 <div class="photo-gallery js-gallerylist-open">
-    @foreach ($dynamicContents as $key => $value)
-        <?php
-        $imageSrc = createImageUrlById($value);
-        array_push($galleryImages, $imageSrc);
-        ?>
-
+    @foreach ($dynamicContents as $value)
         <div class="photo-gallery__item" data-gallery-name="{{ $galleryId }}">
-            <img class="photo-gallery__image" src="{{ $imageSrc }}" alt="">
+            <img class="photo-gallery__image" src="{{ $value }}" alt="">
         </div>
     @endforeach
 </div>
@@ -24,9 +19,9 @@ $galleryImages = [];
     <div class="gallery__inner">
         <div class="gallery__body">
             <div class="gallery__list">
-                @foreach ($galleryImages as $src)
+                @foreach ($dynamicContents as $value)
                     <div class="gallery__image">
-                        <img class="gallery__image-img" src="{{ $src }}" alt="">
+                        <img class="gallery__image-img" src="{{ $value }}" alt="">
                     </div>
                 @endforeach
             </div>

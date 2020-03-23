@@ -1,13 +1,10 @@
 {{-- 動画 --}}
 @if ($dynamicContents)
-<?php
-    $youtubeMoviekey = removeYourubeUrlAndKeepId($dynamicContents->single_movie);
-?>
 <div class="movie-block">
     <div class="movie-block__inner">
         <div class="movie-block__movie js-video">
-            <input type="hidden" value="{{ $youtubeMoviekey }}" id="movieId">
-            <img class="movie-block__cover" src="https://img.youtube.com/vi/{{ $youtubeMoviekey }}/hqdefault.jpg" alt="">
+            <input type="hidden" value="{{ $dynamicContents->single_movie }}" id="movieId">
+            <img class="movie-block__cover" src="https://img.youtube.com/vi/{{ $dynamicContents->single_movie }}/hqdefault.jpg" alt="">
             {{-- IDはyoutube player.jsの利用するため必須 --}}
             <div class="movie-block__video" id="{{ Str::random(8) }}">
             </div>

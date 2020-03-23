@@ -3,7 +3,7 @@
 <div class="message">
     <div class="message__header">
         <div class="message__photo">
-            <img src="{{ createImageUrlById($dynamicContents->message__image) }}" alt="">
+            <img src="{{ $dynamicContents->message__image }}" alt="">
         </div>
         <div class="message__text">
             <div class="message__title">

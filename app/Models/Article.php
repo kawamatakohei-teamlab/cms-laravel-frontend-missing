@@ -17,13 +17,13 @@ class Article extends CmsCoreArticle
 
     public static function getArticlesByArticleType($type)
     {
-        $article_items = Article::where('article_type', $type)->publishing()->normalOrder();
+        $article_items = self::where('article_type', $type)->publishing()->normalOrder();
         return $article_items;
     }
 
     public static function findPublishedByPermalinkWithArticleType($permalink, $article_type)
     {
-        return Article::where('permalink', $permalink)
+        return self::where('permalink', $permalink)
             ->where('article_type', $article_type)
             ->publishing()
             ->first();
@@ -37,7 +37,7 @@ class Article extends CmsCoreArticle
     public function previous()
     {
         // 同一公開日のデータが有った場合、対象の記事id以前のid記事を取得する。
-        $samePublishAtArticles = Article::where('article_type', $this->article_type)
+        $samePublishAtArticles = self::where('article_type', $this->article_type)
             ->publishing()
             ->where('publish_at', '=', $this->publish_at)
             ->where('id', '<', $this->id);
@@ -49,7 +49,7 @@ class Article extends CmsCoreArticle
         }
 
         // 同一公開日がない場合、対象記事より公開時期が早い記事を取得する
-        return Article::where('article_type', $this->article_type)
+        return self::where('article_type', $this->article_type)
             ->where('publish_at', '<', $this->publish_at)
             ->normalOrder()
             ->first();
@@ -63,7 +63,7 @@ class Article extends CmsCoreArticle
     public function next()
     {
         // 同一公開日のデータが有った場合、対象の記事id以降のid記事を取得する。
-        $samePublishAtArticles = Article::where('article_type', $this->article_type)->publishing()
+        $samePublishAtArticles = self::where('article_type', $this->article_type)->publishing()
             ->where('publish_at', '=', $this->publish_at)
             ->where('id', '>', $this->id);
 
@@ -74,7 +74,7 @@ class Article extends CmsCoreArticle
         }
 
         // 同一公開日がない場合、対象記事より公開時期が遅い記事を取得する
-        return Article::where('article_type', $this->article_type)
+        return self::where('article_type', $this->article_type)
             ->publishing()
             ->where('publish_at', '>', $this->publish_at)
             ->reverseOrder()
