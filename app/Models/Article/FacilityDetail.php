@@ -22,10 +22,10 @@ class FacilityDetail extends Article
         $xlFacilityIds  = explode(config('consts.utils.COMMA'), $facilityArticle->display_extra_large_facility_ids);
         $lFacilityIds   = explode(config('consts.utils.COMMA'), $facilityArticle->display_large_facility_ids);
         $mFacilityIds   = explode(config('consts.utils.COMMA'), $facilityArticle->display_medium_facility_ids);
-        $sxlFacilityIds = explode(config('consts.utils.COMMA'), $facilityArticle->display_small_facility_ids);
+        $sFacilityIds = explode(config('consts.utils.COMMA'), $facilityArticle->display_small_facility_ids);
 
         // 指定された記事データを取得
-        $facilityDetailArticleIds = array_merge($xlFacilityIds, $lFacilityIds, $mFacilityIds, $sxlFacilityIds);
+        $facilityDetailArticleIds = array_merge($xlFacilityIds, $lFacilityIds, $mFacilityIds, $sFacilityIds);
         $facilityDetailArticles = Article::getArticlesByArticleType(Article::FACILITY_DETAIL_ARTICLE_TYPE)
             ->whereIn('id', $facilityDetailArticleIds)
             ->get();
@@ -35,7 +35,7 @@ class FacilityDetail extends Article
             self::dripDetailArticlesByIds($facilityDetailArticles, $xlFacilityIds),
             self::dripDetailArticlesByIds($facilityDetailArticles, $lFacilityIds),
             self::dripDetailArticlesByIds($facilityDetailArticles, $mFacilityIds),
-            self::dripDetailArticlesByIds($facilityDetailArticles, $sxlFacilityIds),
+            self::dripDetailArticlesByIds($facilityDetailArticles, $sFacilityIds),
         ];
     }
 
