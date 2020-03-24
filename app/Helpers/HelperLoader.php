@@ -16,4 +16,3 @@ require_once __DIR__ . '/XXXXHelper.php';
 */
 
 require_once dirname(__FILE__) . '/DynamicContentHelper.php';
-require_once dirname(__FILE__) . '/YouTubeHelper.php';
