@@ -2,6 +2,7 @@
 
 namespace App\Models\Article;
 
+use App\Geidai\DynamicConverter;
 use App\Models\Article;
 
 class Topic extends Article
@@ -30,25 +31,30 @@ class Topic extends Article
         foreach ($this->dynamic as $dynamic) {
             switch (true) {
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['imageDescription']):
-                    $dynamic->image_description__image = createImageUrlById($dynamic->image_description__image);
+                    $dynamic->image_description__image =
+                        DynamicConverter::createImageUrlById($dynamic->image_description__image);
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['singleImage']):
-                    $dynamic->single_image = createImageUrlById($dynamic->single_image);
+                    $dynamic->single_image =
+                        DynamicConverter::createImageUrlById($dynamic->single_image);
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['singleMovie']):
-                    $dynamic->single_movie = removeYourubeUrlAndKeepId($dynamic->single_movie);
+                    $dynamic->single_movie =
+                        DynamicConverter::removeYourubeUrlAndKeepId($dynamic->single_movie);
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['message']):
-                    $dynamic->message__image = createImageUrlById($dynamic->message__image);
+                    $dynamic->message__image =
+                        DynamicConverter::createImageUrlById($dynamic->message__image);
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['threeImages']):
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['nineImages']):
                     foreach ($dynamic as $key => $value) {
-                        $dynamic->$key = createImageUrlById($value);
+                        $dynamic->$key =
+                            DynamicConverter::createImageUrlById($value);
                     }
                     break;
 

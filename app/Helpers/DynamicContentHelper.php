@@ -22,17 +22,3 @@ function firstPartsByCmsDefinedKey($contents, $cmsDefinedKey)
 
     return $result;
 }
-
-/**
- * 受け取った画像idをもとに画像のURLを生成する。渡された値がnullだった場合デフォルト画像を返す。
- * @param string|integer|null $id
- * @return string|null
- */
-function createImageUrlById($id = null)
-{
-    $imageUrl = config('consts.utils.NO_IMAGE_FILE_PATH');
-    if ($id) {
-        $imageUrl = imageUrlById($id);
-    }
-    return $imageUrl;
-}

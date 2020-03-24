@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Geidai;
+
+class DynamicConverter
+{
+    /**
+     * 受け取った画像idをもとに画像のURLを生成する。渡された値がnullだった場合デフォルト画像を返す。
+     * TODO: core側にあったほうが良いかもしれない
+     * @param string|integer|null $id
+     * @return string|null
+     */
+    function createImageUrlById($id = null)
+    {
+        $imageUrl = config('consts.utils.NO_IMAGE_FILE_PATH');
+        if ($id) {
+            $imageUrl = imageUrlById($id);
+        }
+        return $imageUrl;
+    }
+
+    /**
+     * youtube動画項目にyoutubeのドメインごと貼られていた場合はURL部分をトリミングする。
+     * ex)
+     * https://youtu.be/xxxxxx
+     * https://www.youtube.com/watch?v=xxxxxx
+     */
+    function removeYourubeUrlAndKeepId($youtubeUrl)
+    {
+        $youtubeNonKeyUrls = [
+            'https://youtu.be/',
+            'https://www.youtube.com/watch?v='
+        ];
+
+        foreach ($youtubeNonKeyUrls as $url) {
+            if(strpos($youtubeUrl, $url) !== false){
+                $youtubeUrl = str_replace($url, '', $youtubeUrl);
+            }
+        }
+        return $youtubeUrl;
+    }
+}
