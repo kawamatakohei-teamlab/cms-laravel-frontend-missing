@@ -10,7 +10,7 @@ class DynamicConverter
      * @param string|integer|null $id
      * @return string|null
      */
-    function createImageUrlById($id = null)
+    static public function createImageUrlById($id = null)
     {
         $imageUrl = config('consts.utils.NO_IMAGE_FILE_PATH');
         if ($id) {
@@ -25,7 +25,7 @@ class DynamicConverter
      * https://youtu.be/xxxxxx
      * https://www.youtube.com/watch?v=xxxxxx
      */
-    function removeYourubeUrlAndKeepId($youtubeUrl)
+    static public function removeYourubeUrlAndKeepId($youtubeUrl)
     {
         $youtubeNonKeyUrls = [
             'https://youtu.be/',
