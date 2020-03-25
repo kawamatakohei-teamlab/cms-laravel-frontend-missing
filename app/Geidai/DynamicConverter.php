@@ -10,11 +10,11 @@ class DynamicConverter
      * @param string|integer|null $id
      * @return string|null
      */
-    static public function createImageUrlById($id = null)
+    static public function createImageUrlById($id = null, $thumber_size = 'original')
     {
         $imageUrl = config('consts.utils.NO_IMAGE_FILE_PATH');
         if ($id) {
-            $imageUrl = imageUrlById($id);
+            $imageUrl = imageUrlById($id, $thumber_size);
         }
         return $imageUrl;
     }

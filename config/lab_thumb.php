@@ -89,6 +89,21 @@ $thumbnails = [
         'key' => 'sp-ll-fat',
         'size' => [null, 1500]
     ],
+    /**
+     * 以下、大阪芸大用の画像サイズ
+     */
+    'topic-s-image' => [
+        'key' => 'topic-s-image',
+        'size' => [180, 180]
+    ],
+    'topic-m-image' => [
+        'key' => 'topic-m-image',
+        'size' => [640, null]
+    ],
+    'topic-l-image' => [
+        'key' => 'topic-l-image',
+        'size' => [1960, null]
+    ],
 ];
 return [
     'thumbnails' => $thumbnails,

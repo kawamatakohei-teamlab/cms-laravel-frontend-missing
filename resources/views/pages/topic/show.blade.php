@@ -21,7 +21,7 @@
                     </h1>
                 </div>
                 <div class="visual-header__visual visual-header__visual--large">
-                    <img class="visual-header__visual-image" src="{{ imageUrlById($topicArticle->main_image) }}" alt="">
+                    <img class="visual-header__visual-image" src="{{ imageUrlById($topicArticle->main_image, 'pc-ll-slender') }}" alt="">
                 </div>
             </div>
         </header>

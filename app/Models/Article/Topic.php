@@ -32,12 +32,12 @@ class Topic extends Article
             switch (true) {
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['imageDescription']):
                     $dynamic->image_description__image =
-                        DynamicConverter::createImageUrlById($dynamic->image_description__image);
+                        DynamicConverter::createImageUrlById($dynamic->image_description__image, 'topic-m-image');
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['singleImage']):
                     $dynamic->single_image =
-                        DynamicConverter::createImageUrlById($dynamic->single_image);
+                        DynamicConverter::createImageUrlById($dynamic->single_image, 'topic-l-image');
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['singleMovie']):
@@ -47,14 +47,20 @@ class Topic extends Article
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['message']):
                     $dynamic->message__image =
-                        DynamicConverter::createImageUrlById($dynamic->message__image);
+                        DynamicConverter::createImageUrlById($dynamic->message__image, 'topic-s-image');
                     break;
 
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['threeImages']):
+                    foreach ($dynamic as $key => $value) {
+                        $dynamic->$key =
+                            DynamicConverter::createImageUrlById($value, 'topic-s-image');
+                    }
+                    break;
+
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['nineImages']):
                     foreach ($dynamic as $key => $value) {
                         $dynamic->$key =
-                            DynamicConverter::createImageUrlById($value);
+                            DynamicConverter::createImageUrlById($value, 'topic-l-image');
                     }
                     break;
 
