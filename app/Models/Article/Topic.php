@@ -40,11 +40,6 @@ class Topic extends Article
                         DynamicConverter::createImageUrlById($dynamic->single_image, 'topic-l-image');
                     break;
 
-                case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['singleMovie']):
-                    $dynamic->single_movie =
-                        DynamicConverter::removeYourubeUrlAndKeepId($dynamic->single_movie);
-                    break;
-
                 case property_exists($dynamic, self::CMS_DYNAMIC_DEFINED_KEYS['message']):
                     $dynamic->message__image =
                         DynamicConverter::createImageUrlById($dynamic->message__image, 'topic-s-image');
